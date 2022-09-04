@@ -22,10 +22,7 @@ Scheduled Time: 05/09/2022 1700 [UTC]
 
 1. Decide team name
 2. Decide game name
-3. Design game
-    - Core features
-    - Core gameplay loop
-    - Initial tasks
+3. Assign tasks
 
 ---
 
