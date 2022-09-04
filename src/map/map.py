@@ -1,8 +1,10 @@
 import arcade
 
 
-class Map:
+class MapView(arcade.View):
     def __init__(self, tiled_name: str, label: str):
+        # Inherit parent class
+        super().__init__()
         self.tiled_name = tiled_name
         self.label = label
         self.enemy_handler = None  # TODO
@@ -15,7 +17,7 @@ class Map:
         self._paths = self._tile_map.get_tilemap_layer("paths")
 
     def on_update(self, delta_time: int):
-        pass
+        self.draw()
 
     def draw(self):
         self._scene.draw()
