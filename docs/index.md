@@ -1,4 +1,4 @@
-# Welcome to PyWeek 34 {Team Name}
+# Welcome to PyWeek 34 - Quack TD by Turtle Duck ltd.
 
 GitHub Repository: [https://github.com/MrTanoshii/PyWeek-34](https://github.com/MrTanoshii/PyWeek-34)
 
