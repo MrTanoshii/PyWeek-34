@@ -9,4 +9,4 @@ class SETTINGS:
     SCREEN_HEIGHT = 20 * 48
     SCREEN_TITLE = "Quack TD by Turtle Duck lTD."
 
-    GLOBAL_SCALE = 1.5
+    GLOBAL_SCALE = 1
