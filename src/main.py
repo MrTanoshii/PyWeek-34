@@ -13,6 +13,7 @@ def main():
     )
 
     map_view = MapView("test_map_2.json", "label")
+
     window.show_view(map_view)
     arcade.run()
 
