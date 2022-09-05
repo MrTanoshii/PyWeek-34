@@ -35,16 +35,24 @@ class MapView(arcade.View):
         self.gold = None  # TODO
         self.research = None  # TODO
 
-        self._tile_map = arcade.load_tilemap(
-            rf"resources/maps/{tiled_name}", C.SETTINGS.GLOBAL_SCALE
-        )
-
+        self._load_map(tiled_name)
         self._scene = arcade.Scene.from_tilemap(self._tile_map)
         self._paths = self._tile_map.get_tilemap_layer("paths")
 
         self.tower_handler.build_tower(towers.AntiAirTower)
 
-        self.grid = Grid()
+        self.grid = Grid(int(self._tile_map.height), int(self._tile_map.width))
+
+    def _load_map(self, tiled_name: str, scaling: float = C.SETTINGS.GLOBAL_SCALE):
+        self.tiled_name = tiled_name
+        self._tile_map = arcade.load_tilemap(rf"resources/maps/{tiled_name}", scaling)
+
+    def reload_map(self, *args, **kwargs):
+        self._load_map(self.tiled_name, *args, **kwargs)
+
+    def on_resize(self, width: int, height: int):
+        self.reload_map(self.window.width / C.GRID.WIDTH)
+        self.grid.set_size(int(self._tile_map.height), int(self._tile_map.width))
 
     def on_show(self):
         """Called when switching to this view."""
@@ -65,7 +73,6 @@ class MapView(arcade.View):
         # self.window.show_view(MapView())
         self.grid.on_mouse_press(_x, _y)
         i = len(self.tower_handler.tower_list)
-        self.tower_handler.tower_list
         self.tower_handler.build_tower(towers.AntiAirTower)
         self.tower_handler.tower_list[i].center_x = _x
         self.tower_handler.tower_list[i].center_y = _y

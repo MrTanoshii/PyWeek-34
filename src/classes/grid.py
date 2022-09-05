@@ -1,35 +1,32 @@
 import arcade
 import src.const as C
 
-# Set how many rows and columns we will have
-ROW_COUNT = 20
-COLUMN_COUNT = 30
-
-# This sets the WIDTH and HEIGHT of each grid location
-WIDTH = 32 * C.SETTINGS.GLOBAL_SCALE
-HEIGHT = 32 * C.SETTINGS.GLOBAL_SCALE
-
-MARGIN = 0
-
 
 class Grid(arcade.Sprite):
     """
     Grid
     """
 
-    def __init__(self) -> None:
+    def __init__(self, rows_count: int, columns_count: int) -> None:
         super().__init__()
+
+        self.rows_count = rows_count
+        self.columns_count = columns_count
 
         # Create a 2 dimensional array.
         self.grid = []
-        for row in range(ROW_COUNT):
+        for row in range(self.rows_count):
             # Add an empty array that will hold each cell
             # in this row
             self.grid.append([])
-            for column in range(COLUMN_COUNT):
+            for column in range(self.columns_count):
                 self.grid[row].append({"color": (0, 0, 0, 0)})  # Append a cell
         self.hover_column = 0
         self.hover_row = 0
+
+    def set_size(self, rows: int, columns: int):
+        self.rows_count = rows
+        self.columns_count = columns
 
     def on_draw(self):
         """
@@ -37,16 +34,24 @@ class Grid(arcade.Sprite):
         """
 
         # Draw the grid
-        for row in range(ROW_COUNT):
-            for column in range(COLUMN_COUNT):
+        for row in range(self.rows_count):
+            for column in range(self.columns_count):
 
                 # Do the math to figure out where the box is
-                x = (MARGIN + WIDTH) * column + MARGIN + WIDTH // 2
-                y = (MARGIN + HEIGHT) * row + MARGIN + HEIGHT // 2
+                x = (
+                    (C.GRID.MARGIN + C.GRID.WIDTH) * column
+                    + C.GRID.MARGIN
+                    + C.GRID.WIDTH // 2
+                )
+                y = (
+                    (C.GRID.MARGIN + C.GRID.HEIGHT) * row
+                    + C.GRID.MARGIN
+                    + C.GRID.HEIGHT // 2
+                )
 
                 # Draw the box
                 color = self.grid[row][column]["color"]
-                arcade.draw_rectangle_filled(x, y, WIDTH, HEIGHT, color)
+                arcade.draw_rectangle_filled(x, y, C.GRID.WIDTH, C.GRID.HEIGHT, color)
 
     def on_mouse_press(self, x, y):
         """
@@ -54,14 +59,14 @@ class Grid(arcade.Sprite):
         """
 
         # Change the x/y screen coordinates to grid coordinates
-        column = int(x // (WIDTH + MARGIN))
-        row = int(y // (HEIGHT + MARGIN))
+        column = int(x // (C.GRID.WIDTH + C.GRID.MARGIN))
+        row = int(y // (C.GRID.HEIGHT + C.GRID.MARGIN))
 
         print(f"Click coordinates: ({x}, {y}). Grid coordinates: ({row}, {column})")
 
         # Make sure we are on-grid. It is possible to click in the upper right
         # corner in the margin and go to a grid location that doesn't exist
-        if row < ROW_COUNT and column < COLUMN_COUNT:
+        if row < self.rows_count and column < self.columns_count:
             self.grid[row][column]["color"] = (0, 0, 0, 255)
 
     def on_hover(self, x, y):
@@ -70,14 +75,14 @@ class Grid(arcade.Sprite):
         """
 
         # Change the x/y screen coordinates to grid coordinates
-        column = int(x // (WIDTH + MARGIN))
-        row = int(y // (HEIGHT + MARGIN))
+        column = int(x // (C.GRID.WIDTH + C.GRID.MARGIN))
+        row = int(y // (C.GRID.HEIGHT + C.GRID.MARGIN))
 
         # print(f"Click coordinates: ({x}, {y}). Grid coordinates: ({row}, {column})")
 
         # Make sure we are on-grid. It is possible to click in the upper right
         # corner in the margin and go to a grid location that doesn't exist
-        if row < ROW_COUNT and column < COLUMN_COUNT:
+        if row < self.rows_count and column < self.columns_count:
 
             if self.hover_column != column or self.hover_row != row:
                 # remove hover effect from older hover cell
