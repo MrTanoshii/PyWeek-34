@@ -2,7 +2,7 @@ from random import random
 import arcade
 import src.const as C
 
-from src.classes import Gold, Research
+from src.classes import *
 
 
 class MapView(arcade.View):
@@ -25,10 +25,6 @@ class MapView(arcade.View):
         # Inherit parent class
         super().__init__()
 
-        # TODO: To remove this. It was for testing only.
-        self.gold = Gold()
-        self.research = Research()
-
     def on_show(self):
         """Called when switching to this view."""
         arcade.set_background_color(C.VIEWS.BACKGROUND_COLOR)
@@ -39,7 +35,7 @@ class MapView(arcade.View):
         # TODO: To remove this. It was for testing only.
         self.clear()
         arcade.draw_text(
-            f"Gold {self.gold.value_current} Research {self.research.value_current}",
+            f"Gold {Gold.get()} Research {Research.get()}",
             arcade.get_window().width / 2,
             arcade.get_window().height / 2,
             arcade.color.BLACK,
@@ -52,8 +48,8 @@ class MapView(arcade.View):
 
     def on_update(self, delta_time: float):
         # TODO: To remove this. It was for testing only.
-        self.gold.increment(1)
-        self.research.increment((random() * 10) - (random() * 10))
+        Gold.increment(1)
+        Research.increment((random() * 10) - (random() * 10))
 
     def on_mouse_press(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""

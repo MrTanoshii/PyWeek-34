@@ -1,5 +1,5 @@
-from src.interfaces.resource import ResourceInterface
+from .resource import Resource
 
 
-class Research(ResourceInterface):
+class Research(Resource):
     """The base class for Resource Research."""

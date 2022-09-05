@@ -1,5 +1,5 @@
-from src.interfaces.resource import ResourceInterface
+from .resource import Resource
 
 
-class Gold(ResourceInterface):
+class Gold(Resource):
     """The base class for the Gold resource."""
