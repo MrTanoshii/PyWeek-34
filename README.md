@@ -86,4 +86,8 @@ deactivate
 
 With venv activated, Windows `pip install -r requirements.txt` Linux `pip3 install -r requirements.txt`
 
+### Running Instructions
+
+Run game with `python3 run_game.py`
+
 </details>
