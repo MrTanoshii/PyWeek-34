@@ -3,7 +3,7 @@ import pyglet
 
 import src.const as C
 
-from src.views.map_view import MapView
+from src.views.map import MapView
 
 
 def main():
@@ -23,7 +23,7 @@ def main():
     # icon = pyglet.image.load("src/resources/images/cursor.png")
     # window.set_icon(icon)
 
-    map_view = MapView()
+    map_view = MapView("test_map_2.json", "123")
     window.show_view(map_view)
     arcade.run()
 
