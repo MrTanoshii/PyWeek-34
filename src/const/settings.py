@@ -5,6 +5,8 @@ class SETTINGS:
     FULLSCREEN = False
     FULLSCREEN_WINDOWED = False
     RESIZEABLE = True
-    SCREEN_WIDTH = 1280
-    SCREEN_HEIGHT = 720
+    SCREEN_WIDTH = 30 * 48
+    SCREEN_HEIGHT = 20 * 48
     SCREEN_TITLE = "Quack TD by Turtle Duck lTD."
+
+    GLOBAL_SCALE = 1.5
