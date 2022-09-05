@@ -55,3 +55,13 @@ class MapView(arcade.View):
         """Use a mouse press to advance to the 'game' view."""
         # save_data.GameData.read_data()
         self.window.show_view(MapView())
+
+    def on_key_press(self, symbol, modifiers):
+        """Called whenever a key is pressed."""
+
+        # Quicksave | F5
+        if symbol == arcade.key.F5:
+            GameData.write_data()
+        # Quickload | F6
+        elif symbol == arcade.key.F6:
+            GameData.load_data()
