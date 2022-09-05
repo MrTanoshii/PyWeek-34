@@ -1,5 +1,5 @@
 import arcade
-from pathlib import Path
+import src.const as C
 
 
 class Tower(arcade.Sprite):
@@ -58,6 +58,4 @@ class Tower(arcade.Sprite):
         self.damage_splash: float = damage_splash
         self.damage_poison: float = damage_poison
 
-        self.texture = arcade.load_texture(
-            Path("..") / "resources" / "towers" / self.name
-        )
+        self.texture = arcade.load_texture(C.RESOURCES / "towers" / self.name)

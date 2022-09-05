@@ -34,9 +34,7 @@ class MapView(arcade.View):
         self.gold = None  # TODO
         self.research = None  # TODO
 
-        self._tile_map = arcade.load_tilemap(
-            Path("..") / "resources" / "maps" / tiled_name
-        )
+        self._tile_map = arcade.load_tilemap(C.RESOURCES / "maps" / tiled_name)
         self._scene = arcade.Scene.from_tilemap(self._tile_map)
         self._paths = self._tile_map.get_tilemap_layer("paths")
 
