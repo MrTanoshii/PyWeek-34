@@ -29,9 +29,19 @@ class Tower(arcade.Sprite):
         poison damage, zero if no splash damage.
     """
 
-    def __init__(self, name: str = "", label: str = "", level: int = 0, attack_cooldown: float = 0, radius: float = 0,
-                 radius_splash: float = 0, damage_air: float = 0, damage_ground: float = 0, damage_splash: float = 0,
-                 damage_poison: float = 0) -> None:
+    def __init__(
+        self,
+        name: str = "",
+        label: str = "",
+        level: int = 0,
+        attack_cooldown: float = 0,
+        radius: float = 0,
+        radius_splash: float = 0,
+        damage_air: float = 0,
+        damage_ground: float = 0,
+        damage_splash: float = 0,
+        damage_poison: float = 0,
+    ) -> None:
         super().__init__()
         self.name: str = name
         self.label: str = label
@@ -48,6 +58,3 @@ class Tower(arcade.Sprite):
         self.damage_poison: float = damage_poison
 
         self.texture = arcade.load_texture(r"..\resources\images\anti-air-1.png")
-
-
-
