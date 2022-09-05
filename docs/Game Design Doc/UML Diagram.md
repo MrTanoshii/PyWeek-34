@@ -1,1 +1,1 @@
-![UML Diagram](../Images/PyWeek34.drawio.svg)
+![UML Diagram](../Images/gdd/PyWeek34.drawio.svg)
