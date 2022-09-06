@@ -21,3 +21,4 @@ class AntiAirTower(Tower):
 
 class TOWERS:
     DEFAULT_TOWER = BaseTower
+    START_GOLD = DEFAULT_TOWER.cost

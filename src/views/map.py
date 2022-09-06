@@ -35,7 +35,7 @@ class MapView(arcade.View):
 
         self.gold = Gold()
         self.research = Research()
-        self.gold.increment(towers.TOWERS.DEFAULT_TOWER.cost * 1000)
+        self.gold.increment(towers.TOWERS.START_GOLD * 1000)
 
         self._load_map(tiled_name)
         self.grid = Grid(int(self.world.height), int(self.world.width))
@@ -72,13 +72,17 @@ class MapView(arcade.View):
         """Use a mouse press to advance to the 'game' view."""
         current_cell_row, current_cell_column = self.grid.get_cell(_x, _y)
 
+        # Select or build a tower
         if tower := self.grid.grid[current_cell_row][current_cell_column][
             "tower"
         ]:  # if there's tower
             self.tower_handler.select_tower(tower)
-        elif towers_around := self.grid.get_towers_on_place(
+        elif towers_around := self.grid.get_towers_around(
             current_cell_row,
             current_cell_column,
+            (
+                self.tower_handler.selected_type.size_tiles - 1
+            ),  # -1 for finding intersections with another towers
         ):
             self.tower_handler.select_tower(towers_around[0])
         else:

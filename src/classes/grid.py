@@ -48,26 +48,27 @@ class Grid(arcade.Sprite):
 
                 color = self.grid[row][column]["color"]
 
-                for i in range(2):
-                    for j in range(2):
+                # Do the math to figure out where the box is
+                x = (
+                    (C.GRID.MARGIN + C.GRID.WIDTH) * (column + 0)
+                    + C.GRID.MARGIN
+                    + C.GRID.WIDTH
+                )
+                y = (
+                    (C.GRID.MARGIN + C.GRID.HEIGHT) * (row - 0)
+                    + C.GRID.MARGIN
+                    + C.GRID.HEIGHT
+                )
 
-                        # Do the math to figure out where the box is
-                        x = (
-                            (C.GRID.MARGIN + C.GRID.WIDTH) * (column + i)
-                            + C.GRID.MARGIN
-                            + C.GRID.WIDTH // 2
-                        )
-                        y = (
-                            (C.GRID.MARGIN + C.GRID.HEIGHT) * (row + j)
-                            + C.GRID.MARGIN
-                            + C.GRID.HEIGHT // 2
-                        )
+                # Draw the box
 
-                        # Draw the box
-
-                        arcade.draw_rectangle_filled(
-                            x, y, C.GRID.WIDTH, C.GRID.HEIGHT, color
-                        )
+                arcade.draw_rectangle_filled(
+                    x,
+                    y - C.GRID.HEIGHT,
+                    C.GRID.WIDTH * 2,
+                    C.GRID.HEIGHT * 2,
+                    color,
+                )
 
     def get_cell(self, x, y):
         """
@@ -83,12 +84,13 @@ class Grid(arcade.Sprite):
         # Make sure we are on-grid. It is possible to click in the upper right
         # corner in the margin and go to a grid location that doesn't exist
         if row < self.rows_count and column < self.columns_count:
-            return [row, column]
+            return [row - 1, column]
         return [-1, -1]
 
-    def get_towers_on_place(
-        self, row: int, column: int, radius: int = 1
-    ) -> List[Tower]:
+    def get_towers_around(self, row: int, column: int, radius: int = 1) -> List[Tower]:
+        """
+        Find towers in provided box radius
+        """
 
         box_size = 2 * radius + 1  # both sides + center
         start_x, start_y = column - radius, row + radius
