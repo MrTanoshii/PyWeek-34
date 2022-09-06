@@ -82,13 +82,13 @@ class Audio:
         sound: pyglet.media.Player -- The sound stream player to stop.
         """
 
-        if type(sound) == str:
+        if type(sound) is str:
             if sound in cls.sound_list:
-                sound_stream = cls.sound_list[sound]["stream"]
+                sound_stream = cls.sound_list[sound]["stream_player"]
                 arcade.stop_sound(sound_stream)
             else:
                 raise ValueError(f"Sound {sound} not found.")
-        elif type(sound) == pyglet.media.Player:
+        elif type(sound) is pyglet.media.Player:
             if sound.playing:
                 arcade.stop_sound(sound)
 
