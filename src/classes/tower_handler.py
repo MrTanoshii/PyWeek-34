@@ -1,6 +1,6 @@
 import arcade
 import inspect
-from typing import Optional
+from typing import Optional, List
 
 import const as C
 from .tower import Tower
@@ -15,7 +15,8 @@ class TowerHandler:
 
     def __init__(self, world: World) -> None:
         self.tower_list = arcade.SpriteList()
-        self.selected: type = C.TOWERS.DEFAULT_TOWER
+        self.selected_type: type = C.TOWERS.DEFAULT_TOWER
+        self.selected_tower: Tower = None
         self.world = world
 
     @staticmethod
@@ -25,7 +26,8 @@ class TowerHandler:
             **{
                 k: v
                 for k, v in tower_type.__dict__.items()
-                if not k.startswith("__") and k in required_arguments
+                if not k.startswith("__")
+                and k in required_arguments  # remove static fields
             }
         )
 
@@ -37,24 +39,33 @@ class TowerHandler:
         return tower
 
     def buy_tower(self, row: int, column: int, gold: Gold) -> Optional[Tower]:
-        if not self.selected:
-            self.selected = C.TOWERS.DEFAULT_TOWER
+        if not self.selected_type:
+            self.selected_type = C.TOWERS.DEFAULT_TOWER
 
         # TODO: check researches
 
-        if self.world.is_tile_overlapping(
-            row, column, self.selected.size_tiles
-        ):  # isn't placed on a road
+        if not self.world.is_fitting_borders(
+            row, column, self.selected_type.size_tiles
+        ):  # checking if tower doesn't go beyond the window borders
             return
 
-        if gold.get() - self.selected.cost >= 0:  # is enough gold
-            tower = self.build_tower(self.selected)
-            tower.center_y = (row + 1) * C.GRID.WIDTH
-            tower.center_x = (column + 1) * C.GRID.HEIGHT
+        if self.world.is_tile_overlapping(
+            row, column, self.selected_type.size_tiles
+        ):  # isn't placed on a road
+            return  # TODO: placed on road message
 
-            gold.increment(-tower.cost)
+        if gold.get() - self.selected_type.cost < 0:  # checking gold
+            return  # TODO: not enough gold message
+        tower = self.build_tower(self.selected_type)
+        tower.center_y = (row + 1) * C.GRID.WIDTH
+        tower.center_x = (column + 1) * C.GRID.HEIGHT
 
-            return tower
+        gold.increment(-tower.cost)
+
+        return tower
+
+    def select_tower(self, tower: Tower):
+        self.selected_tower = tower
 
     def shoot(self, degree: float):
         pass

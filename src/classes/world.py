@@ -62,3 +62,6 @@ class World:
                 if self.is_cell_overlapping(row + i, column + j):
                     return True
         return False
+
+    def is_fitting_borders(self, row: int, column: int, tile_size: int) -> bool:
+        return column + tile_size <= self.width and row + tile_size <= self.height

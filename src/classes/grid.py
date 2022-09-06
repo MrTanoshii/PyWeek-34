@@ -1,5 +1,8 @@
 import arcade
+from typing import List
 import src.const as C
+
+from .tower import Tower
 
 
 class Grid(arcade.Sprite):
@@ -82,6 +85,23 @@ class Grid(arcade.Sprite):
         if row < self.rows_count and column < self.columns_count:
             return [row, column]
         return [-1, -1]
+
+    def get_towers_on_place(
+        self, row: int, column: int, radius: int = 1
+    ) -> List[Tower]:
+
+        box_size = 2 * radius + 1  # both sides + center
+        start_x, start_y = column - radius, row + radius
+
+        towers = []
+        for y in range(box_size):
+            for x in range(box_size):
+                try:
+                    if tower := self.grid[start_y - y][start_x + x]["tower"]:
+                        towers.append(tower)
+                except IndexError:
+                    pass
+        return towers
 
     def on_hover(self, x, y):
         """

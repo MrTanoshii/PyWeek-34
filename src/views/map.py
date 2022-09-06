@@ -35,7 +35,7 @@ class MapView(arcade.View):
 
         self.gold = Gold()
         self.research = Research()
-        self.gold.increment(towers.TOWERS.DEFAULT_TOWER.cost)
+        self.gold.increment(towers.TOWERS.DEFAULT_TOWER.cost * 1000)
 
         self._load_map(tiled_name)
         self.grid = Grid(int(self.world.height), int(self.world.width))
@@ -72,15 +72,20 @@ class MapView(arcade.View):
         """Use a mouse press to advance to the 'game' view."""
         current_cell_row, current_cell_column = self.grid.get_cell(_x, _y)
 
-        if self.grid.grid[current_cell_row][current_cell_column]["tower"]:
-            pass  # TODO: select tower for upgrade view
+        if tower := self.grid.grid[current_cell_row][current_cell_column][
+            "tower"
+        ]:  # if there's tower
+            self.tower_handler.select_tower(tower)
+        elif towers_around := self.grid.get_towers_on_place(
+            current_cell_row,
+            current_cell_column,
+        ):
+            self.tower_handler.select_tower(towers_around[0])
         else:
             if tower := self.tower_handler.buy_tower(
                 current_cell_row, current_cell_column, self.gold
-            ):
+            ):  # if it's possible to build one
                 self.grid.grid[current_cell_row][current_cell_column]["tower"] = tower
-            else:
-                pass  # TODO: not enough money message
 
     def on_mouse_motion(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""

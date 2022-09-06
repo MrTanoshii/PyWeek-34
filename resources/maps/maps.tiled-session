@@ -43,9 +43,9 @@
         },
         "test_map_4.json": {
             "scale": 0.954638671875,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 512.7594496445196,
+                "x": 513.8069663955807,
                 "y": 288.06710654186486
             }
         }
