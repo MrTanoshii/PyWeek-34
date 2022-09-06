@@ -20,7 +20,9 @@ class Grid(arcade.Sprite):
             # in this row
             self.grid.append([])
             for column in range(self.columns_count):
-                self.grid[row].append({"color": (0, 0, 0, 0)})  # Append a cell
+                self.grid[row].append(
+                    {"color": (0, 0, 0, 0), "tower": None}
+                )  # Append a cell
         self.hover_column = 0
         self.hover_row = 0
 
@@ -37,23 +39,34 @@ class Grid(arcade.Sprite):
         for row in range(self.rows_count):
             for column in range(self.columns_count):
 
-                # Do the math to figure out where the box is
-                x = (
-                    (C.GRID.MARGIN + C.GRID.WIDTH) * column
-                    + C.GRID.MARGIN
-                    + C.GRID.WIDTH // 2
-                )
-                y = (
-                    (C.GRID.MARGIN + C.GRID.HEIGHT) * row
-                    + C.GRID.MARGIN
-                    + C.GRID.HEIGHT // 2
-                )
+                # Draw the tower
+                if self.grid[row][column]["tower"]:
+                    self.grid[row][column]["tower"].draw()
 
-                # Draw the box
                 color = self.grid[row][column]["color"]
-                arcade.draw_rectangle_filled(x, y, C.GRID.WIDTH, C.GRID.HEIGHT, color)
 
-    def on_mouse_press(self, x, y):
+                for i in range(2):
+                    for j in range(2):
+
+                        # Do the math to figure out where the box is
+                        x = (
+                            (C.GRID.MARGIN + C.GRID.WIDTH) * (column + i)
+                            + C.GRID.MARGIN
+                            + C.GRID.WIDTH // 2
+                        )
+                        y = (
+                            (C.GRID.MARGIN + C.GRID.HEIGHT) * (row + j)
+                            + C.GRID.MARGIN
+                            + C.GRID.HEIGHT // 2
+                        )
+
+                        # Draw the box
+
+                        arcade.draw_rectangle_filled(
+                            x, y, C.GRID.WIDTH, C.GRID.HEIGHT, color
+                        )
+
+    def get_cell(self, x, y):
         """
         Called when the user presses a mouse button.
         """
@@ -67,7 +80,8 @@ class Grid(arcade.Sprite):
         # Make sure we are on-grid. It is possible to click in the upper right
         # corner in the margin and go to a grid location that doesn't exist
         if row < self.rows_count and column < self.columns_count:
-            self.grid[row][column]["color"] = (0, 0, 0, 255)
+            return [row, column]
+        return [-1, -1]
 
     def on_hover(self, x, y):
         """

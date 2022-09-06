@@ -3,6 +3,8 @@ from pathlib import Path
 import arcade
 import src.const as C
 from classes.grid import Grid
+from classes.tower import Tower
+from classes.tower_handler import TowerHandler
 from src.const import towers
 
 from src.classes import *
@@ -43,15 +45,22 @@ class MapView(arcade.View):
 
         self.grid = Grid(int(self._tile_map.height), int(self._tile_map.width))
 
-    def _load_map(self, tiled_name: str, scaling: float = C.SETTINGS.GLOBAL_SCALE):
-        self.tiled_name = tiled_name
-        self._tile_map = arcade.load_tilemap(rf"resources/maps/{tiled_name}", scaling)
+        self.selected_tower_size = 2
 
-    def reload_map(self, *args, **kwargs):
-        self._load_map(self.tiled_name, *args, **kwargs)
+    def _load_map(self, tiled_name: str):
+        self.tiled_name = tiled_name
+        scale = 1.25 * arcade.get_window().height / 720
+        self._tile_map = None
+        self._tile_map = arcade.load_tilemap(
+            rf"resources/maps/{tiled_name}", scaling=scale
+        )
+        self._scene = arcade.Scene.from_tilemap(self._tile_map)
+
+    def reload_map(self):
+        self._load_map(self.tiled_name)
 
     def on_resize(self, width: int, height: int):
-        self.reload_map(self.window.width / C.GRID.WIDTH)
+        self.reload_map()
         self.grid.set_size(int(self._tile_map.height), int(self._tile_map.width))
 
     def on_show(self):
@@ -65,17 +74,22 @@ class MapView(arcade.View):
         self.grid.on_draw()
 
     def on_update(self, delta_time: float):
-        self.tower_handler.tower_list[0].center_x += 0
+        pass
 
     def on_mouse_press(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
-        # save_data.GameData.read_data()
-        # self.window.show_view(MapView())
-        self.grid.on_mouse_press(_x, _y)
-        i = len(self.tower_handler.tower_list)
-        self.tower_handler.build_tower(towers.AntiAirTower)
-        self.tower_handler.tower_list[i].center_x = _x
-        self.tower_handler.tower_list[i].center_y = _y
+        self.tower_handler.on_mouse_press(_x, _y, _button, _modifiers)
+
+        current_cell_row, current_cell_column = self.grid.get_cell(_x, _y)
+
+        new_tower = self.tower_handler.build_tower(towers.AntiAirTower)
+        new_tower.center_y = (current_cell_row + 1) * C.GRID.WIDTH
+        new_tower.center_x = (current_cell_column + 1) * C.GRID.HEIGHT
+        new_tower.scale = C.SETTINGS.GLOBAL_SCALE
+        new_tower.width = C.GRID.WIDTH * self.selected_tower_size
+        new_tower.height = C.GRID.HEIGHT * self.selected_tower_size
+
+        self.grid.grid[current_cell_row][current_cell_column]["tower"] = new_tower
 
     def on_mouse_motion(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
