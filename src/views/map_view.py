@@ -3,6 +3,7 @@ import arcade
 import src.const as C
 
 from src.classes import *
+from src.enemy.enemy import Enemy
 
 
 class MapView(arcade.View):
@@ -34,22 +35,11 @@ class MapView(arcade.View):
 
         # TODO: To remove this. It was for testing only.
         self.clear()
-        arcade.draw_text(
-            f"Gold {Gold.get()} Research {Research.get()}",
-            arcade.get_window().width / 2,
-            arcade.get_window().height / 2,
-            arcade.color.BLACK,
-            font_size=C.VIEWS.FONT_SIZE
-            * 2
-            * arcade.get_window().height
-            / C.SETTINGS.SCREEN_HEIGHT,
-            anchor_x="center",
-        )
+        self.enemy_list.draw()
 
     def on_update(self, delta_time: float):
         # TODO: To remove this. It was for testing only.
-        Gold.increment(1)
-        Research.increment((random() * 10) - (random() * 10))
+        self.enemy_list.update()
 
     def on_mouse_press(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
