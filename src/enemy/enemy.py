@@ -4,15 +4,15 @@ import math
 class Enemy(arcade.Sprite):
 
     def __init__(self,
-                 position_list,
-                 image,
-                 scale=1,
-                 hp=100,
-                 speed=10,
-                 gold_drop=0,
-                 armor_type=None,
-                 flying=False,
-                 boss=False
+                 position_list: list,
+                 image: str,
+                 scale: float = 1,
+                 hp: int = 100,
+                 speed: float = 10,
+                 gold_drop: int = 0,
+                 armor_type = None,
+                 flying: bool = False,
+                 boss: bool = False
                  ):
 
         super().__init__(image, scale)
@@ -21,9 +21,11 @@ class Enemy(arcade.Sprite):
         self.hp_current = hp
         self.hp_max = hp
         self.speed = speed
+        self.gold_drop = gold_drop
         self.armor_type = armor_type
         self.flying = flying
         self.boss = boss
+
 
         self.cur_position = 0
         self.poisoned = False
@@ -31,6 +33,7 @@ class Enemy(arcade.Sprite):
 
 
     def update(self):
+
 
         start_x = self.center_x
         start_y = self.center_y
