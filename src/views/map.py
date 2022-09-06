@@ -1,13 +1,6 @@
 import arcade
 import src.const as C
-from classes.grid import Grid
-from classes.tower_handler import TowerHandler
-from classes.enemy_handler import EnemyHandler
-
-from classes.gold import Gold
-from classes.research import Research
-from classes.gamedata import GameData
-from classes.world import World
+import src.classes as CLASSES
 from src.const import towers
 
 
@@ -34,19 +27,19 @@ class MapView(arcade.View):
         self.tiled_name = tiled_name
         self.label = label
 
-        self.gold = Gold()
-        self.research = Research()
+        self.gold = CLASSES.Gold()
+        self.research = CLASSES.Research()
         self.gold.increment(towers.TOWERS.START_GOLD * 1000)
 
         self._load_map(tiled_name)
-        self.grid = Grid(int(self.world.height), int(self.world.width))
+        self.grid = CLASSES.Grid(int(self.world.height), int(self.world.width))
 
-        self.enemy_handler = EnemyHandler()
-        self.tower_handler = TowerHandler(self.world)
+        self.enemy_handler = CLASSES.EnemyHandler()
+        self.tower_handler = CLASSES.TowerHandler(self.world)
 
     def _load_map(self, tiled_name: str):
         self.tiled_name = tiled_name
-        self.world = World.load(tiled_name)
+        self.world = CLASSES.World.load(tiled_name)
         self._scene = arcade.Scene.from_tilemap(self.world.map)
 
     def reload_map(self):
@@ -104,7 +97,7 @@ class MapView(arcade.View):
 
         # Quicksave | F5
         if symbol == arcade.key.F5:
-            GameData.write_data()
+            CLASSES.GameData.write_data()
         # Quickload | F6
         elif symbol == arcade.key.F6:
-            GameData.load_data()
+            CLASSES.GameData.load_data()

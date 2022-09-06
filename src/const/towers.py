@@ -1,4 +1,4 @@
-from classes.tower import Tower
+from src.classes import Tower
 
 
 class BaseTower(Tower):
