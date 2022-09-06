@@ -2,6 +2,7 @@ import arcade
 import src.const as C
 from classes.grid import Grid
 from classes.tower_handler import TowerHandler
+from classes.enemy_handler import EnemyHandler
 
 from classes.gold import Gold
 from classes.research import Research
@@ -40,7 +41,7 @@ class MapView(arcade.View):
         self._load_map(tiled_name)
         self.grid = Grid(int(self.world.height), int(self.world.width))
 
-        self.enemy_handler = None  # TODO
+        self.enemy_handler = EnemyHandler()
         self.tower_handler = TowerHandler(self.world)
 
     def _load_map(self, tiled_name: str):
@@ -64,15 +65,16 @@ class MapView(arcade.View):
         self._scene.draw()
         self.grid.on_draw()
         self.tower_handler.on_draw()
+        self.enemy_handler.on_draw()
 
     def on_update(self, delta_time: float):
-        pass
+        self.enemy_handler.on_update(delta_time)
 
     def on_mouse_press(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
         current_cell_row, current_cell_column = self.grid.get_cell(_x, _y)
 
-        # Select or build a tower
+        # Select or build a tower; TODO: move it somewhere
         if tower := self.grid.grid[current_cell_row][current_cell_column][
             "tower"
         ]:  # if there's tower
