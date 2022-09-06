@@ -22,3 +22,5 @@ class AntiAirTower(Tower):
 class TOWERS:
     DEFAULT_TOWER = BaseTower
     START_GOLD = DEFAULT_TOWER.cost
+    RADIUS_BG_COLOR = (255, 255, 255, 64)
+    SELECTED_OUTLINE_COLOR = (255, 255, 255, 255)

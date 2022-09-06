@@ -64,4 +64,7 @@ class World:
         return False
 
     def is_fitting_borders(self, row: int, column: int, tile_size: int) -> bool:
-        return column + tile_size <= self.width and row + tile_size <= self.height
+        return (
+            column + tile_size <= self.width
+            and tile_size <= row + tile_size <= self.height
+        )

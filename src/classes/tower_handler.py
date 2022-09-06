@@ -1,6 +1,6 @@
 import arcade
 import inspect
-from typing import Optional, List
+from typing import Optional
 
 import const as C
 from .tower import Tower
@@ -14,9 +14,8 @@ class TowerHandler:
     """
 
     def __init__(self, world: World) -> None:
-        self.tower_list = arcade.SpriteList()
         self.selected_type: type = C.TOWERS.DEFAULT_TOWER
-        self.selected_tower: Tower = None
+        self.selected_tower: Optional[Tower] = None
         self.world = world
 
     @staticmethod
@@ -61,6 +60,7 @@ class TowerHandler:
         tower.center_x = (column + 1) * C.GRID.HEIGHT
 
         gold.increment(-tower.cost)
+        self.selected_tower = tower
 
         return tower
 
@@ -69,3 +69,25 @@ class TowerHandler:
 
     def shoot(self, degree: float):
         pass
+
+    def draw_radius(self, tower: Tower):
+        arcade.draw_circle_filled(
+            tower.center_x,
+            tower.center_y,
+            tower.radius * self.world.tile_size,
+            C.TOWERS.RADIUS_BG_COLOR,
+        )
+
+    def draw_selected(self):
+        if self.selected_tower:
+            arcade.draw_rectangle_outline(
+                self.selected_tower.center_x,
+                self.selected_tower.center_y,
+                self.selected_tower.width,
+                self.selected_tower.height,
+                C.TOWERS.SELECTED_OUTLINE_COLOR,
+            )  # draw rectangle around selected tower
+            self.draw_radius(self.selected_tower)
+
+    def on_draw(self):
+        self.draw_selected()

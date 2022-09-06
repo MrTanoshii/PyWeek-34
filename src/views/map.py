@@ -62,8 +62,8 @@ class MapView(arcade.View):
     def on_draw(self):
         """Draw the map view."""
         self._scene.draw()
-        self.tower_handler.tower_list.draw()
         self.grid.on_draw()
+        self.tower_handler.on_draw()
 
     def on_update(self, delta_time: float):
         pass
