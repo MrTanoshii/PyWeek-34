@@ -1,5 +1,4 @@
 import arcade
-import src.const as C
 
 
 class Tower(arcade.Sprite):
@@ -12,10 +11,12 @@ class Tower(arcade.Sprite):
         file name
     label: str
         end user sees this on their screen.
+    cost: int
+        gold cost of the tower
     level: int
         level of tower, increases damage.
-    attack_cooldown_ms: float
-        how much it takes to shoot again after shooting in milliseconds.
+    attack_cooldown_sec: float
+        how much it takes to shoot again after shooting in seconds.
     radius: float
         how far can the tower reach, for shooting and recognizing enemies.
     radius_splash: float
@@ -30,12 +31,18 @@ class Tower(arcade.Sprite):
         poison damage, zero if no splash damage.
     """
 
+    # TODO: researches
+
+    # Required for creating
+    cost: int = 0
+    size_tiles: int = 2
+
     def __init__(
         self,
         name: str = "",
         label: str = "",
         level: int = 0,
-        attack_cooldown_ms: float = 0,
+        attack_cooldown_sec: float = 0,
         radius: float = 0,
         radius_splash: float = 0,
         damage_air: float = 0,
@@ -49,7 +56,7 @@ class Tower(arcade.Sprite):
 
         self.level: int = level
 
-        self.attack_cooldown_ms: float = attack_cooldown_ms
+        self.attack_cooldown_sec: float = attack_cooldown_sec
         self.radius: float = radius
         self.radius_splash: float = radius_splash
 
@@ -57,5 +64,3 @@ class Tower(arcade.Sprite):
         self.damage_ground: float = damage_ground
         self.damage_splash: float = damage_splash
         self.damage_poison: float = damage_poison
-
-        self.texture = arcade.load_texture(C.RESOURCES / "towers" / self.name)

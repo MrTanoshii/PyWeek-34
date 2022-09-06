@@ -1,13 +1,13 @@
-from pathlib import Path
-
 import arcade
 import src.const as C
 from classes.grid import Grid
-from classes.tower import Tower
 from classes.tower_handler import TowerHandler
-from src.const import towers
 
-from src.classes import *
+from classes.gold import Gold
+from classes.research import Research
+from classes.gamedata import GameData
+from classes.world import World
+from src.const import towers
 
 
 class MapView(arcade.View):
@@ -32,36 +32,28 @@ class MapView(arcade.View):
 
         self.tiled_name = tiled_name
         self.label = label
-        self.enemy_handler = None  # TODO
-        self.tower_handler = TowerHandler()
-        self.gold = None  # TODO
-        self.research = None  # TODO
+
+        self.gold = Gold()
+        self.research = Research()
+        self.gold.increment(towers.TOWERS.DEFAULT_TOWER.cost)
 
         self._load_map(tiled_name)
-        self._scene = arcade.Scene.from_tilemap(self._tile_map)
-        self._paths = self._tile_map.get_tilemap_layer("paths")
+        self.grid = Grid(int(self.world.height), int(self.world.width))
 
-        self.tower_handler.build_tower(towers.AntiAirTower)
-
-        self.grid = Grid(int(self._tile_map.height), int(self._tile_map.width))
-
-        self.selected_tower_size = 2
+        self.enemy_handler = None  # TODO
+        self.tower_handler = TowerHandler(self.world)
 
     def _load_map(self, tiled_name: str):
         self.tiled_name = tiled_name
-        scale = 1.25 * arcade.get_window().height / 720
-        self._tile_map = None
-        self._tile_map = arcade.load_tilemap(
-            rf"resources/maps/{tiled_name}", scaling=scale
-        )
-        self._scene = arcade.Scene.from_tilemap(self._tile_map)
+        self.world = World.load(tiled_name)
+        self._scene = arcade.Scene.from_tilemap(self.world.map)
 
     def reload_map(self):
         self._load_map(self.tiled_name)
 
     def on_resize(self, width: int, height: int):
         self.reload_map()
-        self.grid.set_size(int(self._tile_map.height), int(self._tile_map.width))
+        self.grid.set_size(int(self.world.height), int(self.world.width))
 
     def on_show(self):
         """Called when switching to this view."""
@@ -78,18 +70,17 @@ class MapView(arcade.View):
 
     def on_mouse_press(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
-        self.tower_handler.on_mouse_press(_x, _y, _button, _modifiers)
-
         current_cell_row, current_cell_column = self.grid.get_cell(_x, _y)
 
-        new_tower = self.tower_handler.build_tower(towers.AntiAirTower)
-        new_tower.center_y = (current_cell_row + 1) * C.GRID.WIDTH
-        new_tower.center_x = (current_cell_column + 1) * C.GRID.HEIGHT
-        new_tower.scale = C.SETTINGS.GLOBAL_SCALE
-        new_tower.width = C.GRID.WIDTH * self.selected_tower_size
-        new_tower.height = C.GRID.HEIGHT * self.selected_tower_size
-
-        self.grid.grid[current_cell_row][current_cell_column]["tower"] = new_tower
+        if self.grid.grid[current_cell_row][current_cell_column]["tower"]:
+            pass  # TODO: select tower for upgrade view
+        else:
+            if tower := self.tower_handler.buy_tower(
+                current_cell_row, current_cell_column, self.gold
+            ):
+                self.grid.grid[current_cell_row][current_cell_column]["tower"] = tower
+            else:
+                pass  # TODO: not enough money message
 
     def on_mouse_motion(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
