@@ -4,11 +4,11 @@ import math
 class Enemy(arcade.Sprite):
 
     def __init__(self,
-                 image,
-                 scale,
                  position_list,
-                 hp,
-                 speed,
+                 image,
+                 scale=1,
+                 hp=100,
+                 speed=10,
                  gold_drop=0,
                  armor_type=None,
                  flying=False,
@@ -60,6 +60,7 @@ class Enemy(arcade.Sprite):
         if distance <= self.speed:
             self.cur_position += 1
             if self.cur_position >= len(self.position_list):
+                self.cur_position = 0
                 # enemy has reached destination
                 # take away hps from player
                 ...

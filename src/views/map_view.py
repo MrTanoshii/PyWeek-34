@@ -3,6 +3,7 @@ import arcade
 import src.const as C
 
 from src.classes import *
+from src.enemy.enemy import Enemy
 
 
 class MapView(arcade.View):
@@ -24,6 +25,20 @@ class MapView(arcade.View):
     def __init__(self):
         # Inherit parent class
         super().__init__()
+        self.enemy_list = arcade.SpriteList()
+        position_list = [[50, 50],
+                         [900, 25],
+                         [1100, 250],
+                         [50, 250],
+                         [200, 400],
+                         [1200, 650],
+                         [50, 700]]
+
+        for spd in range(10):
+            enemy = Enemy(position_list, "enemy/starman.png", speed=spd)
+            enemy.center_x = position_list[0][0]
+            enemy.center_y = position_list[0][1]
+            self.enemy_list.append(enemy)
 
     def on_show(self):
         """Called when switching to this view."""
@@ -45,11 +60,13 @@ class MapView(arcade.View):
             / C.SETTINGS.SCREEN_HEIGHT,
             anchor_x="center",
         )
+        self.enemy_list.draw()
 
     def on_update(self, delta_time: float):
         # TODO: To remove this. It was for testing only.
         Gold.increment(1)
         Research.increment((random() * 10) - (random() * 10))
+        self.enemy_list.update()
 
     def on_mouse_press(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
