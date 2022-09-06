@@ -3,6 +3,7 @@ import arcade
 import src.const as C
 
 from src.classes import *
+from src.audio import Audio
 
 
 class MapView(arcade.View):
@@ -24,6 +25,8 @@ class MapView(arcade.View):
     def __init__(self):
         # Inherit parent class
         super().__init__()
+        Audio.preload()
+        Audio.play("bgm_1")
 
     def on_show(self):
         """Called when switching to this view."""
@@ -54,7 +57,8 @@ class MapView(arcade.View):
     def on_mouse_press(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
         # save_data.GameData.read_data()
-        self.window.show_view(MapView())
+        # self.window.show_view(MapView())
+        Audio.stop("bgm_1")
 
     def on_key_press(self, symbol, modifiers):
         """Called whenever a key is pressed."""
