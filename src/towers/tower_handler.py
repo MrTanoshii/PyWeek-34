@@ -21,9 +21,8 @@ class TowerHandler:
     def build_tower(tower_type: type) -> Tower:
         return Tower(tower_type)
 
-    def buy_tower(self, row: int, column: int, gold: Gold) -> Optional[Tower]:
-        if not self.selected_type:
-            self.selected_type = C.TOWERS.BASE_TOWER
+    def buy_tower(self, row: int, column: int, tower_type: type) -> Optional[Tower]:
+        self.selected_type = tower_type
 
         # TODO: check researches
 
@@ -39,21 +38,21 @@ class TowerHandler:
             print("Warning: Tower cannot be placed on road")
             return  # TODO: placed on road message
 
-        if gold.get() - self.selected_type["gold_cost"] < 0:  # checking gold
+        if Gold.get() - self.selected_type["gold_cost"] < 0:  # checking gold
             return  # TODO: not enough gold message
-            
+
         # TODO: check researches
 
         # Check for FOUNDATION tower
         tower = self.build_tower(self.selected_type)
-        if tower_type == TOWERS.FOUNDATION:
+        if tower_type == C.TOWERS.BASE_TOWER:
             tower.width = C.GRID.WIDTH * tower.size_tiles
             tower.height = C.GRID.WIDTH * tower.size_tiles
         tower.center_y = (row + 1) * C.GRID.WIDTH
         tower.center_x = (column + 1) * C.GRID.HEIGHT
 
-        gold.increment(-tower.gold_cost)
-        gold.increment(-tower.research_cost)
+        Gold.increment(-tower.gold_cost)
+        Gold.increment(-tower.research_cost)
         self.selected_tower = tower
 
         return tower

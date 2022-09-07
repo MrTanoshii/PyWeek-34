@@ -138,8 +138,7 @@ class MapView(arcade.View):
             if tower := self.tower_handler.buy_tower(
                 current_cell_row,
                 current_cell_column,
-                self.gold,
-                tower_type=TOWERS.MG_TOWER,
+                tower_type=C.TOWERS.MG_TOWER,
             ):  # if it's possible to build one
                 self.grid.grid[current_cell_row][current_cell_column]["tower"] = tower
 
@@ -161,8 +160,7 @@ class MapView(arcade.View):
             if tower := self.tower_handler.buy_tower(
                 current_cell_row,
                 current_cell_column,
-                self.gold,
-                tower_type=TOWERS.FOUNDATION,
+                tower_type=C.TOWERS.BASE_TOWER,
             ):  # if it's possible to build one
                 self.grid.grid[current_cell_row][current_cell_column][
                     "base_tower"
@@ -194,7 +192,7 @@ class MapView(arcade.View):
         # Reset Grids | R
         elif symbol == arcade.key.R:
             self.grid = None
-            self.grid = CLASSES.Grid(int(self.world.height), int(self.world.width))
+            self.grid = Grid(int(self.world.height), int(self.world.width))
         # Stop music | M
         elif symbol == arcade.key.M:
             if self.bgm_player is not None:
