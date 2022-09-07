@@ -18,7 +18,7 @@ class Audio:
         for sound in C.AUDIO.MASTER_LIST:
             cls.sound_list[sound] = {}
             cls.sound_list[sound]["sound"] = arcade.load_sound(
-                C.AUDIO.BASE_PATH + C.AUDIO.MASTER_LIST[sound]["path"], True
+                C.AUDIO.BASE_PATH / C.AUDIO.MASTER_LIST[sound]["path"], True
             )
 
             # Copy sound information from master list
