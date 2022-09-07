@@ -3,6 +3,7 @@ import inspect
 from typing import Optional
 
 import src.const as C
+from const import TOWERS
 from .tower import Tower
 from .gold import Gold
 from .world import World
@@ -32,17 +33,34 @@ class TowerHandler:
 
         tower.texture = arcade.load_texture(C.RESOURCES / "towers" / tower.name)
 
-        tower.width = C.GRID.WIDTH * tower.size_tiles
-        tower.height = C.GRID.HEIGHT * tower.size_tiles
-        tower.scale = C.SETTINGS.GLOBAL_SCALE
+        tower.scale = C.SETTINGS.GLOBAL_SCALE * 0.5
         return tower
 
-    def buy_tower(self, row: int, column: int, gold: Gold) -> Optional[Tower]:
-        if not self.selected_type:
-            self.selected_type = C.TOWERS.DEFAULT_TOWER
+    # TODO: split into pieces
+    def buy_tower(
+        self,
+        row: int,
+        column: int,
+        gold: Gold,
+        tower_type: TOWERS = TOWERS.DEFAULT_TOWER,
+    ) -> Optional[Tower]:
+        """
 
-        # TODO: check researches
+        Args:
+            row: int grid row, new tower location
+            column: int grid column, new tower location
+            gold: tower price, will be removed from gold
+            tower_type: TOWERS object, will be bought and added
 
+        Returns: tower object
+
+        """
+        # TODO: get better var than just TOWERS.X, Unresolved attribute reference 'size_tiles' for class 'TOWERS',
+        #  code editor cannot understand that
+        self.selected_type = tower_type
+        self.selected_type.size_tiles = 2  # if this causes problems to you, thank jeb
+
+        # Check for illegal placings
         if not self.world.is_fitting_borders(
             row, column, self.selected_type.size_tiles
         ):  # checking if tower doesn't go beyond the window borders
@@ -51,11 +69,23 @@ class TowerHandler:
         if self.world.is_tile_overlapping(
             row, column, self.selected_type.size_tiles
         ):  # isn't placed on a road
+            print("Warning: Tower cannot be placed on road")
             return  # TODO: placed on road message
 
         if gold.get() - self.selected_type.cost < 0:  # checking gold
+            print(
+                f"Warning: Not enough Gold, you are {(gold.get() - self.selected_type.cost)*-1} short"
+            )
             return  # TODO: not enough gold message
+
+        # TODO: check researches
+
+        # Check for FOUNDATION tower
         tower = self.build_tower(self.selected_type)
+        if tower_type == TOWERS.FOUNDATION:
+            tower.width = C.GRID.WIDTH * tower.size_tiles
+            tower.height = C.GRID.WIDTH * tower.size_tiles
+
         tower.center_y = (row + 1) * C.GRID.WIDTH
         tower.center_x = (column + 1) * C.GRID.HEIGHT
 

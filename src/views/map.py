@@ -1,6 +1,9 @@
 import arcade
+import arcade.gui
 import src.const as C
 import src.classes as CLASSES
+from classes import Tower
+from const import TOWERS
 from src.audio import Audio
 from src.const import towers
 
@@ -35,6 +38,44 @@ class MapView(arcade.View):
         self.gold.increment(towers.TOWERS.START_GOLD * 1000)
 
         self._load_map(tiled_name)
+        self.manager = arcade.gui.UIManager()
+        self.manager.enable()
+        self.h_box = arcade.gui.UIBoxLayout(vertical=False)
+
+        # Game UI
+
+        texture_star = arcade.load_texture(
+            ":resources:onscreen_controls/flat_dark/key_round.png"
+        )
+        texture_a = arcade.load_texture(":resources:onscreen_controls/flat_dark/a.png")
+        texture_key = arcade.load_texture(
+            ":resources:onscreen_controls/flat_dark/star.png"
+        )
+
+        # New Tower Button
+        ui_new_tower = arcade.gui.UITextureButton(texture=texture_a).with_space_around(
+            20, 20, 20, 20
+        )
+        self.h_box.add(ui_new_tower)
+
+        # New Tower Button
+        ui_new_tower = arcade.gui.UITextureButton(
+            texture=texture_star
+        ).with_space_around(20, 20, 20, 20)
+        self.h_box.add(ui_new_tower)
+
+        # New Tower Button
+        ui_new_tower = arcade.gui.UITextureButton(
+            texture=texture_key
+        ).with_space_around(20, 20, 20, 20)
+        self.h_box.add(ui_new_tower)
+
+        # Create a widget to hold the h_box widget, that will center the buttons
+        self.manager.add(
+            arcade.gui.UIAnchorWidget(
+                anchor_x="center_x", anchor_y="center_y", child=self.h_box, align_y=-300
+            )
+        )
 
     def _load_map(self, tiled_name: str, init_logic=True):
         self.tiled_name = tiled_name
@@ -62,19 +103,45 @@ class MapView(arcade.View):
         self.grid.on_draw()
         self.tower_handler.on_draw()
         self.enemy_handler.on_draw()
+        # self.manager.draw()
 
     def on_update(self, delta_time: float):
         self.enemy_handler.on_update(delta_time)
+        rows = self.grid.rows_count
+        columns = self.grid.columns_count
+        for row in range(rows):
+            for column in range(columns):
+
+                # get tower object from grid cell
+                tower = self.grid.grid[row][column]["tower"]
+
+                if not tower:
+                    continue
+
+                tower.angle += 1
 
     def on_mouse_press(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
         current_cell_row, current_cell_column = self.grid.get_cell(_x, _y)
 
-        # Select or build a tower; TODO: move it somewhere
+        # Check if there is tower in the grid already
         if tower := self.grid.grid[current_cell_row][current_cell_column][
-            "tower"
+            "base_tower"
         ]:  # if there's tower
             self.tower_handler.select_tower(tower)
+            if C.DEBUG.MAP:
+                print(f"Tower Clicked at: {current_cell_row}, {current_cell_column}")
+
+            # Try to upgrade / level up tower
+            if tower := self.tower_handler.buy_tower(
+                current_cell_row,
+                current_cell_column,
+                self.gold,
+                tower_type=TOWERS.MG_TOWER,
+            ):  # if it's possible to build one
+                self.grid.grid[current_cell_row][current_cell_column]["tower"] = tower
+
+        # Check if there is tower in the nearby grids blocking new tower
         elif towers_around := self.grid.get_towers_around(
             current_cell_row,
             current_cell_column,
@@ -82,13 +149,29 @@ class MapView(arcade.View):
                 self.tower_handler.selected_type.size_tiles - 1
             ),  # -1 for finding intersections with another towers
         ):
-            print(towers_around)
+            if C.DEBUG.MAP:
+                print(f"Tower blocking at: {current_cell_row}, {current_cell_column}")
             self.tower_handler.select_tower(towers_around[0])
         else:
+
+            # Add new tower foundation / base tower
             if tower := self.tower_handler.buy_tower(
-                current_cell_row, current_cell_column, self.gold
+                current_cell_row,
+                current_cell_column,
+                self.gold,
+                tower_type=TOWERS.FOUNDATION,
             ):  # if it's possible to build one
-                self.grid.grid[current_cell_row][current_cell_column]["tower"] = tower
+                self.grid.grid[current_cell_row][current_cell_column][
+                    "base_tower"
+                ] = tower
+
+            if C.DEBUG.MAP:
+                print(f"Creating base at: {current_cell_row}, {current_cell_column}")
+
+        if C.DEBUG.MAP:
+            print(
+                f"Cell at [{current_cell_row}, {current_cell_column}] contains {self.grid.grid[current_cell_row][current_cell_column]}"
+            )
 
         Audio.stop("bgm_1")
 
@@ -107,3 +190,7 @@ class MapView(arcade.View):
         # Quickload | F6
         elif symbol == arcade.key.F6:
             CLASSES.GameData.load_data()
+        # Reset Grids | R
+        elif symbol == arcade.key.R:
+            self.grid = None
+            self.grid = CLASSES.Grid(int(self.world.height), int(self.world.width))
