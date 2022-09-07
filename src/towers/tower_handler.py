@@ -2,7 +2,6 @@ import arcade
 from typing import Optional
 
 import src.const as C
-from const import TOWERS
 from .tower import Tower
 from src.resources import *
 from src.world import *
@@ -42,7 +41,7 @@ class TowerHandler:
 
         if gold.get() - self.selected_type["gold_cost"] < 0:  # checking gold
             return  # TODO: not enough gold message
-
+            
         # TODO: check researches
 
         # Check for FOUNDATION tower
@@ -50,7 +49,6 @@ class TowerHandler:
         if tower_type == TOWERS.FOUNDATION:
             tower.width = C.GRID.WIDTH * tower.size_tiles
             tower.height = C.GRID.WIDTH * tower.size_tiles
-
         tower.center_y = (row + 1) * C.GRID.WIDTH
         tower.center_x = (column + 1) * C.GRID.HEIGHT
 

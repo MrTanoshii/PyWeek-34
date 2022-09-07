@@ -1,5 +1,6 @@
 import arcade
 import arcade.gui
+
 import src.const as C
 from src.audio import *
 from src.const import *
