@@ -2,7 +2,7 @@ from pathlib import Path
 
 
 class AUDIO:
-    BASE_PATH = Path("src/audio/resources/")
+    BASE_PATH = Path("src/audio/sounds/")
     VOLUME = {"MASTER": 1.0, "BGM": 1.0, "SFX": 1.0}
 
     MASTER_LIST = {
