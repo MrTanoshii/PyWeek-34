@@ -1,42 +1,26 @@
 import arcade
+from functools import partial
 from .enemy import Enemy
+from .world import World
+from .spawner import Spawner
 from src import const as C
 
 
 class EnemyHandler:
-    def __init__(self):
+    def __init__(self, world: World):
         self.enemy_list = arcade.SpriteList()
-        position_list = [
-            [[780, 0],
-             [780, 360],
-             [450, 360],
-             [450, 440],
-             [0, 440],
-             [0, 0]],
-            [[1280, 440],
-             [1080, 440],
-             [1080, 400],
-             [980, 400],
-             [980, 440],
-             [0, 440],
-             [0, 0],
-             [1280, 0]],
-            [[980, 720],
-             [980, 520],
-             [620, 520],
-             [620, 440],
-             [0, 440],
-             [0, 0],
-             [1280, 0],
-             [1280, 720]],
-        ]
+        self.world = world
+        self.spawners = list(map(partial(Spawner, world), self.world.spawners))
 
-        for spd in range(100):
+        position_list = self.spawners[0].path
+        self.positions = position_list
+
+        for spd in range(1, 2):
             enemy = Enemy(
-                position_list[spd % 3], C.RESOURCES / "enemies" / f"alien{spd % 10}.png", speed=spd / 20, scale=.4
+                position_list, C.RESOURCES / "enemies" / "alien1.png", speed=spd * 10
             )
-            enemy.center_x = position_list[spd % 3][0][0]
-            enemy.center_y = position_list[spd % 3][0][1]
+            enemy.center_x = position_list[0][0]
+            enemy.center_y = position_list[0][1]
             self.enemy_list.append(enemy)
 
     def on_draw(self):

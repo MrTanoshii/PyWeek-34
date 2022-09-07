@@ -1,5 +1,6 @@
 import arcade
 from pytiled_parser.tiled_object import Rectangle
+from src.import const as C
 
 
 class World:
@@ -7,8 +8,11 @@ class World:
         self.map = tile_map
         self.paths = tile_map.get_tilemap_layer("paths")
         self.roads = list(filter(lambda x: x.type == "road", self.objects))
-        self.spawners = list(filter(lambda x: x.type == "spawners", self.objects))
-        self.finishes = list(filter(lambda x: x.type == "finish", self.objects))
+        self.points = list(filter(lambda x: x.type == "point", self.objects))
+        self.spawners = list(filter(lambda x: x.type == "spawner", self.objects))
+        self.finish = list(filter(lambda x: x.type == "finish", self.objects))[
+            0
+        ]  # TODO: handle no finishes
 
     @classmethod
     def load(cls, tiled_name: str) -> "World":
@@ -34,11 +38,20 @@ class World:
     def screen_to_grid(self, x: float, y: float) -> [int, int]:
         return [x // self.tile_size, y // self.tile_size]
 
-    def grid_to_tiled(self, row: int, column: int):
+    def grid_to_screen(self, row: int, column: int) -> [float, float]:
+        return [column * self.tile_size, row * self.tile_size]
+
+    def grid_to_tiled(self, row: int, column: int) -> [int, int]:
         """
         Tiled counts coordinates from top-left but arcade from bottom left
         """
         return [self.height - row - 1, column]  # weird math
+
+    def tiled_to_screen(self, x: float, y: float) -> [float, float]:
+        return [
+            (x // self.tile_size) * C.GRID.WIDTH,
+            self.height * C.GRID.HEIGHT - (y // self.tile_size) * C.GRID.HEIGHT,
+        ]
 
     def is_cell_inside_object(self, row: int, column: int, obj: Rectangle) -> bool:
         row, column = self.grid_to_tiled(row, column)

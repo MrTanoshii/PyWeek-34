@@ -30,23 +30,30 @@ class MapView(arcade.View):
         self.tiled_name = tiled_name
         self.label = label
 
+
         self.gold = CLASSES.Gold()
         self.research = CLASSES.Research()
         self.gold.increment(towers.TOWERS.START_GOLD * 1000)
 
         self._load_map(tiled_name)
-        self.grid = CLASSES.Grid(int(self.world.height), int(self.world.width))
 
-        self.enemy_handler = CLASSES.EnemyHandler()
-        self.tower_handler = CLASSES.TowerHandler(self.world)
+    def _load_map(self, tiled_name: str, init_logic=True):
+        self.tiled_name = tiled_name
+        self.world = CLASSES.World.load(tiled_name)
+        self._scene = arcade.Scene.from_tilemap(self.world.map)
+        if init_logic:
+            self.grid = CLASSES.Grid(int(self.world.height), int(self.world.width))
+            self.enemy_handler = CLASSES.EnemyHandler(self.world)
+            self.tower_handler = CLASSES.TowerHandler(self.world)
 
     def _load_map(self, tiled_name: str):
         self.tiled_name = tiled_name
         self.world = CLASSES.World.load(tiled_name)
         self._scene = arcade.Scene.from_tilemap(self.world.map)
 
+
     def reload_map(self):
-        self._load_map(self.tiled_name)
+        self._load_map(self.tiled_name, init_logic=False)
 
     def on_resize(self, width: int, height: int):
         self.reload_map()
@@ -90,7 +97,6 @@ class MapView(arcade.View):
                 self.grid.grid[current_cell_row][current_cell_column]["tower"] = tower
 
         Audio.stop("bgm_1")
-
     def on_mouse_motion(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
         # save_data.GameData.read_data()
