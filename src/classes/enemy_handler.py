@@ -7,21 +7,36 @@ class EnemyHandler:
     def __init__(self):
         self.enemy_list = arcade.SpriteList()
         position_list = [
-            [50, 50],
-            [900, 25],
-            [1100, 250],
-            [50, 250],
-            [200, 400],
-            [1200, 650],
-            [50, 700],
+            [[780, 0],
+             [780, 360],
+             [450, 360],
+             [450, 440],
+             [0, 440],
+             [0, 0]],
+            [[1280, 440],
+             [1080, 440],
+             [1080, 400],
+             [980, 400],
+             [980, 440],
+             [0, 440],
+             [0, 0],
+             [1280, 0]],
+            [[980, 720],
+             [980, 520],
+             [620, 520],
+             [620, 440],
+             [0, 440],
+             [0, 0],
+             [1280, 0],
+             [1280, 720]],
         ]
 
-        for spd in range(10):
+        for spd in range(100):
             enemy = Enemy(
-                position_list, C.RESOURCES / "enemies" / "alien1.png", speed=spd
+                position_list[spd % 3], C.RESOURCES / "enemies" / f"alien{spd % 10}.png", speed=spd / 20, scale=.4
             )
-            enemy.center_x = position_list[0][0]
-            enemy.center_y = position_list[0][1]
+            enemy.center_x = position_list[spd % 3][0][0]
+            enemy.center_y = position_list[spd % 3][0][1]
             self.enemy_list.append(enemy)
 
     def on_draw(self):
