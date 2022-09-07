@@ -24,7 +24,7 @@ class Grid(arcade.Sprite):
             self.grid.append([])
             for column in range(self.columns_count):
                 self.grid[row].append(
-                    {"color": (0, 0, 0, 0), "tower": None}
+                    {"color": (0, 0, 0, 0), "base_tower": None, "tower": None}
                 )  # Append a cell
         self.hover_column = 0
         self.hover_row = 0
@@ -43,6 +43,8 @@ class Grid(arcade.Sprite):
             for column in range(self.columns_count):
 
                 # Draw the tower
+                if self.grid[row][column]["base_tower"]:
+                    self.grid[row][column]["base_tower"].draw()
                 if self.grid[row][column]["tower"]:
                     self.grid[row][column]["tower"].draw()
 
@@ -79,7 +81,8 @@ class Grid(arcade.Sprite):
         column = int(x // (C.GRID.WIDTH + C.GRID.MARGIN))
         row = int(y // (C.GRID.HEIGHT + C.GRID.MARGIN))
 
-        print(f"Click coordinates: ({x}, {y}). Grid coordinates: ({row}, {column})")
+        if not C.DEBUG.MOUSE:
+            print(f"Click coordinates: ({x}, {y}). Grid coordinates: ({row}, {column})")
 
         # Make sure we are on-grid. It is possible to click in the upper right
         # corner in the margin and go to a grid location that doesn't exist
@@ -99,7 +102,7 @@ class Grid(arcade.Sprite):
         for y in range(box_size):
             for x in range(box_size):
                 try:
-                    if tower := self.grid[start_y - y][start_x + x]["tower"]:
+                    if tower := self.grid[start_y - y][start_x + x]["base_tower"]:
                         if start_y - y >= 0:
                             towers.append(tower)
                 except IndexError:

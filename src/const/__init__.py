@@ -1,4 +1,5 @@
 from .audio import *
+from .debug import *
 from .enemy import *
 from .grid import *
 from .research_tree import *

@@ -27,6 +27,7 @@ class TowerHandler:
 
         # TODO: check researches
 
+        # Check for illegal placings
         if not self.world.is_fitting_borders(
             row, column, self.selected_type["size_tiles"]
         ):  # checking if tower doesn't go beyond the window borders
@@ -35,11 +36,19 @@ class TowerHandler:
         if self.world.is_tile_overlapping(
             row, column, self.selected_type["size_tiles"]
         ):  # isn't placed on a road
+            print("Warning: Tower cannot be placed on road")
             return  # TODO: placed on road message
 
         if gold.get() - self.selected_type["gold_cost"] < 0:  # checking gold
             return  # TODO: not enough gold message
+            
+        # TODO: check researches
+
+        # Check for FOUNDATION tower
         tower = self.build_tower(self.selected_type)
+        if tower_type == TOWERS.FOUNDATION:
+            tower.width = C.GRID.WIDTH * tower.size_tiles
+            tower.height = C.GRID.WIDTH * tower.size_tiles
         tower.center_y = (row + 1) * C.GRID.WIDTH
         tower.center_x = (column + 1) * C.GRID.HEIGHT
 
