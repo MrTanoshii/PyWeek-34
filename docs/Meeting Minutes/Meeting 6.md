@@ -6,9 +6,9 @@
 
 Scheduled Time: 07/09/2022 1700 [UTC]
 
-Meeting Time:
+Meeting Time: 07/09/2022 1715-1730 [UTC]
 
-Attendance:
+Attendance: Jeb, Mihett, VLYK
 
 ---
 
@@ -27,6 +27,8 @@ Scheduled Time: 08/09/2022 1700 [UTC]
 ---
 
 ## Discussion
+
+-   Mihett waiting on VLYK for restructure
 
 ### Sound review
 
