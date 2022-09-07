@@ -1,0 +1,67 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "test_map_4.json",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "floortileset.tsx": {
+            "scaleInDock": 1
+        },
+        "test_map_2.json": {
+            "expandedObjectLayers": [
+                6
+            ],
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 595.6666666666666,
+                "y": 332.6666666666667
+            }
+        },
+        "test_map_2.tmj": {
+            "scale": 1.0182812499999998,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 480.71198404173714,
+                "y": 320.1473070431181
+            }
+        },
+        "test_map_3.json": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.954638671875,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 491.80911462329294,
+                "y": 123.6069766252366
+            }
+        },
+        "test_map_4.json": {
+            "scale": 0.954638671875,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 511.71193289345814,
+                "y": 287.0195897908035
+            }
+        }
+    },
+    "map.height": 18,
+    "map.lastUsedFormat": "json",
+    "map.width": 32,
+    "openFiles": [
+        "test_map_4.json"
+    ],
+    "project": "maps.tiled-project",
+    "property.type": "object",
+    "recentFiles": [
+        "test_map_4.json",
+        "test_map_2.json",
+        "test_map_3.json",
+        "test_map_2.tmj"
+    ]
+}
