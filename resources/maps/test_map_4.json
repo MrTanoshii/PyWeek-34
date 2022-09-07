@@ -136,8 +136,14 @@
                  "height":32,
                  "id":15,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"path",
+                         "type":"object",
+                         "value":16
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"road",
                  "visible":true,
                  "width":160,
                  "x":864,
@@ -147,8 +153,14 @@
                  "height":64,
                  "id":16,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"path",
+                         "type":"object",
+                         "value":17
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"road",
                  "visible":true,
                  "width":32,
                  "x":864,
@@ -158,8 +170,14 @@
                  "height":32,
                  "id":17,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"path",
+                         "type":"object",
+                         "value":18
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"road",
                  "visible":true,
                  "width":128,
                  "x":768,
@@ -169,8 +187,14 @@
                  "height":64,
                  "id":18,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"path",
+                         "type":"object",
+                         "value":4
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"road",
                  "visible":true,
                  "width":32,
                  "x":768,
@@ -180,8 +204,14 @@
                  "height":288,
                  "id":19,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"path",
+                         "type":"object",
+                         "value":20
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"road",
                  "visible":true,
                  "width":32,
                  "x":608,
@@ -191,8 +221,14 @@
                  "height":32,
                  "id":20,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"path",
+                         "type":"object",
+                         "value":21
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"road",
                  "visible":true,
                  "width":288,
                  "x":352,
@@ -202,12 +238,63 @@
                  "height":96,
                  "id":21,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"path",
+                         "type":"object",
+                         "value":4
+                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"road",
                  "visible":true,
                  "width":32,
                  "x":352,
                  "y":224
+                }, 
+                {
+                 "height":160,
+                 "id":22,
+                 "name":"",
+                 "rotation":0,
+                 "type":"base",
+                 "visible":true,
+                 "width":160,
+                 "x":0,
+                 "y":160
+                }, 
+                {
+                 "height":32,
+                 "id":23,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"path",
+                         "type":"object",
+                         "value":15
+                        }],
+                 "rotation":0,
+                 "type":"spawner",
+                 "visible":true,
+                 "width":32,
+                 "x":992,
+                 "y":224
+                }, 
+                {
+                 "height":32,
+                 "id":24,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"path",
+                         "type":"object",
+                         "value":19
+                        }],
+                 "rotation":0,
+                 "type":"spawner",
+                 "visible":true,
+                 "width":32,
+                 "x":608,
+                 "y":544
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -216,7 +303,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":22,
+ "nextobjectid":25,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.1",

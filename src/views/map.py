@@ -39,18 +39,18 @@ class MapView(arcade.View):
         self.gold.increment(towers.TOWERS.START_GOLD * 1000)
 
         self._load_map(tiled_name)
-        self.grid = Grid(int(self.world.height), int(self.world.width))
 
-        self.enemy_handler = EnemyHandler()
-        self.tower_handler = TowerHandler(self.world)
-
-    def _load_map(self, tiled_name: str):
+    def _load_map(self, tiled_name: str, init_logic=True):
         self.tiled_name = tiled_name
         self.world = World.load(tiled_name)
         self._scene = arcade.Scene.from_tilemap(self.world.map)
+        if init_logic:
+            self.grid = Grid(int(self.world.height), int(self.world.width))
+            self.enemy_handler = EnemyHandler(self.world)
+            self.tower_handler = TowerHandler(self.world)
 
     def reload_map(self):
-        self._load_map(self.tiled_name)
+        self._load_map(self.tiled_name, init_logic=False)
 
     def on_resize(self, width: int, height: int):
         self.reload_map()
