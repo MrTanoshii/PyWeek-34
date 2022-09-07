@@ -90,8 +90,6 @@ class MapView(arcade.View):
             ):  # if it's possible to build one
                 self.grid.grid[current_cell_row][current_cell_column]["tower"] = tower
 
-        Audio.stop(self.bgm_player)
-
     def on_mouse_motion(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
         # save_data.GameData.read_data()
@@ -107,3 +105,10 @@ class MapView(arcade.View):
         # Quickload | F6
         elif symbol == arcade.key.F6:
             CLASSES.GameData.load_data()
+        # Stop music | M
+        elif symbol == arcade.key.M:
+            if self.bgm_player is not None:
+                Audio.stop(self.bgm_player)
+                self.bgm_player = None
+            else:
+                self.bgm_player = Audio.play_random(["bgm_1", "bgm_2"])
