@@ -1,7 +1,7 @@
 import arcade
 from functools import partial
 
-from src import const as C
+import src.const as C
 from .enemy import Enemy
 from src.world import *
 
@@ -24,7 +24,7 @@ class EnemyHandler:
         for spd in range(1, 2):
             enemy = Enemy(
                 position_list,
-                C.RESOURCES.BASEPATH / "enemies" / "alien1.png",
+                C.EMEMY.BASEPATH / "alien1.png",
                 speed=spd * 10,
             )
             enemy.center_x = position_list[0][0]

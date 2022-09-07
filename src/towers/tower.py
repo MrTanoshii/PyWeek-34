@@ -39,9 +39,8 @@ class Tower(arcade.Sprite):
         super().__init__()
         self.name: str = tower_type["name"]
         self.label: str = tower_type["label"]
-        self.texture = arcade.load_texture(
-            C.RESOURCES.BASEPATH / "towers" / tower_type["name"]
-        )
+        print(C.TOWERS.BASEPATH / tower_type["name"])
+        self.texture = arcade.load_texture(C.TOWERS.BASEPATH / tower_type["name"])
         self.level: int = tower_type["level"]
 
         self.gold_cost: int = tower_type["gold_cost"]
