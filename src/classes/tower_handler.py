@@ -2,7 +2,7 @@ import arcade
 import inspect
 from typing import Optional
 
-import const as C
+import src.const as C
 from .tower import Tower
 from .gold import Gold
 from .world import World

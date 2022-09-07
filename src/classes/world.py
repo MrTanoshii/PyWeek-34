@@ -1,6 +1,6 @@
 import arcade
 from pytiled_parser.tiled_object import Rectangle
-from src import const as C
+from src.import const as C
 
 
 class World:
