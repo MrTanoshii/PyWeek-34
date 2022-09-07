@@ -6,6 +6,7 @@ from classes import Tower
 from const import TOWERS
 from src.audio import Audio
 from src.const import towers
+from src.audio import Audio
 
 
 class MapView(arcade.View):
@@ -28,7 +29,7 @@ class MapView(arcade.View):
         # Inherit parent class
         super().__init__()
         Audio.preload()
-        Audio.play("bgm_1")
+        self.bgm_player = Audio.play_random(["bgm_1", "bgm_2"])
 
         self.tiled_name = tiled_name
         self.label = label
@@ -149,6 +150,7 @@ class MapView(arcade.View):
                 self.tower_handler.selected_type.size_tiles - 1
             ),  # -1 for finding intersections with another towers
         ):
+
             if C.DEBUG.MAP:
                 print(f"Tower blocking at: {current_cell_row}, {current_cell_column}")
             self.tower_handler.select_tower(towers_around[0])
@@ -173,8 +175,6 @@ class MapView(arcade.View):
                 f"Cell at [{current_cell_row}, {current_cell_column}] contains {self.grid.grid[current_cell_row][current_cell_column]}"
             )
 
-        Audio.stop("bgm_1")
-
     def on_mouse_motion(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
         # save_data.GameData.read_data()
@@ -194,3 +194,10 @@ class MapView(arcade.View):
         elif symbol == arcade.key.R:
             self.grid = None
             self.grid = CLASSES.Grid(int(self.world.height), int(self.world.width))
+        # Stop music | M
+        elif symbol == arcade.key.M:
+            if self.bgm_player is not None:
+                Audio.stop(self.bgm_player)
+                self.bgm_player = None
+            else:
+                self.bgm_player = Audio.play_random(["bgm_1", "bgm_2"])
