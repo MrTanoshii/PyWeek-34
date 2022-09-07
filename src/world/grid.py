@@ -1,8 +1,8 @@
 import arcade
 from typing import List
-import src.const as C
 
-from .tower import Tower
+import src.const as C
+from src.towers import *
 
 
 class Grid(arcade.Sprite):

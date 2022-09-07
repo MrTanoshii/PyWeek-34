@@ -2,7 +2,7 @@ import arcade
 
 import src.const as C
 
-from src.views.map import MapView
+from src.views import MapView
 
 
 def main():

@@ -1,13 +1,19 @@
 import arcade
 from functools import partial
-from .enemy import Enemy
-from .world import World
-from .spawner import Spawner
+
 from src import const as C
+from .enemy import Enemy
+from src.world import *
 
 
 class EnemyHandler:
     def __init__(self, world: World):
+        """Constructor.
+
+        Keyword Arguments:
+        world: World -- World object
+        """
+
         self.enemy_list = arcade.SpriteList()
         self.world = world
         self.spawners = list(map(partial(Spawner, world), self.world.spawners))
@@ -17,7 +23,9 @@ class EnemyHandler:
 
         for spd in range(1, 2):
             enemy = Enemy(
-                position_list, C.RESOURCES / "enemies" / "alien1.png", speed=spd * 10
+                position_list,
+                C.RESOURCES.BASEPATH / "enemies" / "alien1.png",
+                speed=spd * 10,
             )
             enemy.center_x = position_list[0][0]
             enemy.center_y = position_list[0][1]
