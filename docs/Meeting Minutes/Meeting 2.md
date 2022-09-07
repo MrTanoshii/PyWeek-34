@@ -131,20 +131,20 @@ Scheduled Time: 04/09/2022 1700 [UTC]
 
 #### HQ Draft
 
-![HQ Draft](../Images/hq_draft_1.png)
+![HQ Draft](../Images/meeting_2/hq_draft_1.png)
 
 #### Map Draft
 
-![Map Draft](../Images/map_draft_1.png)
+![Map Draft](../Images/meeting_2/map_draft_1.png)
 
 #### Tower Art Draft
 
-![HQ Draft](../Images/tower_art_draft_1.png)
+![HQ Draft](../Images/meeting_2/tower_art_draft_1.png)
 
 #### Tower Draft
 
-![HQ Draft](../Images/tower_draft_1.png)
+![HQ Draft](../Images/meeting_2/tower_draft_1.png)
 
 #### Tower UI Draft
 
-![HQ Draft](../Images/tower_ui_draft_1.png)
+![HQ Draft](../Images/meeting_2/tower_ui_draft_1.png)
