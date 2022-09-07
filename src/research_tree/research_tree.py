@@ -1,5 +1,6 @@
 import src.const as C
-from src.classes import *
+
+from src.resources import *
 
 
 class ResearchTree:

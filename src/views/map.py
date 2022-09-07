@@ -1,9 +1,13 @@
 import arcade
+
 import src.const as C
-import src.classes as CLASSES
-from src.audio import Audio
-from src.const import towers
-from src.audio import Audio
+from src.audio import *
+from src.const import *
+from src.enemy import *
+from src.gamedata import *
+from src.resources import *
+from src.towers import *
+from src.world import *
 
 
 class MapView(arcade.View):
@@ -31,25 +35,24 @@ class MapView(arcade.View):
         self.tiled_name = tiled_name
         self.label = label
 
-        self.gold = CLASSES.Gold()
-        self.research = CLASSES.Research()
-        self.gold.increment(towers.TOWERS.START_GOLD * 1000)
+        self.gold = Gold()
+        self.research = Research()
 
         self._load_map(tiled_name)
 
     def _load_map(self, tiled_name: str, init_logic=True):
         self.tiled_name = tiled_name
-        self.world = CLASSES.World.load(tiled_name)
+        self.world = World.load(tiled_name)
         self._scene = arcade.Scene.from_tilemap(self.world.map)
         if init_logic:
-            self.grid = CLASSES.Grid(int(self.world.height), int(self.world.width))
-            self.enemy_handler = CLASSES.EnemyHandler(self.world)
-            self.tower_handler = CLASSES.TowerHandler(self.world)
+            self.grid = Grid(int(self.world.height), int(self.world.width))
+            self.enemy_handler = EnemyHandler(self.world)
+            self.tower_handler = TowerHandler(self.world)
 
     def reload_map(self):
         self._load_map(self.tiled_name, init_logic=False)
 
-    def on_resize(self, width: int, height: int):
+    def on_resize(self, _width: int, _height: int):
         self.reload_map()
         self.grid.set_size(int(self.world.height), int(self.world.width))
 
@@ -80,7 +83,7 @@ class MapView(arcade.View):
             current_cell_row,
             current_cell_column,
             (
-                self.tower_handler.selected_type.size_tiles - 1
+                self.tower_handler.selected_type["size_tiles"] - 1
             ),  # -1 for finding intersections with another towers
         ):
             print(towers_around)
@@ -97,15 +100,15 @@ class MapView(arcade.View):
         # self.window.show_view(MapView())
         self.grid.on_hover(_x, _y)
 
-    def on_key_press(self, symbol, modifiers):
+    def on_key_press(self, symbol, _modifiers):
         """Called whenever a key is pressed."""
 
         # Quicksave | F5
         if symbol == arcade.key.F5:
-            CLASSES.GameData.write_data()
+            GameData.write_data()
         # Quickload | F6
         elif symbol == arcade.key.F6:
-            CLASSES.GameData.load_data()
+            GameData.load_data()
         # Stop music | M
         elif symbol == arcade.key.M:
             if self.bgm_player is not None:
