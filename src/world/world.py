@@ -1,6 +1,7 @@
 import arcade
 from pytiled_parser.tiled_object import Rectangle
-from src import const as C
+
+import src.const as C
 
 
 class World:
@@ -17,7 +18,9 @@ class World:
     @classmethod
     def load(cls, tiled_name: str) -> "World":
         scale = 1.25 * arcade.get_window().height / 720
-        return cls(arcade.load_tilemap(rf"resources/maps/{tiled_name}", scaling=scale))
+        return cls(
+            arcade.load_tilemap(C.WORLD.BASEPATH_MAPS / tiled_name, scaling=scale)
+        )
 
     @property
     def objects(self):
@@ -35,19 +38,19 @@ class World:
     def tile_size(self):
         return self.map.tile_width
 
-    def screen_to_grid(self, x: float, y: float) -> [int, int]:
+    def screen_to_grid(self, x: float, y: float) -> list[int, int]:
         return [x // self.tile_size, y // self.tile_size]
 
-    def grid_to_screen(self, row: int, column: int) -> [float, float]:
+    def grid_to_screen(self, row: int, column: int) -> list[float, float]:
         return [column * self.tile_size, row * self.tile_size]
 
-    def grid_to_tiled(self, row: int, column: int) -> [int, int]:
+    def grid_to_tiled(self, row: int, column: int) -> list[int, int]:
         """
         Tiled counts coordinates from top-left but arcade from bottom left
         """
         return [self.height - row - 1, column]  # weird math
 
-    def tiled_to_screen(self, x: float, y: float) -> [float, float]:
+    def tiled_to_screen(self, x: float, y: float) -> list[float, float]:
         return [
             (x // self.tile_size) * C.GRID.WIDTH,
             self.height * C.GRID.HEIGHT - (y // self.tile_size) * C.GRID.HEIGHT,

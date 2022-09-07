@@ -1,7 +1,9 @@
+from pathlib import Path
 from src.towers import *
 
 
 class TOWERS:
+    BASEPATH = Path("src/towers/sprites")
     RADIUS_BG_COLOR = (255, 255, 255, 64)
     SELECTED_OUTLINE_COLOR = (255, 255, 255, 255)
 
