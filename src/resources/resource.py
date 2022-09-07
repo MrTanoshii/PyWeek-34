@@ -20,6 +20,7 @@ class Resource:
 
     @classmethod
     def reset(cls):
+        """Reset the resource value to 0."""
         cls.value_current = 0
 
     @classmethod

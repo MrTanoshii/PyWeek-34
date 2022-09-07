@@ -1,6 +1,6 @@
 import json
 
-from src.classes import *
+from src.resources import *
 
 
 class GameData:
