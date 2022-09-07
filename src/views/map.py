@@ -3,6 +3,7 @@ import src.const as C
 import src.classes as CLASSES
 from src.audio import Audio
 from src.const import towers
+from src.audio import Audio
 
 
 class MapView(arcade.View):
@@ -25,7 +26,7 @@ class MapView(arcade.View):
         # Inherit parent class
         super().__init__()
         Audio.preload()
-        Audio.play("bgm_1")
+        self.bgm_player = Audio.play_random(["bgm_1", "bgm_2"])
 
         self.tiled_name = tiled_name
         self.label = label
@@ -89,7 +90,7 @@ class MapView(arcade.View):
             ):  # if it's possible to build one
                 self.grid.grid[current_cell_row][current_cell_column]["tower"] = tower
 
-        Audio.stop("bgm_1")
+        Audio.stop(self.bgm_player)
 
     def on_mouse_motion(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
