@@ -4,7 +4,7 @@ from functools import partial
 import src.const as C
 from .enemy import Enemy
 from src.world import *
-
+from .enemies import enemies
 
 class EnemyHandler:
     def __init__(self, world: World):
@@ -21,11 +21,10 @@ class EnemyHandler:
         position_list = self.spawners[0].path
         self.positions = position_list
 
-        for spd in range(1, 2):
+        for spd in range(10):
             enemy = Enemy(
                 position_list,
-                C.EMEMY.BASEPATH / "alien1.png",
-                speed=spd * 10,
+                **enemies[spd % len(enemies)]
             )
             enemy.center_x = position_list[0][0]
             enemy.center_y = position_list[0][1]
