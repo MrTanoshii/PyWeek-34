@@ -33,7 +33,6 @@ class Enemy(arcade.Sprite):
         self.slowed = False
 
     def update(self, delta_time: float):
-        print(delta_time)
         start_x = self.center_x
         start_y = self.center_y
 
@@ -73,7 +72,7 @@ class Enemy(arcade.Sprite):
                     ...
 
     def takeDamage(self, damage: int):
-        self.hp -= damage
-        if self.hp < 0:
+        self.hp_current -= damage
+        if self.hp_current < 0:
             self.remove_from_sprite_lists()
             # TODO PLAY SOUND?  Maybe add death sounds?
