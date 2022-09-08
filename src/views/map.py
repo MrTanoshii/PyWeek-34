@@ -9,7 +9,7 @@ from src.gamedata import *
 from src.resources import *
 from src.towers import *
 from src.world import *
-
+from src.enemy.enemies import enemies
 
 class MapView(arcade.View):
     """
@@ -208,3 +208,5 @@ class MapView(arcade.View):
                 self.bgm_player = None
             else:
                 self.bgm_player = Audio.play_random(["bgm_1", "bgm_2"])
+        elif symbol == arcade.key.S:
+            self.enemy_handler.send_wave(enemies[:], 5)
