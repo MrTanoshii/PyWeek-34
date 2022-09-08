@@ -71,7 +71,7 @@ class Enemy(arcade.Sprite):
                     #TODO TAKE AWAY ALL REMAINING PLAYER LIVES
                     ...
 
-    def takeDamage(self, damage: int):
+    def take_damage(self, damage: int):
         self.hp_current -= damage
         if self.hp_current < 0:
             self.remove_from_sprite_lists()
