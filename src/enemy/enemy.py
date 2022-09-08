@@ -32,8 +32,8 @@ class Enemy(arcade.Sprite):
         self.poisoned_duration = 0
         self.slowed = False
 
-    def update(self):
-
+    def update(self, delta_time: float):
+        print(delta_time)
         start_x = self.center_x
         start_y = self.center_y
 
@@ -53,8 +53,8 @@ class Enemy(arcade.Sprite):
         if self.slowed and distance > self.speed * 0.5:
             speed /= 2
 
-        change_x = math.cos(angle) * speed
-        change_y = math.sin(angle) * speed
+        change_x = math.cos(angle) * speed * delta_time
+        change_y = math.sin(angle) * speed * delta_time
 
         self.center_x += change_x
         self.center_y += change_y
@@ -76,4 +76,4 @@ class Enemy(arcade.Sprite):
         self.hp -= damage
         if self.hp < 0:
             self.remove_from_sprite_lists()
-            #TODO PLAY SOUND?  Maybe add death sounds?
+            # TODO PLAY SOUND?  Maybe add death sounds?
