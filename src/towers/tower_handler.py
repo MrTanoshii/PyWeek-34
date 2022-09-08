@@ -1,10 +1,12 @@
 import arcade
 from typing import Optional
+from time import time
 
 import src.const as C
 from .tower import Tower
+from src.enemy import Enemy
 from src.resources import *
-from src.world import *
+from src.world import World
 
 
 class TowerHandler:
@@ -60,8 +62,16 @@ class TowerHandler:
     def select_tower(self, tower: Tower):
         self.selected_tower = tower
 
-    def shoot(self, degree: float):
-        pass
+    def shoot(self, tower: Tower, enemy: Enemy):
+        if tower.last_fired + tower.attack_cooldown_sec <= time():
+            if enemy.flying:
+                enemy.take_damage(tower.damage_air)
+            else:
+                enemy.take_damage(tower.damage_ground)
+            tower.last_fired = time()
+            print(f"fired {tower.damage_ground}; now {enemy.hp_current} hp")
+        # TODO: add bullets animation
+        # TODO: splash damage
 
     def draw_radius(self, tower: Tower):
         arcade.draw_circle_filled(

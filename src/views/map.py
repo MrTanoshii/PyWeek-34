@@ -114,7 +114,6 @@ class MapView(arcade.View):
         columns = self.grid.columns_count
         for row in range(rows):
             for column in range(columns):
-
                 # get tower object from grid cell
                 tower = self.grid.grid[row][column]["tower"]
 
@@ -125,26 +124,29 @@ class MapView(arcade.View):
                 )  # TODO: add checking for splash tower
                 if target:
                     tower.angle = self.targeting.get_angle(tower, target)
+                    self.tower_handler.shoot(tower, target)
 
     def on_mouse_press(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
         current_cell_row, current_cell_column = self.grid.get_cell(_x, _y)
 
         # Check if there is tower in the grid already
-        if tower := self.grid.grid[current_cell_row][current_cell_column][
+        if base_tower := self.grid.grid[current_cell_row][current_cell_column][
             "base_tower"
         ]:  # if there's tower
-            self.tower_handler.select_tower(tower)
+            self.tower_handler.select_tower(base_tower)
             if C.DEBUG.MAP:
                 print(f"Tower Clicked at: {current_cell_row}, {current_cell_column}")
 
             # Try to upgrade / level up tower
-            if tower := self.tower_handler.buy_tower(
+            if new_tower := self.tower_handler.buy_tower(
                 current_cell_row,
                 current_cell_column,
                 tower_type=C.TOWERS.MG_TOWER,
             ):  # if it's possible to build one
-                self.grid.grid[current_cell_row][current_cell_column]["tower"] = tower
+                self.grid.grid[current_cell_row][current_cell_column][
+                    "tower"
+                ] = new_tower
 
         # Check if there is tower in the nearby grids blocking new tower
         elif towers_around := self.grid.get_towers_around(
@@ -161,14 +163,14 @@ class MapView(arcade.View):
         else:
 
             # Add new tower foundation / base tower
-            if tower := self.tower_handler.buy_tower(
+            if new_tower := self.tower_handler.buy_tower(
                 current_cell_row,
                 current_cell_column,
                 tower_type=C.TOWERS.BASE_TOWER,
             ):  # if it's possible to build one
                 self.grid.grid[current_cell_row][current_cell_column][
                     "base_tower"
-                ] = tower
+                ] = new_tower
 
             if C.DEBUG.MAP:
                 print(f"Creating base at: {current_cell_row}, {current_cell_column}")
@@ -195,8 +197,7 @@ class MapView(arcade.View):
         elif symbol == arcade.key.F6:
             GameData.load_data()
         # Reset Grids | R
-        elif symbol == arcade.key.R:
-            self.grid = None
+        elif symbol == arcade.key.R:  # why? there are some bugs with it
             self.grid = Grid(int(self.world.height), int(self.world.width))
         # Stop music | M
         elif symbol == arcade.key.M:
