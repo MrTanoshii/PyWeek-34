@@ -52,7 +52,7 @@ martian_grinch = {
 }
 martian_unicorn = {
     "hp": 120,
-    "speed": 130
+    "speed": 130,
     "flying": False,
     "boss": False,
     "gold_drop": 20,
