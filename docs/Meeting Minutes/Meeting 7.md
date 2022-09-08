@@ -6,9 +6,9 @@
 
 Scheduled Time: 08/09/2022 1700 [UTC]
 
-Meeting Time:
+Meeting Time: 08/09/2022 1715-1900 [UTC]
 
-Attendance:
+Attendance: Gamerssassin, Mihett, VLYK, Yodag
 
 ---
 
@@ -26,3 +26,10 @@ Scheduled Time: 09/09/2022 1700 [UTC]
 ---
 
 ## Discussion
+
+-   Merged all PRs
+-   Walruses
+-   Mihett said "Rrrrrr"
+-   Gamerssassin doesn't Inshallah everyone
+-   Milaya == Cute in Ruski
+-   Milaska == Cutie in Ruski
