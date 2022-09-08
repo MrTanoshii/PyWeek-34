@@ -67,13 +67,13 @@ class Enemy(arcade.Sprite):
             self.cur_position += 1
             if self.cur_position >= len(self.position_list):
                 self.remove_from_sprite_lists()
-                #TODO TAKE AWAY PLAYER LIFE
+                # TODO TAKE AWAY PLAYER LIFE
                 if self.boss:
-                    #TODO TAKE AWAY ALL REMAINING PLAYER LIVES
+                    # TODO TAKE AWAY ALL REMAINING PLAYER LIVES
                     ...
 
     def takeDamage(self, damage: int):
         self.hp -= damage
         if self.hp < 0:
             self.remove_from_sprite_lists()
-            #TODO PLAY SOUND?  Maybe add death sounds?
+            # TODO PLAY SOUND?  Maybe add death sounds?

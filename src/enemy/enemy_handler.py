@@ -6,6 +6,7 @@ from .enemy import Enemy
 from src.world import *
 from .enemies import enemies
 
+
 class EnemyHandler:
     def __init__(self, world: World):
         """Constructor.
@@ -24,7 +25,7 @@ class EnemyHandler:
         for spd in range(10):
             enemy = Enemy(
                 position_list,
-                **enemies[spd % len(enemies)]
+                **enemies[spd % len(enemies)],
             )
             enemy.center_x = position_list[0][0]
             enemy.center_y = position_list[0][1]

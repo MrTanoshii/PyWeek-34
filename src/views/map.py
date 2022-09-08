@@ -87,6 +87,7 @@ class MapView(arcade.View):
             self.grid = Grid(int(self.world.height), int(self.world.width))
             self.enemy_handler = EnemyHandler(self.world)
             self.tower_handler = TowerHandler(self.world)
+            self.targeting = Targeting(self.world, self.enemy_handler)
 
     def reload_map(self):
         self._load_map(self.tiled_name, init_logic=False)
@@ -105,7 +106,7 @@ class MapView(arcade.View):
         self.grid.on_draw()
         self.tower_handler.on_draw()
         self.enemy_handler.on_draw()
-        # self.manager.draw()
+        self.manager.draw()
 
     def on_update(self, delta_time: float):
         self.enemy_handler.on_update(delta_time)
@@ -119,8 +120,11 @@ class MapView(arcade.View):
 
                 if not tower:
                     continue
-
-                tower.angle += 1
+                target = self.targeting.get_single_target(
+                    tower, C.TARGETING.closest_target, C.TARGETING.ground_target
+                )  # TODO: add checking for splash tower
+                if target:
+                    tower.angle = self.targeting.get_angle(tower, target)
 
     def on_mouse_press(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
@@ -171,7 +175,8 @@ class MapView(arcade.View):
 
         if C.DEBUG.MAP:
             print(
-                f"Cell at [{current_cell_row}, {current_cell_column}] contains {self.grid.grid[current_cell_row][current_cell_column]}"
+                f"Cell at [{current_cell_row}, {current_cell_column}] contains "
+                f"{self.grid.grid[current_cell_row][current_cell_column]}"
             )
 
     def on_mouse_motion(self, _x, _y, _button, _modifiers):
