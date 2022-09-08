@@ -34,4 +34,6 @@ class EnemyHandler:
         self.enemy_list.draw()
 
     def on_update(self, delta_time: float):
-        self.enemy_list.update()
+        for enemy in self.enemy_list:
+            enemy.update(delta_time)
+
