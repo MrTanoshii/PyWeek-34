@@ -29,11 +29,19 @@ class Enemy(arcade.Sprite):
 
         self.cur_position = 0
         self.poisoned = False
-        self.poisoned_damage = 0
+        self.poisoned_damage = 0 # per second damage
         self.poisoned_duration = 0
         self.slowed = False
 
     def update(self, delta_time: float):
+
+        if self.poisoned:
+            self.take_damage(self.poisoned_damage * delta_time)
+            self.poisoned_duration -= delta_time
+            if self.poisoned_damage <= 0:
+                self.poisoned = False
+                self.poisoned_damage = 0
+
         start_x = self.center_x
         start_y = self.center_y
 
@@ -52,7 +60,6 @@ class Enemy(arcade.Sprite):
         speed = min(self.speed, distance)
         if self.slowed and distance > self.speed * 0.5:
             speed /= 2
-
         change_x = math.cos(angle) * speed * delta_time
         change_y = math.sin(angle) * speed * delta_time
 
@@ -63,7 +70,7 @@ class Enemy(arcade.Sprite):
             (self.center_x - dest_x) ** 2 + (self.center_y - dest_y) ** 2
         )
 
-        if distance <= self.speed:
+        if distance <= self.speed / 2:
             self.cur_position += 1
             if self.cur_position >= len(self.position_list):
                 self.remove_from_sprite_lists()
