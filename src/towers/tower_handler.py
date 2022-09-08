@@ -2,10 +2,10 @@ import arcade
 from typing import Optional
 
 import src.const as C
-from .tower import Tower
-from src.enemy import Enemy
+from .tower import *
+from src.enemy import *
 from src.resources import *
-from src.world import World
+from src.world import *
 
 
 class TowerHandler:

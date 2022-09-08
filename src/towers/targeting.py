@@ -1,8 +1,8 @@
 import arcade
 import math
 from typing import List, Callable, Tuple, Optional
-from src.enemy import EnemyHandler, Enemy
-from src.world import World
+from src.enemy import *
+from src.world import *
 from .tower import Tower
 
 

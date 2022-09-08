@@ -1,7 +1,7 @@
-from typing import List, Tuple, Optional
+from typing import Tuple
 from functools import partial
 from operator import itemgetter, attrgetter
-from enemy import Enemy
+from src.enemy import *
 
 
 class TARGETING:
