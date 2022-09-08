@@ -38,7 +38,7 @@ class World:
     def tile_size(self):
         return self.map.tile_width
 
-    def screen_to_grid(self, x: float, y: float) -> list[int, int]:
+    def screen_to_grid(self, x: float, y: float) -> list[float, float]:
         return [x // self.tile_size, y // self.tile_size]
 
     def grid_to_screen(self, row: int, column: int) -> list[float, float]:

@@ -1,6 +1,7 @@
 import arcade
 import math
 import src.const as C
+from src.resources import Gold
 
 
 class Enemy(arcade.Sprite):
@@ -76,5 +77,6 @@ class Enemy(arcade.Sprite):
         self.hp_current -= damage
         if self.hp_current < 0:
             self.remove_from_sprite_lists()
+            Gold().increment(self.gold_drop)
             # TODO PLAY SOUND?  Maybe add death sounds?
             # TODO: add health bar
