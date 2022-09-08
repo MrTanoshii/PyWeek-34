@@ -50,7 +50,7 @@ class TowerHandler:
             if C.DEBUG.MAP:
                 print(
                     f"{C.BCOLORS.WARNING}Warning: Not enough gold for new tower, "
-                    f"You need {Gold.get() - self.selected_type['gold_cost'] *-1} more gold. {C.BCOLORS.ENDC}"
+                    f"You need {(Gold.get() - self.selected_type['gold_cost']) * -1} more gold. {C.BCOLORS.ENDC}"
                 )
             return  # TODO: not enough gold message
 
