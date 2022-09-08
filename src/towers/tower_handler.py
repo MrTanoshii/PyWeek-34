@@ -2,7 +2,8 @@ import arcade
 from typing import Optional
 
 import src.const as C
-from .tower import Tower
+from .tower import *
+from src.enemy import *
 from src.resources import *
 from src.world import *
 
@@ -18,10 +19,10 @@ class TowerHandler:
         self.world = world
 
     @staticmethod
-    def build_tower(tower_type: type) -> Tower:
+    def build_tower(tower_type: dict) -> Tower:
         return Tower(tower_type)
 
-    def buy_tower(self, row: int, column: int, tower_type: type) -> Optional[Tower]:
+    def buy_tower(self, row: int, column: int, tower_type: dict) -> Optional[Tower]:
         self.selected_type = tower_type
 
         # TODO: check researches
@@ -64,7 +65,7 @@ class TowerHandler:
         tower.center_x = (column + 1) * C.GRID.HEIGHT
 
         Gold.increment(-tower.gold_cost)
-        Gold.increment(-tower.research_cost)
+        # Research.increment(-tower.research_cost)  # TODO: it shouldn't be like this
         self.selected_tower = tower
 
         return tower
@@ -72,8 +73,15 @@ class TowerHandler:
     def select_tower(self, tower: Tower):
         self.selected_tower = tower
 
-    def shoot(self, degree: float):
-        pass
+    def shoot(self, tower: Tower, enemy: Enemy):
+        if tower.cooldown <= 0:
+            if enemy.flying:
+                enemy.take_damage(tower.damage_air)
+            else:
+                enemy.take_damage(tower.damage_ground)
+            tower.cooldown = tower.attack_cooldown_sec
+        # TODO: add bullets animation
+        # TODO: splash damage
 
     def draw_radius(self, tower: Tower):
         arcade.draw_circle_filled(

@@ -22,7 +22,7 @@ class Spawner:
                 return [obj] + self.get_path(next_objects[0])
         return [obj]
 
-    def calculate_path_to_finish(self) -> List[Tuple[int, int]]:
+    def calculate_path_to_finish(self) -> List[List[float]]:
         return list(
             map(
                 lambda x: self.world.tiled_to_screen(x.coordinates.x, x.coordinates.y),

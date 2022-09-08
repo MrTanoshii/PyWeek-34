@@ -1,6 +1,7 @@
 import arcade
 import math
 import src.const as C
+from src.resources import *
 
 
 class Enemy(arcade.Sprite):
@@ -71,8 +72,10 @@ class Enemy(arcade.Sprite):
                     # TODO TAKE AWAY ALL REMAINING PLAYER LIVES
                     ...
 
-    def take_damage(self, damage: int):
+    def take_damage(self, damage: float):
         self.hp_current -= damage
         if self.hp_current < 0:
             self.remove_from_sprite_lists()
+            Gold().increment(self.gold_drop)
             # TODO PLAY SOUND?  Maybe add death sounds?
+            # TODO: add health bar

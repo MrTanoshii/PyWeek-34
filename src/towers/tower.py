@@ -47,6 +47,7 @@ class Tower(arcade.Sprite):
         self.research_cost: int = tower_type["research_cost"]
 
         self.attack_cooldown_sec: float = tower_type["attack_cooldown_sec"]
+        self.cooldown: float = 0
         self.radius: float = tower_type["radius"]
         self.radius_splash: float = tower_type["radius_splash"]
 

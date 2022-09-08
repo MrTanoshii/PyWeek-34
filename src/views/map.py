@@ -87,6 +87,7 @@ class MapView(arcade.View):
             self.grid = Grid(int(self.world.height), int(self.world.width))
             self.enemy_handler = EnemyHandler(self.world)
             self.tower_handler = TowerHandler(self.world)
+            self.targeting = Targeting(self.world, self.enemy_handler)
 
     def reload_map(self):
         self._load_map(self.tiled_name, init_logic=False)
@@ -105,7 +106,7 @@ class MapView(arcade.View):
         self.grid.on_draw()
         self.tower_handler.on_draw()
         self.enemy_handler.on_draw()
-        # self.manager.draw()
+        self.manager.draw()
 
     def on_update(self, delta_time: float):
         self.enemy_handler.on_update(delta_time)
@@ -113,34 +114,41 @@ class MapView(arcade.View):
         columns = self.grid.columns_count
         for row in range(rows):
             for column in range(columns):
-
                 # get tower object from grid cell
                 tower = self.grid.grid[row][column]["tower"]
 
                 if not tower:
                     continue
-
-                tower.angle += 1
+                if tower.cooldown > 0:
+                    tower.cooldown -= delta_time
+                target = self.targeting.get_single_target(
+                    tower, C.TARGETING.closest_target, C.TARGETING.ground_target
+                )  # TODO: add checking for splash tower
+                if target:
+                    tower.angle = self.targeting.get_angle(tower, target)
+                    self.tower_handler.shoot(tower, target)
 
     def on_mouse_press(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
         current_cell_row, current_cell_column = self.grid.get_cell(_x, _y)
 
         # Check if there is tower in the grid already
-        if tower := self.grid.grid[current_cell_row][current_cell_column][
+        if base_tower := self.grid.grid[current_cell_row][current_cell_column][
             "base_tower"
         ]:  # if there's tower
-            self.tower_handler.select_tower(tower)
+            self.tower_handler.select_tower(base_tower)
             if C.DEBUG.MAP:
                 print(f"Tower Clicked at: {current_cell_row}, {current_cell_column}")
 
             # Try to upgrade / level up tower
-            if tower := self.tower_handler.buy_tower(
+            if new_tower := self.tower_handler.buy_tower(
                 current_cell_row,
                 current_cell_column,
                 tower_type=C.TOWERS.MG_TOWER,
             ):  # if it's possible to build one
-                self.grid.grid[current_cell_row][current_cell_column]["tower"] = tower
+                self.grid.grid[current_cell_row][current_cell_column][
+                    "tower"
+                ] = new_tower
 
         # Check if there is tower in the nearby grids blocking new tower
         elif towers_around := self.grid.get_towers_around(
@@ -157,21 +165,22 @@ class MapView(arcade.View):
         else:
 
             # Add new tower foundation / base tower
-            if tower := self.tower_handler.buy_tower(
+            if new_tower := self.tower_handler.buy_tower(
                 current_cell_row,
                 current_cell_column,
                 tower_type=C.TOWERS.BASE_TOWER,
             ):  # if it's possible to build one
                 self.grid.grid[current_cell_row][current_cell_column][
                     "base_tower"
-                ] = tower
+                ] = new_tower
 
             if C.DEBUG.MAP:
                 print(f"Creating base at: {current_cell_row}, {current_cell_column}")
 
         if C.DEBUG.MAP:
             print(
-                f"Cell at [{current_cell_row}, {current_cell_column}] contains {self.grid.grid[current_cell_row][current_cell_column]}"
+                f"Cell at [{current_cell_row}, {current_cell_column}] contains "
+                f"{self.grid.grid[current_cell_row][current_cell_column]}"
             )
 
     def on_mouse_motion(self, _x, _y, _button, _modifiers):
@@ -190,8 +199,7 @@ class MapView(arcade.View):
         elif symbol == arcade.key.F6:
             GameData.load_data()
         # Reset Grids | R
-        elif symbol == arcade.key.R:
-            self.grid = None
+        elif symbol == arcade.key.R:  # why? there are some bugs with it
             self.grid = Grid(int(self.world.height), int(self.world.width))
         # Stop music | M
         elif symbol == arcade.key.M:
