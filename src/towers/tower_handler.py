@@ -30,15 +30,27 @@ class TowerHandler:
         if not self.world.is_fitting_borders(
             row, column, self.selected_type["size_tiles"]
         ):  # checking if tower doesn't go beyond the window borders
+            if C.DEBUG.MAP:
+                print(
+                    f"{C.BCOLORS.WARNING}Warning: Tower cannot be placed outside window. {C.BCOLORS.ENDC}"
+                )
             return
 
         if self.world.is_tile_overlapping(
             row, column, self.selected_type["size_tiles"]
         ):  # isn't placed on a road
-            print("Warning: Tower cannot be placed on road")
+            if C.DEBUG.MAP:
+                print(
+                    f"{C.BCOLORS.WARNING}Warning: Tower cannot be placed on road. {C.BCOLORS.ENDC}"
+                )
             return  # TODO: placed on road message
 
         if Gold.get() - self.selected_type["gold_cost"] < 0:  # checking gold
+            if C.DEBUG.MAP:
+                print(
+                    f"{C.BCOLORS.WARNING}Warning: Not enough gold for new tower, "
+                    f"You need {Gold.get() - self.selected_type['gold_cost'] *-1} more gold. {C.BCOLORS.ENDC}"
+                )
             return  # TODO: not enough gold message
 
         # TODO: check researches

@@ -8,3 +8,4 @@ from .settings import *
 from .towers import *
 from .views import *
 from .world import *
+from .bcolors import *
