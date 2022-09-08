@@ -6,11 +6,10 @@ from src.audio import *
 from src.const import *
 from src.enemy import *
 from src.gamedata import *
+from src.gui import *
 from src.resources import *
 from src.towers import *
 from src.world import *
-from src.enemy.enemies import enemies
-from src.gui import GUI
 
 
 class MapView(arcade.View):
