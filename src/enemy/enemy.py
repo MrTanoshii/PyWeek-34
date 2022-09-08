@@ -77,3 +77,4 @@ class Enemy(arcade.Sprite):
         if self.hp_current < 0:
             self.remove_from_sprite_lists()
             # TODO PLAY SOUND?  Maybe add death sounds?
+            # TODO: add health bar

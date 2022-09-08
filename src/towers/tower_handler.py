@@ -1,6 +1,5 @@
 import arcade
 from typing import Optional
-from time import time
 
 import src.const as C
 from .tower import Tower
@@ -63,13 +62,12 @@ class TowerHandler:
         self.selected_tower = tower
 
     def shoot(self, tower: Tower, enemy: Enemy):
-        if tower.last_fired + tower.attack_cooldown_sec <= time():
+        if tower.cooldown <= 0:
             if enemy.flying:
                 enemy.take_damage(tower.damage_air)
             else:
                 enemy.take_damage(tower.damage_ground)
-            tower.last_fired = time()
-            print(f"fired {tower.damage_ground}; now {enemy.hp_current} hp")
+            tower.cooldown = tower.attack_cooldown_sec
         # TODO: add bullets animation
         # TODO: splash damage
 

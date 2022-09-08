@@ -119,6 +119,8 @@ class MapView(arcade.View):
 
                 if not tower:
                     continue
+                if tower.cooldown > 0:
+                    tower.cooldown -= delta_time
                 target = self.targeting.get_single_target(
                     tower, C.TARGETING.closest_target, C.TARGETING.ground_target
                 )  # TODO: add checking for splash tower
