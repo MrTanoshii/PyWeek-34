@@ -1,4 +1,5 @@
 from .audio import *
+from .bcolors import *
 from .debug import *
 from .enemy import *
 from .grid import *
@@ -6,6 +7,6 @@ from .research_tree import *
 from .resources import *
 from .settings import *
 from .towers import *
+from .targeting import *
 from .views import *
 from .world import *
-from .targeting import *
