@@ -1,5 +1,6 @@
 import arcade
 import math
+import src.const as C
 
 
 class Enemy(arcade.Sprite):
@@ -11,24 +12,24 @@ class Enemy(arcade.Sprite):
         hp: int = 100,
         speed: float = 10,
         gold_drop: int = 0,
-        armor_type=None,
         flying: bool = False,
         boss: bool = False,
     ):
-
-        super().__init__(image, scale)
+        image_path = C.EMEMY.BASEPATH / image
+        super().__init__(image_path, scale)
 
         self.position_list = position_list
         self.hp_current = hp
         self.hp_max = hp
         self.speed = speed
         self.gold_drop = gold_drop
-        self.armor_type = armor_type
         self.flying = flying
         self.boss = boss
 
         self.cur_position = 0
         self.poisoned = False
+        self.poisoned_damage = 0
+        self.poisoned_duration = 0
         self.slowed = False
 
     def update(self):
@@ -65,7 +66,14 @@ class Enemy(arcade.Sprite):
         if distance <= self.speed:
             self.cur_position += 1
             if self.cur_position >= len(self.position_list):
-                self.cur_position = 0
-                # enemy has reached destination
-                # take away hps from player
-                ...
+                self.remove_from_sprite_lists()
+                #TODO TAKE AWAY PLAYER LIFE
+                if self.boss:
+                    #TODO TAKE AWAY ALL REMAINING PLAYER LIVES
+                    ...
+
+    def takeDamage(self, damage: int):
+        self.hp -= damage
+        if self.hp < 0:
+            self.remove_from_sprite_lists()
+            #TODO PLAY SOUND?  Maybe add death sounds?
