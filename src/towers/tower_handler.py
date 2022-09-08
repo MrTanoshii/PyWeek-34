@@ -53,7 +53,7 @@ class TowerHandler:
         tower.center_x = (column + 1) * C.GRID.HEIGHT
 
         Gold.increment(-tower.gold_cost)
-        Gold.increment(-tower.research_cost)  # TODO: it shouldn't be like this
+        # Research.increment(-tower.research_cost)  # TODO: it shouldn't be like this
         self.selected_tower = tower
 
         return tower
