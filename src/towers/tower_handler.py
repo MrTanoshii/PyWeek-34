@@ -18,6 +18,10 @@ class TowerHandler:
         self.selected_tower: Optional[Tower] = None
         self.world = world
 
+    @property
+    def is_removing(self):
+        return self.selected_type == C.TOWERS.REMOVE_TOWER
+
     @staticmethod
     def build_tower(tower_type: dict) -> Tower:
         return Tower(tower_type)

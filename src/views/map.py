@@ -71,6 +71,8 @@ class MapView(arcade.View):
         self.tower_handler.on_draw()
         self.enemy_handler.on_draw()
         self.gui.manager.draw()
+        self.gold.draw()
+        self.gui.draw_tower_selection()
 
     def on_update(self, delta_time: float):
         self.gui.manager.on_update(delta_time)
@@ -103,6 +105,10 @@ class MapView(arcade.View):
         if base_tower := self.grid.grid[current_cell_row][current_cell_column][
             "base_tower"
         ]:  # if there's tower
+            if self.tower_handler.is_removing:
+                self.remove_tower(current_cell_row, current_cell_column)
+                return
+
             self.tower_handler.select_tower(base_tower)
             if C.DEBUG.MAP:
                 print(f"Tower Clicked at: {current_cell_row}, {current_cell_column}")
@@ -125,11 +131,19 @@ class MapView(arcade.View):
                 C.TOWERS.BASE_TOWER["size_tiles"] - 1
             ),  # -1 for finding intersections with another towers
         ):
+            if self.tower_handler.is_removing:
+                row_to_delete, column_to_delete = self.grid.get_cell(
+                    towers_around[0].center_x, towers_around[0].center_y
+                )  # kurwa
+                self.remove_tower(row_to_delete, column_to_delete)
+                return
 
             if C.DEBUG.MAP:
                 print(f"Tower blocking at: {current_cell_row}, {current_cell_column}")
             self.tower_handler.select_tower(towers_around[0])
         else:
+            if self.tower_handler.is_removing:
+                return
 
             # Add new tower foundation / base tower
             if new_tower := self.tower_handler.buy_tower(
@@ -175,3 +189,8 @@ class MapView(arcade.View):
                 self.bgm_player = None
             else:
                 self.bgm_player = Audio.play_random(["bgm_1", "bgm_2"])
+
+    def remove_tower(self, row: int, column: int):
+        self.grid.grid[row][column]["tower"] = None
+        self.grid.grid[row][column]["base_tower"] = None
+        self.tower_handler.select_tower(None)
