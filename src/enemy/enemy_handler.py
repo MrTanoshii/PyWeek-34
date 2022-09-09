@@ -3,6 +3,7 @@ from functools import partial
 from operator import itemgetter
 
 import src.const as C
+from world import World
 from .enemy import Enemy
 from src.world import *
 from .enemies import enemies
