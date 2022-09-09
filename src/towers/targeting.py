@@ -1,3 +1,5 @@
+from typing import Optional
+
 from typing import Callable
 from src.enemy import *
 from src.world import *
