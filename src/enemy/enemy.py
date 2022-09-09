@@ -94,6 +94,7 @@ class Enemy(arcade.Sprite):
             # TODO PLAY SOUND?  Maybe add death sounds?
             # TODO: add health bar
 
+
 class HealthBar(arcade.Sprite):
     def __init__(self, enemy):
         super().__init__()
@@ -103,7 +104,22 @@ class HealthBar(arcade.Sprite):
     def draw(self):
         enemy_hp = self.enemy.hp_current / self.enemy.hp_max
         enemy_hp_removed = 1 - enemy_hp
-        life_end = self.enemy.right - ((self.enemy.right - self.enemy.left) * enemy_hp_removed)
-        arcade.draw_line(self.enemy.left, self.enemy.bottom, self.enemy.right, self.enemy.bottom, arcade.color.RED, line_width=5)
-        arcade.draw_line(self.enemy.left, self.enemy.bottom, life_end, self.enemy.bottom, arcade.color.GREEN,
-                         line_width=5)
+        life_end = self.enemy.right - (
+            (self.enemy.right - self.enemy.left) * enemy_hp_removed
+        )
+        arcade.draw_line(
+            self.enemy.left,
+            self.enemy.bottom,
+            self.enemy.right,
+            self.enemy.bottom,
+            arcade.color.RED,
+            line_width=5,
+        )
+        arcade.draw_line(
+            self.enemy.left,
+            self.enemy.bottom,
+            life_end,
+            self.enemy.bottom,
+            arcade.color.GREEN,
+            line_width=5,
+        )
