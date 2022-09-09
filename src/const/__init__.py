@@ -3,6 +3,7 @@ from .bcolors import *
 from .debug import *
 from .enemy import *
 from .grid import *
+from .gui import *
 from .research_tree import *
 from .resources import *
 from .settings import *
@@ -11,4 +12,3 @@ from .targeting import *
 from .views import *
 from .world import *
 from .waves import *
-from .gui import *
