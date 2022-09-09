@@ -1,5 +1,6 @@
 import arcade
 from functools import partial
+from operator import itemgetter
 
 import src.const as C
 from .enemy import Enemy
@@ -19,7 +20,9 @@ class EnemyHandler:
         self.world = world
         self.spawners = list(map(partial(Spawner, world), self.world.spawners))
 
-        position_list = self.spawners[0].path
+        position_list = self.spawners[
+            0
+        ].path  # TODO: spawning enemies in multiple spawners, should we?
         self.positions = position_list
 
         self.wave = []
@@ -40,7 +43,13 @@ class EnemyHandler:
             if self.time_to_next_spawn < 0:
                 self.time_to_next_spawn = self.time_between_spawns
                 # pop enemy out of wave list
-                new_enemy_dict = self.wave.pop(0)
+                current_quota = self.wave[0]
+                new_enemy_dict = current_quota[0]
+                current_quota[1] -= 1
+                if current_quota[1] <= 0:
+                    self.wave.pop(0)
+                    if not self.wave:
+                        pass  # TODO: wave ended message
                 # place enemy at first spawn
                 new_enemy = Enemy(
                     self.positions,
@@ -51,7 +60,7 @@ class EnemyHandler:
 
                 self.enemy_list.append(new_enemy)
 
-    def send_wave(self, wave:list[Enemy], duration:float):
+    def send_wave(self, wave: list, duration: float):
         self.wave = wave
-        self.time_between_spawns = duration / len(wave)
+        self.time_between_spawns = duration / sum(map(itemgetter(1), wave))
         self.time_to_next_spawn = self.time_between_spawns

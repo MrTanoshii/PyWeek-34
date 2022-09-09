@@ -34,7 +34,7 @@ class Enemy(arcade.Sprite):
 
         self.cur_position = 0
         self.poisoned = False
-        self.poisoned_damage = 0 # per second damage
+        self.poisoned_damage = 0  # per second damage
         self.poisoned_duration = 0
         self.slowed = False
 
