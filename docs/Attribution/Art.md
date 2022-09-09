@@ -41,4 +41,6 @@ https://creativecommons.org/publicdomain/zero/1.0/
 Licensed under Creative Commons: CC0 1.0
 https://creativecommons.org/publicdomain/zero/1.0/
 
-"Nihil Ace Spaceship Pack Expansion" Nihil Ace (https://opengameart.org/content/nihil-ace-spaceship-building-pack-expansion) Licensed under Creative Commons: CC0 1.0 https://creativecommons.org/publicdomain/zero/1.0/
+"Lucifer Desert Tileset" FoozleCC (https://foozlecc.itch.io/lucifer-desert-tileset)
+Licensed under Creative Commons: CC0 1.0
+https://creativecommons.org/publicdomain/zero/1.0/

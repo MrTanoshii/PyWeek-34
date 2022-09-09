@@ -8,6 +8,51 @@
         "."
     ],
     "fileStates": {
+        "#Desert Tileset": {
+            "scaleInDock": 1
+        },
+        "draft_level_1.json": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 511,
+                "y": 287
+            }
+        },
+        "draft_level_1.json#Desert Tileset": {
+            "scaleInDock": 1
+        },
+        "draft_level_2.json": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 508,
+                "y": 245
+            }
+        },
+        "draft_level_2.json#Desert Tileset": {
+            "scaleInDock": 1
+        },
+        "draft_level_secret.json": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 565,
+                "y": 173
+            }
+        },
+        "draft_level_secret.json#Desert Tileset": {
+            "scaleInDock": 1
+        },
         "floortileset.tsx": {
             "scaleInDock": 1
         },
@@ -18,8 +63,8 @@
             "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 595.6666666666666,
-                "y": 332.6666666666667
+                "x": 496,
+                "y": 16
             }
         },
         "test_map_2.tmj": {
@@ -45,11 +90,12 @@
             "scale": 0.954638671875,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 511.71193289345814,
+                "x": 512.2356912689887,
                 "y": 287.0195897908035
             }
         }
     },
+    "last.imagePath": "C:/Users/Vincent/Desktop/GitHub/PyWeek-34/src/world/maps/sprites/Foozle_2DT0010_Lucifer_Desert_Tileset_Pixel_Art",
     "map.height": 18,
     "map.lastUsedFormat": "json",
     "map.width": 32,
@@ -59,9 +105,10 @@
     "project": "maps.tiled-project",
     "property.type": "object",
     "recentFiles": [
-        "test_map_4.json",
         "test_map_2.json",
+        "test_map_4.json",
         "test_map_3.json",
         "test_map_2.tmj"
-    ]
+    ],
+    "tileset.embedInMap": true
 }
