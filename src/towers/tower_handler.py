@@ -1,11 +1,8 @@
-import arcade
 from typing import Optional
 
-import src.const as C
-from .tower import *
+from world import World
 from src.enemy import *
 from src.resources import *
-from src.world import *
 
 
 class TowerHandler:
@@ -52,7 +49,6 @@ class TowerHandler:
             if C.DEBUG.MAP:
                 print(
                     f"{C.BCOLORS.WARNING}Warning: Not enough gold for new tower, "
-
                     f"You need {Gold.get() - tower_type['gold_cost'] *-1} more gold. {C.BCOLORS.ENDC}"
                 )
             return  # TODO: not enough gold message
