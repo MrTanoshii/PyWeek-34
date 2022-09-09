@@ -1,3 +1,5 @@
+import random
+
 import arcade
 import math
 import src.const as C
@@ -15,7 +17,9 @@ class Enemy(arcade.Sprite):
         gold_drop: int = 0,
         flying: bool = False,
         boss: bool = False,
+        wobble: list[int] = [0, 0],
     ):
+
         image_path = C.EMEMY.BASEPATH / image
         super().__init__(image_path, scale)
 
@@ -26,14 +30,24 @@ class Enemy(arcade.Sprite):
         self.gold_drop = gold_drop
         self.flying = flying
         self.boss = boss
+        self.wobble = wobble
 
         self.cur_position = 0
         self.poisoned = False
-        self.poisoned_damage = 0
+        self.poisoned_damage = 0  # per second damage
         self.poisoned_duration = 0
         self.slowed = False
 
     def update(self, delta_time: float):
+
+        if self.poisoned:
+            self.take_damage(self.poisoned_damage * delta_time)
+            self.poisoned_duration -= delta_time
+            if self.poisoned_duration <= 0:
+                self.poisoned_duration = 0
+                self.poisoned_damage = 0
+                self.poisoned = False
+
         start_x = self.center_x
         start_y = self.center_y
 
@@ -52,18 +66,17 @@ class Enemy(arcade.Sprite):
         speed = min(self.speed, distance)
         if self.slowed and distance > self.speed * 0.5:
             speed /= 2
-
         change_x = math.cos(angle) * speed * delta_time
         change_y = math.sin(angle) * speed * delta_time
 
-        self.center_x += change_x
-        self.center_y += change_y
-
+        wobble = self.wobble
+        self.center_x += change_x + ((random.random() * wobble[0] * 2) - wobble[0])
+        self.center_y += change_y + ((random.random() * wobble[1] * 2) - wobble[1])
         distance = math.sqrt(
             (self.center_x - dest_x) ** 2 + (self.center_y - dest_y) ** 2
         )
 
-        if distance <= self.speed:
+        if distance <= self.speed / 2:
             self.cur_position += 1
             if self.cur_position >= len(self.position_list):
                 self.remove_from_sprite_lists()

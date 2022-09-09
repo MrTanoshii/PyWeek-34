@@ -58,6 +58,7 @@ martian_unicorn = {
     "gold_drop": 20,
     "image": "alien2.png",
     "scale": 0.5,
+    "wobble": [3, 3],
 }
 martian_flying_snake = {
     "hp": 60,

@@ -1,6 +1,6 @@
-import arcade
-import math
-from typing import List, Callable, Tuple, Optional
+from typing import Optional
+
+from typing import Callable
 from src.enemy import *
 from src.world import *
 from .tower import Tower
