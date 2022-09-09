@@ -1,8 +1,10 @@
 from typing import Optional
 
+from towers import Tower
 from world import World
 from src.enemy import *
 from src.resources import *
+from bullet import Bullet
 
 
 class TowerHandler:
@@ -82,6 +84,13 @@ class TowerHandler:
             else:
                 enemy.take_damage(tower.damage_ground)
             tower.cooldown = tower.attack_cooldown_sec
+
+        bullet = Bullet(
+            tower.radius,
+            tower.center_x,
+            tower.center_y,
+        )
+        Bullet.bullet_list.append(bullet)
         # TODO: add bullets animation
         # TODO: splash damage
 
