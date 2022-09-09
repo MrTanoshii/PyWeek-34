@@ -2,6 +2,7 @@ import arcade
 import arcade.gui
 
 import src.const as C
+from bullet import Bullet
 from src.audio import *
 from src.const import *
 from src.enemy import *
@@ -70,6 +71,7 @@ class MapView(arcade.View):
         self.grid.on_draw()
         self.tower_handler.on_draw()
         self.enemy_handler.on_draw()
+        Bullet.on_draw()  # Draw bullets
         self.gui.manager.draw()
         self.gold.draw()
         self.gui.draw_tower_selection()
@@ -77,6 +79,7 @@ class MapView(arcade.View):
     def on_update(self, delta_time: float):
         self.gui.manager.on_update(delta_time)
         self.enemy_handler.on_update(delta_time)
+        Bullet.on_update(delta_time)  # Update bullets
         rows = self.grid.rows_count
         columns = self.grid.columns_count
         for row in range(rows):

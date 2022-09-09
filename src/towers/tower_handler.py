@@ -89,6 +89,8 @@ class TowerHandler:
             tower.radius,
             tower.center_x,
             tower.center_y,
+            _dest_x=0,
+            _dest_y=0,
         )
         Bullet.bullet_list.append(bullet)
         # TODO: add bullets animation

@@ -1,1 +1,1 @@
-from .map import *
+from .bullet import *
