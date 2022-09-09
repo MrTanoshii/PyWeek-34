@@ -22,7 +22,9 @@ def main():
     # icon = pyglet.image.load("src/resources/images/cursor.png")
     # window.set_icon(icon)
 
-    map_view = MapView("test_map_5.json", "123")
+    # map_view = MapView("draft_level_1.json", "Level 1")
+    # map_view = MapView("draft_level_2.json", "Level 2")
+    map_view = MapView("draft_level_secret.json", "Secret Level")
     window.show_view(map_view)
     arcade.run()
 

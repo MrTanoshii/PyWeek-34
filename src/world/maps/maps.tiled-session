@@ -3,90 +3,60 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "test_map_5.json",
+    "activeFile": "draft_level_secret.json",
     "expandedProjectPaths": [
         "."
     ],
     "fileStates": {
-        "draft_map_2.json": {
-            "expandedObjectLayers": [
-                2
-            ],
-            "scale": 0.954638671875,
-            "selectedLayer": 1,
+        "draft_level_1.json": {
+            "scale": 1.0501953124999999,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 511.18817451792745,
-                "y": 287.5433481663342
+                "x": 512.2856611493398,
+                "y": 288.5177608331784
             }
         },
-        "floortileset.tsx": {
-            "scaleInDock": 1,
-            "scaleInEditor": 1
+        "draft_level_1.json#Desert Tileset": {
+            "scaleInDock": 1
         },
-        "test_map_2.json": {
-            "expandedObjectLayers": [
-                6
-            ],
-            "scale": 1.5,
-            "selectedLayer": 1,
+        "draft_level_2.json": {
+            "scale": 1.0501953124999999,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 595.6666666666666,
-                "y": 332.6666666666667
+                "x": 512.2856611493398,
+                "y": 288.5177608331784
             }
         },
-        "test_map_2.tmj": {
-            "scale": 1.0182812499999998,
-            "selectedLayer": 1,
+        "draft_level_2.json#Desert Tileset": {
+            "scaleInDock": 1
+        },
+        "draft_level_secret.json": {
+            "scale": 1.0501953124999999,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 480.71198404173714,
-                "y": 320.1473070431181
+                "x": 512.2856611493398,
+                "y": 288.5177608331784
             }
         },
-        "test_map_3.json": {
-            "expandedObjectLayers": [
-                2
-            ],
-            "scale": 0.954638671875,
-            "selectedLayer": 1,
-            "viewCenter": {
-                "x": 491.80911462329294,
-                "y": 123.6069766252366
-            }
-        },
-        "test_map_4.json": {
-            "scale": 0.954638671875,
-            "selectedLayer": 1,
-            "viewCenter": {
-                "x": 511.71193289345814,
-                "y": 288.06710654186486
-            }
-        },
-        "test_map_5.json": {
-            "scale": 0.954638671875,
-            "selectedLayer": 1,
-            "viewCenter": {
-                "x": 511.71193289345814,
-                "y": 288.06710654186486
-            }
+        "draft_level_secret.json#Desert Tileset": {
+            "scaleInDock": 1
         }
     },
+    "last.imagePath": "C:/Users/Vincent/Desktop/GitHub/PyWeek-34/src/world/maps/sprites/Foozle_2DT0010_Lucifer_Desert_Tileset_Pixel_Art",
     "map.height": 18,
     "map.lastUsedFormat": "json",
     "map.width": 32,
     "openFiles": [
-        "draft_map_2.json",
-        "floortileset.tsx",
-        "test_map_5.json"
+        "draft_level_1.json",
+        "draft_level_2.json",
+        "draft_level_secret.json"
     ],
     "project": "maps.tiled-project",
     "property.type": "object",
     "recentFiles": [
-        "draft_map_2.json",
-        "floortileset.tsx",
-        "test_map_5.json",
-        "test_map_4.json",
-        "test_map_2.json",
-        "test_map_3.json",
-        "test_map_2.tmj"
-    ]
+        "draft_level_1.json",
+        "draft_level_2.json",
+        "draft_level_secret.json"
+    ],
+    "tileset.embedInMap": true
 }
