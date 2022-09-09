@@ -20,7 +20,9 @@ class EnemyHandler:
         self.world = world
         self.spawners = list(map(partial(Spawner, world), self.world.spawners))
 
-        position_list = self.spawners[0].path  # TODO: spawning enemies in multiple spawners, should we?
+        position_list = self.spawners[
+            0
+        ].path  # TODO: spawning enemies in multiple spawners, should we?
         self.positions = position_list
 
         self.wave = []
@@ -53,7 +55,6 @@ class EnemyHandler:
                 new_enemy.center_y = self.positions[0][1]
 
                 self.enemy_list.append(new_enemy)
-
 
     def send_wave(self, wave: list, duration: float):
         self.wave = wave

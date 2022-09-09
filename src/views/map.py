@@ -12,7 +12,6 @@ from src.towers import *
 from src.world import *
 
 
-
 class MapView(arcade.View):
     """
     Game View
