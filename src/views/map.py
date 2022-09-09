@@ -1,5 +1,6 @@
 import arcade
 import arcade.gui
+from copy import deepcopy
 
 import src.const as C
 from src.audio import *
@@ -191,7 +192,7 @@ class MapView(arcade.View):
             else:
                 self.bgm_player = Audio.play_random(["bgm_1", "bgm_2"])
         elif symbol == arcade.key.S:
-            self.enemy_handler.send_wave(C.WAVES[0].copy(), 5)  # TODO: change this
+            self.enemy_handler.send_wave(deepcopy(C.WAVES[0]), 5)  # TODO: change this
 
     def remove_tower(self, row: int, column: int):
         self.grid.grid[row][column]["tower"] = None
