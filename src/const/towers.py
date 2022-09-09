@@ -68,3 +68,4 @@ class TOWERS:
         "damage_poison": 0,
         "size_tiles": 2,
     }
+    ALL_TOWERS = [MG_TOWER, ANTIAIR_TOWER, CANNON_TOWER]
