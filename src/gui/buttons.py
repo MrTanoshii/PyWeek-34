@@ -56,3 +56,21 @@ class TowerButton(arcade.gui.UITextureButton):
     def on_click(self, event: arcade.gui.UIOnClickEvent):
         if self.tower_handler and self.tower:
             self.tower_handler.select_tower_type(self.tower)
+
+
+class RemoveButton(arcade.gui.UITextureButton):
+    def __init__(self, *args, **kwargs):
+        self.tower_handler: Optional[TowerHandler] = kwargs.pop("tower_handler", None)
+        super().__init__(
+            *args,
+            **{
+                **kwargs,
+                "texture": arcade.load_texture(
+                    ":resources:onscreen_controls/flat_dark/r.png"
+                ),
+            }
+        )
+
+    def on_click(self, event: arcade.gui.UIOnClickEvent):
+        if self.tower_handler:
+            self.tower_handler.select_tower_type(C.TOWERS.REMOVE_TOWER)

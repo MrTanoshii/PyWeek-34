@@ -7,6 +7,10 @@ class TOWERS:
     RADIUS_BG_COLOR = (255, 255, 255, 64)
     SELECTED_OUTLINE_COLOR = (255, 255, 255, 255)
 
+    REMOVE_TOWER = {
+        "remove": True,
+    }  # хуета какая-то на самом деле, но ладно -_-
+
     # Different tower types
     BASE_TOWER = {
         "name": "Tower.png",
