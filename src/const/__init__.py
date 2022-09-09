@@ -10,3 +10,4 @@ from .towers import *
 from .targeting import *
 from .views import *
 from .world import *
+from .waves import *
