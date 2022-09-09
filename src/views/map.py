@@ -115,7 +115,8 @@ class MapView(arcade.View):
             self.tower_handler.select_tower(base_tower)
             if C.DEBUG.MAP:
                 print(f"Tower Clicked at: {current_cell_row}, {current_cell_column}")
-            print(self.tower_handler.selected_type)
+            if C.DEBUG.TOWER:
+                print(self.tower_handler.selected_type)
             # Try to upgrade / level up tower
             if new_tower := self.tower_handler.buy_tower(
                 current_cell_row,

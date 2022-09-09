@@ -81,7 +81,7 @@ class Grid(arcade.Sprite):
         column = int(x // (C.GRID.WIDTH + C.GRID.MARGIN))
         row = int(y // (C.GRID.HEIGHT + C.GRID.MARGIN))
 
-        if not C.DEBUG.MOUSE:
+        if C.DEBUG.MOUSE:
             print(f"Click coordinates: ({x}, {y}). Grid coordinates: ({row}, {column})")
 
         # Make sure we are on-grid. It is possible to click in the upper right

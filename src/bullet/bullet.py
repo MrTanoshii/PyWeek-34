@@ -63,6 +63,7 @@ class Bullet(arcade.Sprite):
             # For every enemy we hit reduce health and remove if less than zero
             for enemy in hit_list:
                 enemy.take_damage(bullet.damage_ground)
+                break
 
     @classmethod
     def on_draw(cls):

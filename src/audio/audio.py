@@ -17,9 +17,11 @@ class Audio:
 
         for sound in C.AUDIO.MASTER_LIST:
             cls.sound_list[sound] = {}
+
             streaming = True
-            if sound == "shoot":
+            if C.AUDIO.MASTER_LIST[sound]["type"] == "SFX":
                 streaming = False
+
             cls.sound_list[sound]["sound"] = arcade.load_sound(
                 C.AUDIO.BASE_PATH / C.AUDIO.MASTER_LIST[sound]["path"],
                 streaming=streaming,

@@ -39,7 +39,8 @@ class Tower(arcade.Sprite):
         super().__init__()
         self.name: str = tower_type["name"]
         self.label: str = tower_type["label"]
-        print(C.TOWERS.BASEPATH / tower_type["name"])
+        if C.DEBUG.MOUSE:
+            print(C.TOWERS.BASEPATH / tower_type["name"])
         self.texture = arcade.load_texture(C.TOWERS.BASEPATH / tower_type["name"])
         self.level: int = tower_type["level"]
 
