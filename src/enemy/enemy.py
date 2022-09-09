@@ -37,6 +37,7 @@ class Enemy(arcade.Sprite):
         self.poisoned_damage = 0  # per second damage
         self.poisoned_duration = 0
         self.slowed = False
+        self.health_bar = HealthBar(self)
 
     def update(self, delta_time: float):
 
@@ -63,7 +64,7 @@ class Enemy(arcade.Sprite):
             (self.center_x - dest_x) ** 2 + (self.center_y - dest_y) ** 2
         )
 
-        speed = min(self.speed, distance)
+        speed = self.speed
         if self.slowed and distance > self.speed * 0.5:
             speed /= 2
         change_x = math.cos(angle) * speed * delta_time
@@ -92,3 +93,17 @@ class Enemy(arcade.Sprite):
             Gold().increment(self.gold_drop)
             # TODO PLAY SOUND?  Maybe add death sounds?
             # TODO: add health bar
+
+class HealthBar(arcade.Sprite):
+    def __init__(self, enemy):
+        super().__init__()
+        self.enemy = enemy
+        self.width = enemy.width
+
+    def draw(self):
+        enemy_hp = self.enemy.hp_current / self.enemy.hp_max
+        enemy_hp_removed = 1 - enemy_hp
+        life_end = self.enemy.right - ((self.enemy.right - self.enemy.left) * enemy_hp_removed)
+        arcade.draw_line(self.enemy.left, self.enemy.bottom, self.enemy.right, self.enemy.bottom, arcade.color.RED, line_width=5)
+        arcade.draw_line(self.enemy.left, self.enemy.bottom, life_end, self.enemy.bottom, arcade.color.GREEN,
+                         line_width=5)
