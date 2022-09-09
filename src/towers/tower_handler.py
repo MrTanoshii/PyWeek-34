@@ -14,22 +14,24 @@ class TowerHandler:
     """
 
     def __init__(self, world: World) -> None:
-        self.selected_type: dict = C.TOWERS.BASE_TOWER
+        self.selected_type: dict = C.TOWERS.MG_TOWER
         self.selected_tower: Optional[Tower] = None
         self.world = world
+
+    @property
+    def is_removing(self):
+        return self.selected_type == C.TOWERS.REMOVE_TOWER
 
     @staticmethod
     def build_tower(tower_type: dict) -> Tower:
         return Tower(tower_type)
 
     def buy_tower(self, row: int, column: int, tower_type: dict) -> Optional[Tower]:
-        self.selected_type = tower_type
-
         # TODO: check researches
 
         # Check for illegal placings
         if not self.world.is_fitting_borders(
-            row, column, self.selected_type["size_tiles"]
+            row, column, tower_type["size_tiles"]
         ):  # checking if tower doesn't go beyond the window borders
             if C.DEBUG.MAP:
                 print(
@@ -38,7 +40,7 @@ class TowerHandler:
             return
 
         if self.world.is_tile_overlapping(
-            row, column, self.selected_type["size_tiles"]
+            row, column, tower_type["size_tiles"]
         ):  # isn't placed on a road
             if C.DEBUG.MAP:
                 print(
@@ -46,18 +48,19 @@ class TowerHandler:
                 )
             return  # TODO: placed on road message
 
-        if Gold.get() - self.selected_type["gold_cost"] < 0:  # checking gold
+        if Gold.get() - tower_type["gold_cost"] < 0:  # checking gold
             if C.DEBUG.MAP:
                 print(
                     f"{C.BCOLORS.WARNING}Warning: Not enough gold for new tower, "
-                    f"You need {(Gold.get() - self.selected_type['gold_cost']) * -1} more gold. {C.BCOLORS.ENDC}"
+
+                    f"You need {Gold.get() - tower_type['gold_cost'] *-1} more gold. {C.BCOLORS.ENDC}"
                 )
             return  # TODO: not enough gold message
 
         # TODO: check researches
 
         # Check for FOUNDATION tower
-        tower = self.build_tower(self.selected_type)
+        tower = self.build_tower(tower_type)
         if tower_type == C.TOWERS.BASE_TOWER:
             tower.width = C.GRID.WIDTH * tower.size_tiles
             tower.height = C.GRID.WIDTH * tower.size_tiles
@@ -72,6 +75,9 @@ class TowerHandler:
 
     def select_tower(self, tower: Tower):
         self.selected_tower = tower
+
+    def select_tower_type(self, tower_type: dict):
+        self.selected_type = tower_type
 
     def shoot(self, tower: Tower, enemy: Enemy):
         if tower.cooldown <= 0:

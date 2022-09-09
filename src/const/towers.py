@@ -7,6 +7,10 @@ class TOWERS:
     RADIUS_BG_COLOR = (255, 255, 255, 64)
     SELECTED_OUTLINE_COLOR = (255, 255, 255, 255)
 
+    REMOVE_TOWER = {
+        "remove": True,
+    }  # хуета какая-то на самом деле, но ладно -_-
+
     # Different tower types
     BASE_TOWER = {
         "name": "Tower.png",
@@ -25,7 +29,37 @@ class TOWERS:
     }
     CANNON_TOWER = {
         "name": "Cannon.png",
-        "label": "Cannon tower",
+        "label": "Cannon I",
+        "level": 0,
+        "attack_cooldown_sec": 1,
+        "gold_cost": 100,
+        "research_cost": 0,
+        "radius": 5,
+        "radius_splash": 0,
+        "damage_air": 0,
+        "damage_ground": 3,
+        "damage_splash": 0,
+        "damage_poison": 0,
+        "size_tiles": 2,
+    }
+    CANNON2_TOWER = {
+        "name": "Cannon2.png",
+        "label": "Cannon II",
+        "level": 0,
+        "attack_cooldown_sec": 1,
+        "gold_cost": 100,
+        "research_cost": 0,
+        "radius": 5,
+        "radius_splash": 0,
+        "damage_air": 0,
+        "damage_ground": 3,
+        "damage_splash": 0,
+        "damage_poison": 0,
+        "size_tiles": 2,
+    }
+    CANNON3_TOWER = {
+        "name": "Cannon3.png",
+        "label": "Cannon III",
         "level": 0,
         "attack_cooldown_sec": 1,
         "gold_cost": 100,
@@ -39,8 +73,8 @@ class TOWERS:
         "size_tiles": 2,
     }
     MG_TOWER = {
-        "name": "mg2.png",
-        "label": "MG tower",
+        "name": "mg.png",
+        "label": "MG I",
         "level": 0,
         "attack_cooldown_sec": 1,
         "gold_cost": 100,
@@ -53,18 +87,90 @@ class TOWERS:
         "damage_poison": 0,
         "size_tiles": 2,
     }
-    ANTIAIR_TOWER = {
-        "name": "anti-air-1.png",
-        "label": "Antiair tower",
+    MG_TOWER2 = {
+        "name": "mg2.png",
+        "label": "MG II",
         "level": 0,
         "attack_cooldown_sec": 1,
-        "gold_cost": 200,
+        "gold_cost": 100,
         "research_cost": 0,
         "radius": 5,
         "radius_splash": 0,
-        "damage_air": 50,
-        "damage_ground": 0,
+        "damage_air": 0,
+        "damage_ground": 50,
         "damage_splash": 0,
         "damage_poison": 0,
         "size_tiles": 2,
     }
+    MG_TOWER3 = {
+        "name": "mg3.png",
+        "label": "MG III",
+        "level": 0,
+        "attack_cooldown_sec": 1,
+        "gold_cost": 100,
+        "research_cost": 0,
+        "radius": 5,
+        "radius_splash": 0,
+        "damage_air": 0,
+        "damage_ground": 50,
+        "damage_splash": 0,
+        "damage_poison": 0,
+        "size_tiles": 2,
+    }
+    MISSILE = {
+        "name": "Missile_Launcher.png",
+        "label": "Rocket Launcher I",
+        "level": 0,
+        "attack_cooldown_sec": 1,
+        "gold_cost": 100,
+        "research_cost": 0,
+        "radius": 5,
+        "radius_splash": 0,
+        "damage_air": 0,
+        "damage_ground": 50,
+        "damage_splash": 0,
+        "damage_poison": 0,
+        "size_tiles": 2,
+    }
+
+    MISSILE2 = {
+        "name": "Missile_Launcher2.png",
+        "label": "Rocket Launcher II",
+        "level": 0,
+        "attack_cooldown_sec": 1,
+        "gold_cost": 100,
+        "research_cost": 0,
+        "radius": 5,
+        "radius_splash": 0,
+        "damage_air": 0,
+        "damage_ground": 50,
+        "damage_splash": 0,
+        "damage_poison": 0,
+        "size_tiles": 2,
+    }
+    MISSILE3 = {
+        "name": "Missile_Launcher3.png",
+        "label": "Rocket Launcher III",
+        "level": 0,
+        "attack_cooldown_sec": 1,
+        "gold_cost": 100,
+        "research_cost": 0,
+        "radius": 5,
+        "radius_splash": 0,
+        "damage_air": 0,
+        "damage_ground": 50,
+        "damage_splash": 0,
+        "damage_poison": 0,
+        "size_tiles": 2,
+    }
+    ALL_TOWERS = [
+        CANNON_TOWER,
+        CANNON2_TOWER,
+        CANNON3_TOWER,
+        MG_TOWER,
+        MG_TOWER2,
+        MG_TOWER3,
+        MISSILE,
+        MISSILE2,
+        MISSILE3,
+    ]
