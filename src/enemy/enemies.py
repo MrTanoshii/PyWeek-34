@@ -32,6 +32,7 @@ tank = {
     "image": "alien3.png",
 }
 
+
 martian_wolf = {
     "hp": 100,
     "speed": 80,
@@ -40,6 +41,8 @@ martian_wolf = {
     "gold_drop": 12,
     "image": "alien0.png",
     "scale": 0.3,
+    "wobble": [2, 4],
+
 }
 martian_grinch = {
     "hp": 125,
@@ -49,6 +52,8 @@ martian_grinch = {
     "gold_drop": 15,
     "image": "alien1.png",
     "scale": 0.4,
+    "wobble": [2, 1],
+
 }
 martian_unicorn = {
     "hp": 120,
@@ -68,6 +73,8 @@ martian_flying_snake = {
     "gold_drop": 10,
     "image": "alien3.png",
     "scale": 0.3,
+    "wobble": [5, 3],
+
 }
 martian_bart = {
     "hp": 77,
@@ -77,6 +84,8 @@ martian_bart = {
     "gold_drop": 7,
     "image": "alien4.png",
     "scale": 0.4,
+    "wobble": [1, 3],
+
 }
 martian_fireman = {
     "hp": 2500,
@@ -86,6 +95,8 @@ martian_fireman = {
     "gold_drop": 250,
     "image": "alien5.png",
     "scale": 0.6,
+    "wobble": [1, 1],
+
 }
 martian_dog = {
     "hp": 95,
@@ -95,6 +106,8 @@ martian_dog = {
     "gold_drop": 20,
     "image": "alien6.png",
     "scale": 0.3,
+    "wobble": [4, 4],
+
 }
 bottle_of_liquid = {
     "hp": 20,
@@ -122,7 +135,11 @@ drunken_bear = {
     "gold_drop": 5000,
     "image": "alien9.png",
     "scale": 0.5,
+    "wobble": [3, 3],
+
 }
+
+
 
 
 enemies = [
