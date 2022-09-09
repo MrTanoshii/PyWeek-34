@@ -21,10 +21,6 @@ https://creativecommons.org/publicdomain/zero/1.0/
 Licensed under Creative Commons: CC0 1.0
 https://creativecommons.org/publicdomain/zero/1.0/
 
-"Colony sim assets" Buch (https://opengameart.org/content/colony-sim-assets)
-Licensed under Creative Commons: CC0 1.0
-https://creativecommons.org/publicdomain/zero/1.0/
-
 "Red cruiser spaceship" MillionthVector (https://opengameart.org/content/red-cruiser-spaceship)
 Licensed under Creative Commons: CC0 1.0
 https://creativecommons.org/publicdomain/zero/1.0/
