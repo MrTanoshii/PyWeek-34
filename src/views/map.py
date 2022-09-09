@@ -182,6 +182,7 @@ class MapView(arcade.View):
         # Reset Grids | R
         elif symbol == arcade.key.R:  # why? there are some bugs with it
             self.grid = Grid(int(self.world.height), int(self.world.width))
+            self.gold.set(C.RESOURCES.DEFAULT_GOLD)
         # Stop music | M
         elif symbol == arcade.key.M:
             if self.bgm_player is not None:
