@@ -1,6 +1,6 @@
 from typing import Optional
 
-from world import World
+from src.world import World
 from src.enemy import *
 from src.resources import *
 
