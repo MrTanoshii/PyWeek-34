@@ -6,6 +6,7 @@ import src.const as C
 from src.resources import *
 
 
+
 class Enemy(arcade.Sprite):
     def __init__(
         self,
@@ -81,8 +82,10 @@ class Enemy(arcade.Sprite):
             self.cur_position += 1
             if self.cur_position >= len(self.position_list):
                 self.remove_from_sprite_lists()
+                Lives.increment(-1)
                 # TODO TAKE AWAY PLAYER LIFE
                 if self.boss:
+                    Lives.increment(-self.hp_current)
                     # TODO TAKE AWAY ALL REMAINING PLAYER LIVES
                     ...
 
