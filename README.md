@@ -91,3 +91,17 @@ With venv activated, Windows `pip install -r requirements.txt` Linux `pip3 insta
 Run game with `python3 run_game.py`
 
 </details>
+
+## Running the game
+
+```shell
+cd Path/To/Project/Directory
+
+# Linux Commands
+pip3 install -r requirements.txt
+python3 run_game.py
+
+# Windows Commands
+pip install -r requirements.txt
+python run_game.py
+```
