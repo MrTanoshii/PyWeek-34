@@ -108,11 +108,17 @@ class TowerHandler:
             # TODO: splash damage
 
     def draw_radius(self, tower: Tower):
+        arcade.draw_circle_outline(
+            tower.center_x,
+            tower.center_y,
+            tower.radius * self.world.tile_size,
+            (255, 255, 255, 128),
+        )
         arcade.draw_circle_filled(
             tower.center_x,
             tower.center_y,
             tower.radius * self.world.tile_size,
-            C.TOWERS.RADIUS_BG_COLOR,
+            (255, 255, 255, 32),
         )
 
     def draw_selected(self):

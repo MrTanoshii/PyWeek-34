@@ -20,7 +20,7 @@ class TOWERS:
         "attack_cooldown_sec": 1,
         "gold_cost": 100,
         "research_cost": 0,
-        "radius": 5,
+        "radius": 0,
         "radius_splash": 0,
         "damage_air": 0,
         "damage_ground": 0,
