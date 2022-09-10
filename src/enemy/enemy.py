@@ -101,7 +101,7 @@ class HealthBar(arcade.Sprite):
         self.enemy = enemy
         self.width = enemy.width
 
-    def draw(self):
+    def on_draw(self):
         enemy_hp = self.enemy.hp_current / self.enemy.hp_max
         enemy_hp_removed = 1 - enemy_hp
         life_end = self.enemy.right - (

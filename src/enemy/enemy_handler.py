@@ -32,7 +32,7 @@ class EnemyHandler:
     def on_draw(self):
         self.enemy_list.draw()
         for enemy in self.enemy_list:
-            enemy.health_bar.draw()
+            enemy.health_bar.on_draw()
 
     def on_update(self, delta_time: float):
         for enemy in self.enemy_list:
