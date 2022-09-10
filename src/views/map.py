@@ -302,6 +302,12 @@ class MapView(arcade.View):
             or symbol == arcade.key.EQUAL
         ):
             Audio.increase_volume()
+        # Cheat, add gold | I
+        elif symbol == arcade.key.I:
+            Gold.increment(C.RESOURCES.CHEAT_GOLD_INCREMENT)
+        # Cheat, add lives | O
+        elif symbol == arcade.key.O:
+            Lives.increment(C.RESOURCES.CHEAT_LIVES_INCREMENT)
 
     def remove_tower(self, row: int, column: int):
         tower = self.grid.grid[row][column]["tower"]
