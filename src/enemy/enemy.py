@@ -6,7 +6,6 @@ import src.const as C
 from src.resources import *
 
 
-
 class Enemy(arcade.Sprite):
     def __init__(
         self,

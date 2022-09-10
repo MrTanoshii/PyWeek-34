@@ -30,4 +30,3 @@ class Lives(Resource):
             C.GUI.LIVES_COLOR,
             C.GUI.RESOURCE_FONT_SIZE,
         )
-        

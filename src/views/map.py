@@ -83,8 +83,8 @@ class MapView(arcade.View):
         # Update bullets and check collision
         for bullet in self.bullets.bullet_list:
             bullet.on_update(
-            delta_time=delta_time, enemy_list=self.enemy_handler.enemy_list
-        )
+                delta_time=delta_time, enemy_list=self.enemy_handler.enemy_list
+            )
         self.notification_handler.update(delta_time)
         rows = self.grid.rows_count
         columns = self.grid.columns_count

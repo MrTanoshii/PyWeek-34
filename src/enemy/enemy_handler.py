@@ -31,7 +31,6 @@ class EnemyHandler:
         self.time_between_spawns = 0
         self.time_to_next_spawn = 0
 
-
     def on_draw(self):
         self.enemy_list.draw()
         for enemy in self.enemy_list:
