@@ -1,8 +1,18 @@
 from typing import Optional
 
+import arcade
+
+from src import const as C
 from src.world import World
 from src.enemy import *
 from src.resources import *
+
+
+class BuildException(ValueError):
+    def __init__(self, message: str, color: arcade.Color, *args):
+        self.message = message
+        self.color = color
+        super().__init__(*args)
 
 
 class TowerHandler:
@@ -24,8 +34,6 @@ class TowerHandler:
         return Tower(tower_type)
 
     def buy_tower(self, row: int, column: int, tower_type: dict) -> Optional[Tower]:
-        # TODO: check researches
-
         # Check for illegal placings
         if not self.world.is_fitting_borders(
             row, column, tower_type["size_tiles"]
@@ -34,7 +42,9 @@ class TowerHandler:
                 print(
                     f"{C.BCOLORS.WARNING}Warning: Tower cannot be placed outside window. {C.BCOLORS.ENDC}"
                 )
-            return
+            raise BuildException(
+                "Can't be built here", C.NOTIFICATIONS.CANT_BUILT_COLOR
+            )
 
         if self.world.is_tile_overlapping(
             row, column, tower_type["size_tiles"]
@@ -43,7 +53,9 @@ class TowerHandler:
                 print(
                     f"{C.BCOLORS.WARNING}Warning: Tower cannot be placed on road. {C.BCOLORS.ENDC}"
                 )
-            return  # TODO: placed on road message
+            raise BuildException(
+                "Can't be built here", C.NOTIFICATIONS.CANT_BUILT_COLOR
+            )
 
         if Gold.get() - tower_type["gold_cost"] < 0:  # checking gold
             if C.DEBUG.MAP:
@@ -51,9 +63,10 @@ class TowerHandler:
                     f"{C.BCOLORS.WARNING}Warning: Not enough gold for new tower, "
                     f"You need {Gold.get() - tower_type['gold_cost'] * -1} more gold. {C.BCOLORS.ENDC}"
                 )
-            return  # TODO: not enough gold message
-
-        # TODO: check researches
+            raise BuildException(
+                f"You need {Gold.get() - tower_type['gold_cost'] * -1} more gold to build it",
+                C.NOTIFICATIONS.NOT_ENOUGH_GOLD,
+            )
 
         # Check for FOUNDATION tower
         tower = self.build_tower(tower_type)
@@ -64,7 +77,6 @@ class TowerHandler:
         tower.center_x = (column + 1) * C.GRID.HEIGHT
 
         Gold.increment(-tower.gold_cost)
-        # Research.increment(-tower.research_cost)  # TODO: it shouldn't be like this
         self.selected_tower = tower
 
         return tower

@@ -12,3 +12,4 @@ from .targeting import *
 from .views import *
 from .world import *
 from .waves import *
+from .notifications import *
