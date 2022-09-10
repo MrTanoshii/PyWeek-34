@@ -7,6 +7,7 @@ from src.world import World
 from .enemy import Enemy
 from src.world import *
 from .enemies import enemies
+from src.gamedata import GameData
 
 
 class EnemyHandler:
@@ -70,6 +71,8 @@ class EnemyHandler:
                     self.send_wave(*wave)
                 if wave is None:
                     print("end of spawns")
+                    World.completed_levels.append(self.world.map_name)
+                    GameData.write_data()
 
     def send_wave(self, wave: list, duration: float):
         self.wave = wave

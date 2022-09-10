@@ -4,20 +4,40 @@ from itertools import islice
 import arcade.gui
 from src.gui.preview import Preview
 from src.views import MapView
+from src.gamedata import GameData
+from src.world import World
 import src.const as C
 
 
 class MainMenuView(arcade.View):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        GameData.load_data()
+
         self.manager = arcade.gui.UIManager()
         self.manager.enable()
+
         self.levels_box = arcade.gui.UIBoxLayout()  # grid layout
+        self.bg = arcade.load_texture("resources/bg.png")
+
+        self.manager.add(
+            arcade.gui.UIAnchorWidget(
+                child=arcade.gui.UILabel(
+                    text="Select the level", font_size=18
+                ).with_space_around(top=C.GUI.PADDING),
+                anchor_x="center_x",
+                anchor_y="top",
+            )
+        )  # i don't speak london
 
         for row in self.get_levels():
             self.row_box = arcade.gui.UIBoxLayout(vertical=False)
             for label, map_name in row:
-                if map_name in C.MENU.SECRET_LEVELS:
+                if (
+                    map_name in C.MENU.SECRET_LEVELS
+                    and map_name not in World.completed_levels
+                ):
                     continue
                 level_button = Preview(map_name=map_name, label=label)
 
@@ -56,4 +76,10 @@ class MainMenuView(arcade.View):
         self.manager.on_mouse_press(x, y, button, modifiers)
 
     def on_draw(self):
+        self.bg.draw_sized(
+            C.SETTINGS.SCREEN_WIDTH / 2,
+            C.SETTINGS.SCREEN_HEIGHT / 2,
+            C.SETTINGS.SCREEN_WIDTH,
+            C.SETTINGS.SCREEN_HEIGHT,
+        )
         self.manager.draw()
