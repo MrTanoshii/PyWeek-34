@@ -38,6 +38,34 @@ def add_mech_duck(
 
     return wave
 
+def add_enemy(
+        _0: int=0,
+        _1: int=0,
+        _2: int=0,
+        _3: int=0,
+        _4: int=0,
+        _5: int=0,
+        _6: int=0,
+        _7: int=0,
+        _8: int=0,
+        _9: int=0,
+):
+    wave = []
+    wave = wave + [e[0]] * _0
+    wave = wave + [e[1]] * _1
+    wave = wave + [e[2]] * _2
+    wave = wave + [e[3]] * _3
+    wave = wave + [e[4]] * _4
+    wave = wave + [e[5]] * _5
+    wave = wave + [e[6]] * _6
+    wave = wave + [e[7]] * _7
+    wave = wave + [e[8]] * _8
+    wave = wave + [e[9]] * _9
+
+
+    return wave
+
+
 class Waves:
 
 
@@ -69,14 +97,34 @@ class Waves:
     @classmethod
     def level_1(cls, wave: int):
         if wave == 1:
-            return cls.wave_1_1()
+            _wave = add_enemy(20,25,22,45)
         elif wave == 2:
-            return cls.wave_1_2()
+            _wave = add_enemy(0,0,0,20,25,22,45)
         elif wave == 3:
-            return cls.wave_1_3()
-        return None
+            _wave = add_enemy(0,0,20,25,22,45)
+        elif wave == 4:
+            _wave = add_enemy(0,20,25,22,450,0,0,0,0,12)
+        elif wave == 5:
+            _wave = add_enemy(20,25,22,45,0,0,120,100,75,22)
+        elif wave == 6:
+            _wave = add_enemy(20,25,22,450,44,22,13,8,7,2)
+        elif wave == 7:
+            _wave = add_enemy(20,25,22,45,0,41,55,74,12,13)
+        elif wave == 8:
+            _wave = add_enemy(20,25,22,45,11,45,68,78,123)
+        elif wave == 9:
+            _wave = add_enemy(20,25,22,45,12,123,14,159,753,656)
+        else:
+            return None
+        return [_wave, len(_wave)//wave]
 
-
+    @classmethod
+    def level(cls, map: str, wave: int):
+        print(map)
+        if map == "draft_level_secret_duck.json":
+            return cls.level_duck(wave)
+        else:
+            return cls.level_1(wave)
     @classmethod
     def level_duck(cls, wave: int):
         if wave == 1:

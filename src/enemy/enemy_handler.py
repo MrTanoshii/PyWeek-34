@@ -11,7 +11,7 @@ from src.gamedata import GameData
 
 
 class EnemyHandler:
-    def __init__(self, world: World):
+    def __init__(self, world: World, tiled_name: str):
         """Constructor.
 
         Keyword Arguments:
@@ -20,6 +20,7 @@ class EnemyHandler:
 
         self.enemy_list = arcade.SpriteList()
         self.world = world
+        self.tiled_name = tiled_name
         self.spawners = list(map(partial(Spawner, world), self.world.spawners))
 
         position_list = self.spawners[
@@ -67,7 +68,7 @@ class EnemyHandler:
                 self.frames_until_next_wave = 60
                 self.current_wave += 1
                 # This will need to not be hardcoded to level 1
-                wave = C.Waves.level_duck(self.current_wave)
+                wave = C.Waves.level(self.tiled_name, self.current_wave)
                 if wave:
                     self.send_wave(*wave)
                 if wave is None:
