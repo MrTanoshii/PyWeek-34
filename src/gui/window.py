@@ -71,6 +71,5 @@ class Menu(Window):
 
         return [
             restart_button,
-            save_button,
             exit_game_button,
         ]
