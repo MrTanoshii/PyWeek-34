@@ -38,6 +38,7 @@ class MapView(arcade.View):
         self.label = label
 
         self.gold = Gold()
+        self.lives = Lives()
         self.research = Research()
 
         self._load_map(tiled_name)
@@ -73,6 +74,7 @@ class MapView(arcade.View):
         self.enemy_handler.on_draw()
         self.gui.manager.draw()
         self.gold.draw()
+        self.lives.draw()
         self.gui.draw_tower_selection()
         self.notification_handler.draw()
 
@@ -182,6 +184,7 @@ class MapView(arcade.View):
         elif symbol == arcade.key.R:  # why? there are some bugs with it
             self.grid = Grid(int(self.world.height), int(self.world.width))
             self.gold.set(C.RESOURCES.DEFAULT_GOLD)
+            self.lives.set(C.RESOURCES.DEFAULT_LIVES)
         # Stop music | M
         elif symbol == arcade.key.M:
             if self.bgm_player is not None:
