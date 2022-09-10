@@ -35,5 +35,5 @@ class Waves:
             return cls.wave_1_2()
         elif wave == 3:
             return cls.wave_1_3()
-        else:
-            return None
+        return None
+
