@@ -1,4 +1,4 @@
-## Preview
+## ![Duck](../Images/maps/11x12%20Duckling.png) Preview
 
 === "Normal"
 
