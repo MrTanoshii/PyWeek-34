@@ -64,3 +64,4 @@ class Tower(arcade.Sprite):
         self.scale: float = C.SETTINGS.GLOBAL_SCALE
 
         self.size_tiles: int = tower_type["size_tiles"]
+        self.slow: bool = tower_type.get("slow", False)

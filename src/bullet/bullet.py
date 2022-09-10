@@ -62,6 +62,10 @@ class Bullet(arcade.Sprite):
         # For every enemy we hit reduce health and remove if less than zero
         for enemy in hit_list:
             enemy.take_damage(self.damage_ground)
+            if self.slow:
+                enemy.slowed = True
+                enemy.slow_remaining = 5
+
             if self.damage_poison:
                 enemy.poisoned_damage = self.damage_poison
                 enemy.poisoned_duration = 5
