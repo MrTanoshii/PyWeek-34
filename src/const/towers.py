@@ -92,6 +92,7 @@ class TOWERS:
         "damage_poison": 100,
         "size_tiles": 2,
         "bullet_speed": 5,
+        "bullet_type": "Bullet_MG.png",
     }
     MG_TOWER2 = {
         "name": "mg2.png",
