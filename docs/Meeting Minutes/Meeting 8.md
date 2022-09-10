@@ -6,15 +6,15 @@
 
 Scheduled Time: 09/09/2022 1700 [UTC]
 
-Meeting Time:
+Meeting Time: 10/09/2022 0000-0015 [UTC]
 
-Attendance:
+Attendance: Jeb, Krzysztof, VLYK
 
 ---
 
 ## Next Meeting
 
-Scheduled Time: 10/09/2022 1700 [UTC]
+Scheduled Time: 10/09/2022 1000 [UTC]
 
 ---
 
@@ -26,3 +26,6 @@ Scheduled Time: 10/09/2022 1700 [UTC]
 ---
 
 ## Discussion
+
+-   Tasks that need completion
+-   Need for playtest
