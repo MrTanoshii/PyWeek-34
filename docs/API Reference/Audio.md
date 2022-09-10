@@ -82,3 +82,35 @@ increase_volume()
 decrease_volume()
 # Decrement the master volume.
 ```
+
+<br/><br/>
+
+```python
+@classmethod
+stop_all_sounds():
+# Stops all currently playing sound streams.
+```
+
+<br/><br/>
+
+```python
+@classmethod
+mute():
+# Mute audio.
+```
+
+<br/><br/>
+
+```python
+@classmethod
+unmute():
+# Unmute audio.
+```
+
+<br/><br/>
+
+```python
+@classmethod
+toggle_mute():
+# Toggle mute audio.
+```

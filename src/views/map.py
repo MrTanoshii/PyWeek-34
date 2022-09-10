@@ -119,6 +119,14 @@ class MapView(arcade.View):
 
         Audio.on_update(delta_time)
 
+        # Start new bgm if there is no current one and audio is not muted
+        if (
+            self.bgm_player is not None
+            and not self.bgm_player.playing
+            and not Audio.is_muted
+        ):
+            self.bgm_player = Audio.play_random(["bgm_1", "bgm_2"])
+
     def handle_tower(self, row: int, column: int, x: int, y: int):
         # Check if there is tower in the grid already
         if base_tower := self.grid.grid[row][column]["base_tower"]:  # if there's tower
@@ -283,11 +291,7 @@ class MapView(arcade.View):
             self.tower_handler.select_tower_type(C.TOWERS.REMOVE_TOWER)
         # Stop music | M
         elif symbol == arcade.key.M:
-            if self.bgm_player is not None:
-                Audio.stop(self.bgm_player)
-                self.bgm_player = None
-            else:
-                self.bgm_player = Audio.play_random(["bgm_1", "bgm_2"])
+            Audio.toggle_mute()
         elif symbol == arcade.key.S:
             self.enemy_handler.send_wave(*C.Waves.wave_1_1())  # TODO: change this
         # Reduce master volume | -
@@ -324,5 +328,5 @@ class MapView(arcade.View):
         Gold.reset()
         Research.reset()
         Lives.reset()
-        Audio.reset()
+        Audio.stop_all_sounds()
         self.window.show_view(MapView(self.tiled_name, self.label))
