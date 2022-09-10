@@ -29,23 +29,16 @@ class Bullet(arcade.Sprite):
         _angle: float,
         _center_x: float,
         _center_y: float,
-        _dest_x: float,
-        _dest_y: float,
     ):
         # Inherit parent class
         super().__init__()
 
-        Audio.play("shoot")
-
         self.center_x = _center_x
         self.center_y = _center_y
 
-        dest_x = _dest_x
-        dest_y = _dest_y
+        self.speed = 3
 
-        self.speed = 1
-
-        angle = math.atan2(dest_x - self.center_x, dest_y - self.center_y)
+        angle = _angle
         self.angle = math.degrees(angle)
 
         self.change_x = math.cos(math.radians(self.angle))
@@ -54,13 +47,28 @@ class Bullet(arcade.Sprite):
             ":resources:images/space_shooter/laserBlue01.png"
         )
 
-    @classmethod
-    def on_update(cls, delta_time: float):
-        for _b in cls.bullet_list:
-            # calculate how much x and y coordinates should be changed to move to right direction
-            _b.center_x += _b.change_x
-            _b.center_y += _b.change_y
+    def on_update(self, delta_time: float, enemy_list):
+        # update bullet location
+        print(self.center_x, self.center_y, self.change_x, self.change_y, self.speed)
+        self.center_x += self.change_x * self.speed
+        self.center_y += self.change_y * self.speed
+
+        # Check this bullet to see if it hit an enemy
+        hit_list = arcade.check_for_collision_with_list(self, enemy_list)
+
+        # If it did, get rid of the bullet
+        if len(hit_list) > 0:
+            self.remove_from_sprite_lists()
+
+        # For every enemy we hit reduce health and remove if less than zero
+        for enemy in hit_list:
+            enemy.take_damage(self.damage_ground)
+            break
 
     @classmethod
     def on_draw(cls):
         cls.bullet_list.draw()
+
+    @classmethod
+    def play_sound(cls):
+        Audio.play("shoot")

@@ -3,6 +3,7 @@ from functools import partial
 from operator import itemgetter
 
 import src.const as C
+from src.world import World
 from .enemy import Enemy
 from src.world import *
 from .enemies import enemies
@@ -24,7 +25,8 @@ class EnemyHandler:
             0
         ].path  # TODO: spawning enemies in multiple spawners, should we?
         self.positions = position_list
-
+        self.frames_until_next_wave = 60
+        self.current_wave = 0
         self.wave = []
         self.time_between_spawns = 0
         self.time_to_next_spawn = 0
@@ -55,6 +57,19 @@ class EnemyHandler:
                 new_enemy.center_y = self.positions[0][1]
 
                 self.enemy_list.append(new_enemy)
+        # if all enemies are dead
+        if len(self.enemy_list) == 0:
+            # count down some frames
+            self.frames_until_next_wave -= 1
+            if self.frames_until_next_wave < 0:
+                self.frames_until_next_wave = 60
+                self.current_wave += 1
+                # This will need to not be hardcoded to level 1
+                wave = C.Waves.level_1(self.current_wave)
+                if wave:
+                    self.send_wave(*wave)
+                if wave is None:
+                    print("end of spawns")
 
     def send_wave(self, wave: list, duration: float):
         self.wave = wave
