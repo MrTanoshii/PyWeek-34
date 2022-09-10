@@ -2,6 +2,7 @@ import arcade
 import arcade.gui
 
 from src import const as C
+from towers.tower_handler import TowerHandler
 from .buttons import *
 
 
@@ -52,7 +53,7 @@ class GUI:
             )
         )
 
-    def draw_tower_selection(self):  # fuck it
+    def draw_tower_selection(self):
         for button in self.tower_buttons:
             if self.tower_handler.selected_type == button.tower and button.hovered:
                 arcade.draw_rectangle_filled(
