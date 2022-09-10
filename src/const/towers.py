@@ -1,7 +1,5 @@
 from pathlib import Path
 
-import arcade
-
 from src.towers import *
 
 
