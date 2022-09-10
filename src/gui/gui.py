@@ -136,7 +136,7 @@ class GUI:
                     color=arcade.color.BLANCHED_ALMOND,
                 )
                 offset -= 20
-                if button.tower['radius'] != 0:
+                if button.tower["radius"] != 0:
                     self.notification_handler.create(
                         text=f"Range: {button.tower['radius']}",
                         x=button.center_x - button.width / 2,
@@ -144,7 +144,7 @@ class GUI:
                         color=arcade.color.BLANCHED_ALMOND,
                     )
                     offset -= 20
-                if button.tower['damage_ground'] != 0:
+                if button.tower["damage_ground"] != 0:
                     self.notification_handler.create(
                         text=f"Damage: {button.tower['damage_ground']}",
                         x=button.center_x - button.width / 2,
@@ -152,7 +152,7 @@ class GUI:
                         color=arcade.color.BLANCHED_ALMOND,
                     )
                     offset -= 20
-                if button.tower['radius'] != 0:
+                if button.tower["radius"] != 0:
                     self.notification_handler.create(
                         text=f"Cooldown: {button.tower['attack_cooldown_sec']} s",
                         x=button.center_x - button.width / 2,
@@ -160,7 +160,7 @@ class GUI:
                         color=arcade.color.BLANCHED_ALMOND,
                     )
                     offset -= 20
-                if button.tower['damage_poison']:
+                if button.tower["damage_poison"]:
                     self.notification_handler.create(
                         text=f"Poison Damage: {button.tower['damage_poison']} /s",
                         x=button.center_x - button.width / 2,
@@ -168,7 +168,7 @@ class GUI:
                         color=arcade.color.BLANCHED_ALMOND,
                     )
                     offset -= 20
-                if button.tower.get('slow', False):
+                if button.tower.get("slow", False):
                     self.notification_handler.create(
                         text=f"Slows Enemies",
                         x=button.center_x - button.width / 2,
