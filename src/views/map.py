@@ -119,6 +119,8 @@ class MapView(arcade.View):
                     tower.angle = self.targeting.get_angle(tower, target)
                     self.tower_handler.shoot(tower, target)
 
+        Audio.on_update(delta_time)
+
     def handle_tower(self, row: int, column: int, x: int, y: int):
         # Check if there is tower in the grid already
         if base_tower := self.grid.grid[row][column]["base_tower"]:  # if there's tower
@@ -292,6 +294,16 @@ class MapView(arcade.View):
                 self.bgm_player = Audio.play_random(["bgm_1", "bgm_2"])
         elif symbol == arcade.key.S:
             self.enemy_handler.send_wave(*C.Waves.wave_1_1())  # TODO: change this
+        # Reduce master volume | -
+        elif symbol == arcade.key.MINUS or symbol == arcade.key.NUM_SUBTRACT:
+            Audio.decrease_volume()
+        # Increase master volume | +, =
+        elif (
+            symbol == arcade.key.PLUS
+            or symbol == arcade.key.NUM_ADD
+            or symbol == arcade.key.EQUAL
+        ):
+            Audio.increase_volume()
 
     def remove_tower(self, row: int, column: int):
         tower = self.grid.grid[row][column]["tower"]
