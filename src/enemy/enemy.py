@@ -91,7 +91,7 @@ class Enemy(arcade.Sprite):
 
     def take_damage(self, damage: float):
         self.hp_current -= damage
-        if self.hp_current < 0:
+        if self.hp_current <= 0:
             self.remove_from_sprite_lists()
             Gold().increment(self.gold_drop)
             # TODO PLAY SOUND?  Maybe add death sounds?
