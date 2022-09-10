@@ -1,16 +1,23 @@
 import arcade
 import arcade.gui
-
 from src import const as C
 from src.towers.tower_handler import TowerHandler
 from .buttons import *
+from .buttons import *  # Fuck it
 
 
 class GUI:
-    def __init__(self, tower_handler: TowerHandler, notification_handler):
+    def __init__(self, tower_handler: TowerHandler, notification_handler, restart_func):
         self.manager = arcade.gui.UIManager()
         self.manager.enable()
+        self.is_paused = False
+
         self.tower_handler = tower_handler
+
+        self.restart_func = restart_func  # perkele
+        # i don't like it, but we need info about current level to restart it
+        # (interfaces, di and non god-object map class would help here)
+
         self.notification_handler = notification_handler
 
         self.h_box = arcade.gui.UIBoxLayout(vertical=False)
@@ -43,13 +50,29 @@ class GUI:
             )
         )
 
-        sound_button = SoundButton()
+        self.sound_button = SoundButton()
 
         self.manager.add(
             arcade.gui.UIAnchorWidget(
                 anchor_x="left",
                 anchor_y="top",
-                child=sound_button.with_space_around(
+                child=self.sound_button.with_space_around(
+                    C.GUI.PADDING, C.GUI.PADDING, C.GUI.PADDING, C.GUI.PADDING
+                ),
+            )
+        )
+
+        self.menu_button = MenuButton(
+            manager=self.manager,
+            restart_func=self.restart_func,
+            toggle_pause_func=self.toggle_pause,
+        )  # shit, shit, kurwa, gówno jakoś
+
+        self.manager.add(
+            arcade.gui.UIAnchorWidget(
+                anchor_x="right",
+                anchor_y="top",
+                child=self.menu_button.with_space_around(
                     C.GUI.PADDING, C.GUI.PADDING, C.GUI.PADDING, C.GUI.PADDING
                 ),
             )
@@ -73,6 +96,7 @@ class GUI:
                     button.height + C.GUI.PADDING,
                     (0, 255, 0, 32),
                 )
+
             elif button.hovered:
                 arcade.draw_rectangle_filled(
                     button.center_x,
@@ -121,3 +145,6 @@ class GUI:
         if symbol == arcade.key.ESCAPE:
             self.tower_handler.selected_type = C.TOWERS.BASE_TOWER
             self.tower_handler.selected_tower = None
+
+    def toggle_pause(self):
+        self.is_paused = not self.is_paused

@@ -5,6 +5,10 @@ class AUDIO:
     BASE_PATH = Path("src/audio/sounds/")
     VOLUME = {"MASTER": 1.0, "BGM": 1.0, "SFX": 1.0}
 
+    VOLUME_MAX = 1.0
+    VOLUME_MIN = 0
+    VOLUME_INCREMENT = 0.1
+
     MASTER_LIST = {
         "bgm_1": {
             "path": Path("460357__doctor-dreamchip__circuit-synthwave_trimmed.wav"),

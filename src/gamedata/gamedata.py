@@ -1,6 +1,7 @@
 import json
 
 from src.resources import *
+from src.world import World
 
 
 class GameData:
@@ -14,6 +15,7 @@ class GameData:
                 {
                     "gold": Gold.get(),
                     "research": Research.get(),
+                    "passed_levels": World.completed_levels,
                 }
             )
             file.write(_data)
@@ -28,13 +30,23 @@ class GameData:
         except FileNotFoundError:
             print("ERROR: Save data not found. Regenerating...")
             cls.reset_data()
-            data = False
+            data = {}
 
         if data:
             cls.check_data(data, "gold", Gold)
             cls.check_data(data, "research", Research)
+            cls.check_levels(data, "passed_levels")
+
+    @classmethod
+    def check_levels(cls, data: dict, key: str):
+        if type(data[key]) != list:
+            print(f"ERROR: {key} wrong type. Regenerating...")
+            World.completed_levels = []  # regenerating...
         else:
-            cls.load_data()
+            try:
+                World.completed_levels = data[key]
+            except KeyError:
+                cls.load_data()
 
     @classmethod
     def check_data(cls, data, key, static_class):
@@ -57,3 +69,4 @@ class GameData:
 
         Gold.reset()
         Research.reset()
+        World.completed_levels = []

@@ -13,3 +13,4 @@ from .views import *
 from .world import *
 from .waves import *
 from .notifications import *
+from .menu import *

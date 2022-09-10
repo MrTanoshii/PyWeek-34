@@ -7,7 +7,7 @@ from src.const import *
 from src.gamedata import *
 from src.gui import *
 from src.world import *
-from src.towers.tower_handler import TowerHandler
+from src.towers.tower_handler import TowerHandler, BuildException
 
 
 class MapView(arcade.View):
@@ -40,8 +40,9 @@ class MapView(arcade.View):
         self.research = Research()
 
         self._load_map(tiled_name)
+
         self.notification_handler = NotificationHandler()
-        self.gui = GUI(self.tower_handler, self.notification_handler)
+        self.gui = GUI(self.tower_handler, self.notification_handler, self.restart)
 
         # music default stopped
         Audio.stop(self.bgm_player)
@@ -85,7 +86,11 @@ class MapView(arcade.View):
 
     def on_update(self, delta_time: float):
         self.gui.manager.on_update(delta_time)
+
         self.gui.on_update()
+        if self.gui.is_paused:  # update none if paused
+            return
+
         self.enemy_handler.on_update(delta_time)
         self.gui.on_update()
         # Update bullets and check collision
@@ -111,6 +116,8 @@ class MapView(arcade.View):
                 if target:
                     tower.angle = self.targeting.get_angle(tower, target)
                     self.tower_handler.shoot(tower, target)
+
+        Audio.on_update(delta_time)
 
     def handle_tower(self, row: int, column: int, x: int, y: int):
         # Check if there is tower in the grid already
@@ -238,6 +245,9 @@ class MapView(arcade.View):
 
     def on_mouse_press(self, x, y, button, modifiers):
         """Use a mouse press to advance to the 'game' view."""
+        if self.gui.is_paused:
+            return
+
         current_cell_row, current_cell_column = self.grid.get_cell(x, y)
         if self.gui.manager.on_mouse_press(x, y, button, modifiers):
             return
@@ -248,8 +258,9 @@ class MapView(arcade.View):
 
     def on_mouse_motion(self, x, y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
-        # save_data.GameData.read_data()
-        # self.window.show_view(MapView())
+        if self.gui.is_paused:
+            return
+
         self.grid.on_hover(x, y)
 
     def on_key_press(self, symbol, _modifiers):
@@ -281,6 +292,16 @@ class MapView(arcade.View):
                 self.bgm_player = Audio.play_random(["bgm_1", "bgm_2"])
         elif symbol == arcade.key.S:
             self.enemy_handler.send_wave(*C.Waves.wave_1_1())  # TODO: change this
+        # Reduce master volume | -
+        elif symbol == arcade.key.MINUS or symbol == arcade.key.NUM_SUBTRACT:
+            Audio.decrease_volume()
+        # Increase master volume | +, =
+        elif (
+            symbol == arcade.key.PLUS
+            or symbol == arcade.key.NUM_ADD
+            or symbol == arcade.key.EQUAL
+        ):
+            Audio.increase_volume()
 
     def remove_tower(self, row: int, column: int):
         tower = self.grid.grid[row][column]["tower"]
@@ -294,3 +315,10 @@ class MapView(arcade.View):
         self.grid.grid[row][column]["tower"] = None
         self.grid.grid[row][column]["base_tower"] = None
         self.tower_handler.select_tower(None)
+
+    def restart(self):
+        Gold.reset()
+        Research.reset()
+        Lives.reset()
+        Audio.reset()
+        self.window.show_view(MapView(self.tiled_name, self.label))
