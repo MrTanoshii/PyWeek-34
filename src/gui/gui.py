@@ -2,7 +2,7 @@ import arcade
 import arcade.gui
 
 from src import const as C
-from .buttons import *  # Fuck it
+from .buttons import *
 
 
 class GUI:
@@ -17,17 +17,16 @@ class GUI:
             TowerButton(tower=tower, tower_handler=tower_handler)
             for tower in C.TOWERS.ALL_TOWERS
         ]
+
         for button in self.tower_buttons:
             self.h_box.add(
-                button.with_space_around(
-                    C.GUI.PADDING, C.GUI.PADDING, C.GUI.PADDING, C.GUI.PADDING
-                )
+                button.with_space_around(C.GUI.PADDING, C.GUI.PADDING, 0, C.GUI.PADDING)
             )
 
         # Create a widget to hold the h_box widget, that will center the buttons
         self.manager.add(
             arcade.gui.UIAnchorWidget(
-                anchor_x="center_x", anchor_y="center_y", child=self.h_box, align_y=-300
+                anchor_x="center_x", anchor_y="bottom", child=self.h_box, align_y=+6
             )
         )
 
@@ -55,11 +54,45 @@ class GUI:
 
     def draw_tower_selection(self):  # fuck it
         for button in self.tower_buttons:
-            if self.tower_handler.selected_type == button.tower:
-                arcade.draw_rectangle_outline(
+            if self.tower_handler.selected_type == button.tower and button.hovered:
+                arcade.draw_rectangle_filled(
                     button.center_x,
                     button.center_y,
                     button.width + C.GUI.PADDING,
                     button.height + C.GUI.PADDING,
-                    C.GUI.TOWER_SELECT_COLOR,
+                    (255, 0, 0, 32),
                 )
+            elif self.tower_handler.selected_type == button.tower:
+                arcade.draw_rectangle_filled(
+                    button.center_x,
+                    button.center_y,
+                    button.width + C.GUI.PADDING,
+                    button.height + C.GUI.PADDING,
+                    (255, 0, 0, 64),
+                )
+            elif button.hovered:
+                arcade.draw_rectangle_filled(
+                    button.center_x,
+                    button.center_y,
+                    button.width + C.GUI.PADDING,
+                    button.height + C.GUI.PADDING,
+                    (255, 255, 255, 64),
+                )
+            else:
+                arcade.draw_rectangle_filled(
+                    button.center_x,
+                    button.center_y,
+                    button.width + C.GUI.PADDING,
+                    button.height + C.GUI.PADDING,
+                    (255, 255, 255, 32),
+                )
+
+    def on_update(self):
+        for button in self.tower_buttons:
+            if button.pressed:
+                self.tower_handler.selected_type = button.tower
+
+    def on_key_press(self, symbol, _modifiers):
+        for i in range(len(self.tower_buttons)):
+            if symbol == i + 49:  # number "1" is symbol 49
+                self.tower_handler.selected_type = self.tower_buttons[i].tower

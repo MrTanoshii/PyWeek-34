@@ -2,6 +2,7 @@ import arcade
 import arcade.gui
 
 import src.const as C
+from bullet import Bullet
 from src.audio import *
 from src.const import *
 from src.enemy import *
@@ -72,11 +73,13 @@ class MapView(arcade.View):
         self.enemy_handler.on_draw()
         self.gui.manager.draw()
         self.gold.draw()
-        self.gui.draw_tower_selection()
+        self.gui.draw_tower_selection()  # Draw tower selection
 
     def on_update(self, delta_time: float):
         self.gui.manager.on_update(delta_time)
         self.enemy_handler.on_update(delta_time)
+        self.gui.on_update()
+        Bullet.on_update(delta_time)  # Update bullets
         rows = self.grid.rows_count
         columns = self.grid.columns_count
         for row in range(rows):
@@ -172,6 +175,8 @@ class MapView(arcade.View):
 
     def on_key_press(self, symbol, _modifiers):
         """Called whenever a key is pressed."""
+
+        self.gui.on_key_press(symbol, _modifiers)
 
         # Quicksave | F5
         if symbol == arcade.key.F5:
