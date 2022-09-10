@@ -10,7 +10,7 @@ class TOWERS:
 
     REMOVE_TOWER = {
         "remove": True,
-    }  # хуета какая-то на самом деле, но ладно -_-
+    }
 
     # Different tower types
     BASE_TOWER = {
