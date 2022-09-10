@@ -7,7 +7,7 @@ from src.const import *
 from src.gamedata import *
 from src.gui import *
 from src.world import *
-from src.towers.tower_handler import TowerHandler
+from src.towers.tower_handler import TowerHandler, BuildException
 
 
 class MapView(arcade.View):

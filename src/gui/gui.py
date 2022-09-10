@@ -1,7 +1,6 @@
 import arcade
 import arcade.gui
 
-from src import const as C
 from .buttons import *  # Fuck it
 
 
@@ -48,6 +47,18 @@ class GUI:
                 anchor_x="left",
                 anchor_y="top",
                 child=sound_button.with_space_around(
+                    C.GUI.PADDING, C.GUI.PADDING, C.GUI.PADDING, C.GUI.PADDING
+                ),
+            )
+        )
+
+        menu_button = MenuButton(manager=self.manager)  # shit, shit, kurwa, gówno jakoś
+
+        self.manager.add(
+            arcade.gui.UIAnchorWidget(
+                anchor_x="right",
+                anchor_y="top",
+                child=menu_button.with_space_around(
                     C.GUI.PADDING, C.GUI.PADDING, C.GUI.PADDING, C.GUI.PADDING
                 ),
             )
