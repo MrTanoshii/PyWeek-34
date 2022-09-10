@@ -26,3 +26,14 @@ class Waves:
         enemies = enemies + [e[5]] * 30
         enemies = enemies + [e[7]] * 30
         return [enemies, len(enemies)// 3]
+
+    @classmethod
+    def level_1(cls, wave: int):
+        if wave == 1:
+            return cls.wave_1_1()
+        elif wave == 2:
+            return cls.wave_1_2()
+        elif wave == 3:
+            return cls.wave_1_3()
+        else:
+            return None
