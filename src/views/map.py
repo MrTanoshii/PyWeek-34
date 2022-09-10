@@ -36,7 +36,6 @@ class MapView(arcade.View):
         self.label = label
 
         self.gold = Gold()
-        print(self.gold.get())
         self.lives = Lives()
         self.research = Research()
 
@@ -58,6 +57,7 @@ class MapView(arcade.View):
             self.tower_handler = TowerHandler(self.world)
             self.bullets = Bullet(0, 0, 0, 0, "Missile.png")
             self.targeting = Targeting(self.world, self.enemy_handler)
+        self.gold.reset()
 
     def reload_map(self):
         self._load_map(self.tiled_name, init_logic=False)
@@ -278,10 +278,12 @@ class MapView(arcade.View):
 
         # Quicksave | F5
         if symbol == arcade.key.F5:
-            GameData.write_data()
+            pass
+            # GameData.write_data()  # not in final version
         # Quickload | F6
         elif symbol == arcade.key.F6:
-            GameData.load_data()
+            pass
+            # GameData.load_data()  # not in final version
         # Select tower deletion | R, Delete
         elif symbol == arcade.key.R or symbol == arcade.key.DELETE:
             self.tower_handler.select_tower_type(C.TOWERS.REMOVE_TOWER)

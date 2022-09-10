@@ -59,7 +59,7 @@ class Menu(Window):
 
         @menu_button.event("on_click")
         def save(_e):
-            pass
+            print("Sorry, not implemented, restart the game to change level =)")
 
         @exit_game_button.event("on_click")
         def exit_game(_e):
