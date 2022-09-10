@@ -88,6 +88,7 @@ class TOWERS:
         "damage_splash": 0,
         "damage_poison": 100,
         "size_tiles": 2,
+        "bullet_speed": 5,
     }
     MG_TOWER2 = {
         "name": "mg2.png",
@@ -103,21 +104,23 @@ class TOWERS:
         "damage_splash": 0,
         "damage_poison": 0,
         "size_tiles": 2,
+        "bullet_speed": 7,
     }
     MG_TOWER3 = {
         "name": "mg3.png",
         "label": "MG III",
         "level": 0,
-        "attack_cooldown_sec": 0.2,
+        "attack_cooldown_sec": 0.05,
         "gold_cost": 100,
         "research_cost": 0,
-        "radius": 3,
+        "radius": 33,
         "radius_splash": 0,
         "damage_air": 0,
         "damage_ground": 5,
         "damage_splash": 0,
         "damage_poison": 0,
         "size_tiles": 2,
+        "bullet_speed": 30,
     }
     MISSILE = {
         "name": "Missile_Launcher.png",
