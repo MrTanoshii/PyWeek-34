@@ -2,6 +2,7 @@ from itertools import islice
 
 
 import arcade.gui
+from resources import Gold, Research, Lives
 from src.gui.preview import Preview
 from src.views import MapView
 from src.gamedata import GameData
@@ -29,7 +30,7 @@ class MainMenuView(arcade.View):
                 anchor_x="center_x",
                 anchor_y="top",
             )
-        )  # i don't speak london
+        )  # I don't speak london
 
         for row in self.get_levels():
             self.row_box = arcade.gui.UIBoxLayout(vertical=False)
@@ -57,6 +58,9 @@ class MainMenuView(arcade.View):
     def create_on_click(self, map_name: str, label: str):
         def level_start_handler(_e):
             self.manager.disable()  # weird but ok
+            Gold.reset()
+            Research.reset()
+            Lives.reset()
             self.window.show_view(MapView(f"{map_name}.json", label))
 
         return level_start_handler

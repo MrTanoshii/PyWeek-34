@@ -14,7 +14,6 @@ heavy_infantry = {
     "gold_drop": 20,
     "image": "alien1.png",
 }
-
 scout = {
     "hp": 20,
     "speed": 20,
@@ -31,8 +30,6 @@ tank = {
     "gold_drop": 50,
     "image": "alien3.png",
 }
-
-
 martian_wolf = {
     "hp": 100,
     "speed": 80,
@@ -136,14 +133,15 @@ drunken_bear = {
 mech_duck = [
     {
         "hp": 123 * (duck + 1),
-        "speed": 90 + (duck*5),
+        "speed": 90 + (duck * 5),
         "flying": False,
         "boss": False,
         "gold_drop": ((duck + 1) * 5),
         "image": f"mech_duck_{duck}.png",
-        "scale": .3,
+        "scale": 0.3,
         "wobble": [4, 4],
-    } for duck in range(15)
+    }
+    for duck in range(15)
 ]
 
 enemies = [
