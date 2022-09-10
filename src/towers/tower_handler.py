@@ -104,6 +104,7 @@ class TowerHandler:
             )
             bullet.damage_ground = tower.damage_ground
             bullet.damage_poison = tower.damage_poison
+            bullet.slow = tower.slow
             Bullet.bullet_list.append(bullet)
             bullet.play_sound()
             # TODO: splash damage

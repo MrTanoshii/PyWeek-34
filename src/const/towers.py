@@ -42,6 +42,7 @@ class TOWERS:
         "damage_splash": 0,
         "damage_poison": 0,
         "size_tiles": 2,
+        "slow": True,
     }
     CANNON2_TOWER = {
         "name": "Cannon2.png",
