@@ -133,6 +133,19 @@ drunken_bear = {
 }
 
 
+mech_duck = [
+    {
+        "hp": 123 * (duck + 1),
+        "speed": 90 + (duck*5),
+        "flying": False,
+        "boss":True,
+        "gold_drop": 100 + (duck * 5),
+        "image": f"mech_duck_{duck}.png",
+        "scale": .3,
+        "wobble": [4, 4],
+    } for duck in range(15)
+]
+
 enemies = [
     drunken_bear,
     bear,
