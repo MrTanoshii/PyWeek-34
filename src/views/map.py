@@ -53,7 +53,7 @@ class MapView(arcade.View):
         self._scene = arcade.Scene.from_tilemap(self.world.map)
         if init_logic:
             self.grid = Grid(int(self.world.height), int(self.world.width))
-            self.enemy_handler = EnemyHandler(self.world)
+            self.enemy_handler = EnemyHandler(self.world, self.tiled_name)
             self.tower_handler = TowerHandler(self.world)
             self.bullets = Bullet(0, 0, 0, 0, "Missile.png")
             self.targeting = Targeting(self.world, self.enemy_handler)

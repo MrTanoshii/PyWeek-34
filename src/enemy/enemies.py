@@ -63,10 +63,10 @@ martian_unicorn = {
     "scale": 0.4,
     "wobble": [3, 3],
 }
-martian_flying_snake = {
+martian_snake = {
     "hp": 60,
     "speed": 110,
-    "flying": True,
+    "flying": False,
     "boss": False,
     "gold_drop": 10,
     "image": "alien3.png",
@@ -138,7 +138,7 @@ mech_duck = [
         "hp": 123 * (duck + 1),
         "speed": 90 + (duck*5),
         "flying": False,
-        "boss":True,
+        "boss": False,
         "gold_drop": 100 + (duck * 5),
         "image": f"mech_duck_{duck}.png",
         "scale": .3,
@@ -147,15 +147,15 @@ mech_duck = [
 ]
 
 enemies = [
-    drunken_bear,
-    bear,
     bottle_of_liquid,
+    martian_snake,
     martian_dog,
-    martian_fireman,
     martian_unicorn,
-    martian_bart,
     martian_wolf,
+    martian_fireman,
+    martian_bart,
     martian_grinch,
-    martian_flying_snake,
+    bear,
+    drunken_bear,
 ]
 # enemies = [infantry, heavy_infantry, scout, tank, plane]
