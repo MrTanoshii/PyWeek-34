@@ -70,8 +70,8 @@ class TowerHandler:
                 C.NOTIFICATIONS.NOT_ENOUGH_GOLD,
             )
 
-        # Check for FOUNDATION tower
         tower = self.build_tower(tower_type)
+        # Check for FOUNDATION tower
         if tower_type == C.TOWERS.BASE_TOWER:
             tower.width = C.GRID.WIDTH * tower.size_tiles
             tower.height = C.GRID.WIDTH * tower.size_tiles

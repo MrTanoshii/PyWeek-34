@@ -43,6 +43,9 @@ class MapView(arcade.View):
         self.notification_handler = NotificationHandler()
         self.gui = GUI(self.tower_handler, self.notification_handler)
 
+        # music default stopped
+        Audio.stop(self.bgm_player)
+
     def _load_map(self, tiled_name: str, init_logic=True):
         self.tiled_name = tiled_name
         self.world = World.load(tiled_name)
@@ -109,7 +112,7 @@ class MapView(arcade.View):
                     tower.angle = self.targeting.get_angle(tower, target)
                     self.tower_handler.shoot(tower, target)
 
-    def handle_tower(self, row: int, column: int):
+    def handle_tower(self, row: int, column: int, x: int, y: int):
         # Check if there is tower in the grid already
         if base_tower := self.grid.grid[row][column]["base_tower"]:  # if there's tower
             if self.tower_handler.is_removing:
@@ -121,6 +124,28 @@ class MapView(arcade.View):
                 print(f"Tower Clicked at: {row}, {column}")
             if C.DEBUG.TOWER:
                 print(self.tower_handler.selected_type)
+            # check if that tower already exist at that grid
+            if self.is_tower_type_already_in(
+                row, column, self.tower_handler.selected_type
+            ):
+                self.notification_handler.create(
+                    f"You already have {self.tower_handler.selected_type['label']} on this grid",
+                    x,
+                    y,
+                    (255, 0, 0),
+                )
+                return
+            if (
+                self.tower_handler.selected_type["name"] == C.TOWERS.BASE_TOWER["name"]
+                and self.grid.grid[row][column]["base_tower"] is not None
+            ):
+                self.notification_handler.create(
+                    f"You already have {self.tower_handler.selected_type['label']} on this grid",
+                    x,
+                    y,
+                    (255, 0, 0),
+                )
+                return
             # Try to upgrade / level up tower
             if new_tower := self.tower_handler.buy_tower(
                 row,
@@ -146,24 +171,68 @@ class MapView(arcade.View):
 
             if C.DEBUG.MAP:
                 print(f"Tower blocking at: {row}, {column}")
+            self.notification_handler.create(
+                f"Can't build here, another tower blocking",
+                x,
+                y,
+                (255, 0, 0),
+            )
             self.tower_handler.select_tower(towers_around[0])
         else:
             if self.tower_handler.is_removing:
                 return
 
-            # Add new tower foundation / base tower
-            if new_tower := self.tower_handler.buy_tower(
-                row,
-                column,
-                tower_type=C.TOWERS.BASE_TOWER,
-            ):  # if it's possible to build one
-                self.grid.grid[row][column]["base_tower"] = new_tower
+            # check if that tower already exist at that grid
+            if self.is_tower_type_already_in(
+                row, column, self.tower_handler.selected_type
+            ):
+                self.notification_handler.create(
+                    f"You already have {self.tower_handler.selected_type['label']} on this grid",
+                    x,
+                    y,
+                    (255, 0, 0),
+                )
+                return
 
-            if C.DEBUG.MAP:
-                print(f"Creating base at: {row}, {column}")
+            if self.grid.grid[row][column]["base_tower"] is None:
+                if (
+                    self.tower_handler.selected_type["name"]
+                    == C.TOWERS.BASE_TOWER["name"]
+                ):
+
+                    # Add new tower foundation / base tower
+                    if new_tower := self.tower_handler.buy_tower(
+                        row,
+                        column,
+                        tower_type=C.TOWERS.BASE_TOWER,
+                    ):  # if it's possible to build one
+                        self.grid.grid[row][column]["base_tower"] = new_tower
+
+                    if C.DEBUG.MAP:
+                        print(f"Creating base at: {row}, {column}")
+                else:
+                    self.notification_handler.create(
+                        f"You need to build {C.TOWERS.BASE_TOWER['label']} first",
+                        x,
+                        y,
+                        (255, 0, 0),
+                    )
 
         if C.DEBUG.MAP:
             print(f"Cell at [{row}, {column}] contains {self.grid.grid[row][column]}")
+
+    def get_tower_from_grid(self, row, column):
+        if self.grid.grid[row][column]["tower"] is not None:
+            return self.grid.grid[row][column]["tower"]
+        if self.grid.grid[row][column]["base_tower"] is not None:
+            return self.grid.grid[row][column]["base_tower"]
+        return None
+
+    def is_tower_type_already_in(self, row, column, tower_type):
+        current_tower = self.get_tower_from_grid(row, column)
+        if current_tower is None:
+            return False
+        return current_tower.name == tower_type["name"]
 
     def on_mouse_press(self, x, y, button, modifiers):
         """Use a mouse press to advance to the 'game' view."""
@@ -171,7 +240,7 @@ class MapView(arcade.View):
         if self.gui.manager.on_mouse_press(x, y, button, modifiers):
             return
         try:
-            self.handle_tower(current_cell_row, current_cell_column)
+            self.handle_tower(current_cell_row, current_cell_column, x, y)
         except BuildException as e:
             self.notification_handler.create(e.message, x, y, e.color)
 
@@ -183,7 +252,7 @@ class MapView(arcade.View):
 
     def on_key_press(self, symbol, _modifiers):
         """Called whenever a key is pressed."""
-        
+
         # handle gui keyboard shortcuts
         self.gui.on_key_press(symbol, _modifiers)
 
