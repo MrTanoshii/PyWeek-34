@@ -40,7 +40,6 @@ class Enemy(arcade.Sprite):
         self.health_bar = HealthBar(self)
 
     def update(self, delta_time: float):
-
         if self.poisoned:
             self.take_damage(self.poisoned_damage * delta_time)
             self.poisoned_duration -= delta_time
@@ -66,13 +65,22 @@ class Enemy(arcade.Sprite):
 
         speed = self.speed
         if self.slowed and distance > self.speed * 0.5:
+            self.color = (128, 128, 255, 128)
+
             speed /= 2
+            self.slow_remaining -= delta_time
+            if self.slow_remaining <= 0:
+                self.slow_remaining = 0
+                self.slowed = False
+                self.color = (255, 255, 255, 255)
+
         change_x = math.cos(angle) * speed * delta_time
         change_y = math.sin(angle) * speed * delta_time
 
         wobble = self.wobble
         self.center_x += change_x + ((random.random() * wobble[0] * 2) - wobble[0])
         self.center_y += change_y + ((random.random() * wobble[1] * 2) - wobble[1])
+
         distance = math.sqrt(
             (self.center_x - dest_x) ** 2 + (self.center_y - dest_y) ** 2
         )
