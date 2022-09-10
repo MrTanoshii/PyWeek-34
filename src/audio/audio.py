@@ -187,20 +187,28 @@ class Audio:
 
     @classmethod
     def stop_all_sounds(cls):
+        """Stops all currently playing sound streams."""
+
         for i in cls.currently_playing_dict:
             cls.stop(cls.currently_playing_dict[i]["sound_stream"])
         cls.currently_playing_dict = {}
 
     @classmethod
     def mute(cls):
+        """Mute audio."""
+
         cls.is_muted = True
         cls.stop_all_sounds()
 
     @classmethod
     def unmute(cls):
+        """Unmute audio."""
+
         cls.is_muted = False
 
     @classmethod
     def toggle_mute(cls):
+        """Toggle mute audio."""
+
         cls.is_muted = not cls.is_muted
         cls.stop_all_sounds()
