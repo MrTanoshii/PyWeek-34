@@ -13,7 +13,7 @@ class Lives(Resource):
         """Takes away lives, then you die"""
         cls.value_current += change
         if cls.value_current < 1:
-            #die
+            # TODO: die
             ...
 
     @classmethod
