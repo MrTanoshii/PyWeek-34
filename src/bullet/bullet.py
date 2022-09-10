@@ -52,7 +52,6 @@ class Bullet(arcade.Sprite):
         self.center_x += self.change_x * self.speed
         self.center_y += self.change_y * self.speed
 
-
         if (
             self.center_x < -50
             or self.center_x > C.SETTINGS.SCREEN_WIDTH + 50
