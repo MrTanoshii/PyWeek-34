@@ -36,7 +36,6 @@ class Bullet(arcade.Sprite):
         # Inherit parent class
         super().__init__()
 
-
         self.center_x = _center_x
         self.center_y = _center_y
         self.scale = scale
