@@ -2,7 +2,7 @@ import arcade
 import arcade.gui
 
 from src import const as C
-from towers.tower_handler import TowerHandler
+from src.towers.tower_handler import TowerHandler
 from .buttons import *
 
 
