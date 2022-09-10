@@ -131,3 +131,7 @@ dmypy.json
 
 #PyCharm
 .idea/
+
+# Tiled
+maps.tiled-project
+maps.tiled-session
