@@ -142,7 +142,8 @@ class TOWERS:
         "damage_poison": 0,
         "size_tiles": 2,
         "bullet_speed": 12,
-        "bullet_type": "Missile.png",
+        "bullet_type": "bullet_frost.png",
+        "bullet_scale": .2,
         "slow": True,
     }
 
