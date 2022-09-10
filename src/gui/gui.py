@@ -6,8 +6,6 @@ from .buttons import *
 from .buttons import *  # Fuck it
 
 
-
-
 class GUI:
     def __init__(self, tower_handler: TowerHandler, notification_handler, restart_func):
         self.manager = arcade.gui.UIManager()
@@ -21,7 +19,6 @@ class GUI:
         # (interfaces, di and non god-object map class would help here)
 
         self.notification_handler = notification_handler
-
 
         self.h_box = arcade.gui.UIBoxLayout(vertical=False)
 
@@ -148,5 +145,6 @@ class GUI:
         if symbol == arcade.key.ESCAPE:
             self.tower_handler.selected_type = C.TOWERS.BASE_TOWER
             self.tower_handler.selected_tower = None
+
     def toggle_pause(self):
         self.is_paused = not self.is_paused
