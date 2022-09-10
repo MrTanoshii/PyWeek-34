@@ -1,4 +1,5 @@
 class DEBUG:
     ALL = False
-    MOUSE = ALL or True
-    MAP = ALL or True
+    MOUSE = ALL or False
+    MAP = ALL or False
+    TOWER = ALL or False

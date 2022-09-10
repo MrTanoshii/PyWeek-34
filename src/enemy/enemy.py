@@ -81,14 +81,16 @@ class Enemy(arcade.Sprite):
             self.cur_position += 1
             if self.cur_position >= len(self.position_list):
                 self.remove_from_sprite_lists()
+                Lives.increment(-1)
                 # TODO TAKE AWAY PLAYER LIFE
                 if self.boss:
+                    Lives.increment(-self.hp_current)
                     # TODO TAKE AWAY ALL REMAINING PLAYER LIVES
                     ...
 
     def take_damage(self, damage: float):
         self.hp_current -= damage
-        if self.hp_current < 0:
+        if self.hp_current <= 0:
             self.remove_from_sprite_lists()
             Gold().increment(self.gold_drop)
             # TODO PLAY SOUND?  Maybe add death sounds?
@@ -101,25 +103,26 @@ class HealthBar(arcade.Sprite):
         self.enemy = enemy
         self.width = enemy.width
 
-    def draw(self):
+    def on_draw(self):
         enemy_hp = self.enemy.hp_current / self.enemy.hp_max
         enemy_hp_removed = 1 - enemy_hp
         life_end = self.enemy.right - (
             (self.enemy.right - self.enemy.left) * enemy_hp_removed
         )
+        below = self.enemy.bottom - 10
         arcade.draw_line(
             self.enemy.left,
-            self.enemy.bottom,
+            below,
             self.enemy.right,
-            self.enemy.bottom,
+            below,
             arcade.color.RED,
             line_width=5,
         )
         arcade.draw_line(
             self.enemy.left,
-            self.enemy.bottom,
+            below,
             life_end,
-            self.enemy.bottom,
+            below,
             arcade.color.GREEN,
             line_width=5,
         )

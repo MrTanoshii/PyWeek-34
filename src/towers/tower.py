@@ -39,7 +39,8 @@ class Tower(arcade.Sprite):
         super().__init__()
         self.name: str = tower_type["name"]
         self.label: str = tower_type["label"]
-        print(C.TOWERS.BASEPATH / tower_type["name"])
+        if C.DEBUG.MOUSE:
+            print(C.TOWERS.BASEPATH / tower_type["name"])
         self.texture = arcade.load_texture(C.TOWERS.BASEPATH / tower_type["name"])
         self.level: int = tower_type["level"]
 
@@ -56,8 +57,10 @@ class Tower(arcade.Sprite):
         self.damage_splash: float = tower_type["damage_splash"]
         self.damage_poison: float = tower_type["damage_poison"]
 
+        # Force tower width and height
         self.width: float = C.GRID.WIDTH * tower_type["size_tiles"]
         self.height: float = C.GRID.HEIGHT * tower_type["size_tiles"]
+
         self.scale: float = C.SETTINGS.GLOBAL_SCALE
 
         self.size_tiles: int = tower_type["size_tiles"]

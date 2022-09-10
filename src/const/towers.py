@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from src.towers import *
 
 
@@ -9,7 +10,7 @@ class TOWERS:
 
     REMOVE_TOWER = {
         "remove": True,
-    }  # хуета какая-то на самом деле, но ладно -_-
+    }
 
     # Different tower types
     BASE_TOWER = {
@@ -106,13 +107,13 @@ class TOWERS:
         "name": "mg3.png",
         "label": "MG III",
         "level": 0,
-        "attack_cooldown_sec": 1,
+        "attack_cooldown_sec": 0.2,
         "gold_cost": 100,
         "research_cost": 0,
-        "radius": 5,
+        "radius": 3,
         "radius_splash": 0,
         "damage_air": 0,
-        "damage_ground": 50,
+        "damage_ground": 5,
         "damage_splash": 0,
         "damage_poison": 0,
         "size_tiles": 2,
@@ -121,10 +122,10 @@ class TOWERS:
         "name": "Missile_Launcher.png",
         "label": "Rocket Launcher I",
         "level": 0,
-        "attack_cooldown_sec": 1,
+        "attack_cooldown_sec": 5,
         "gold_cost": 100,
         "research_cost": 0,
-        "radius": 5,
+        "radius": 14,
         "radius_splash": 0,
         "damage_air": 0,
         "damage_ground": 50,
@@ -137,13 +138,13 @@ class TOWERS:
         "name": "Missile_Launcher2.png",
         "label": "Rocket Launcher II",
         "level": 0,
-        "attack_cooldown_sec": 1,
+        "attack_cooldown_sec": 5,
         "gold_cost": 100,
         "research_cost": 0,
         "radius": 5,
         "radius_splash": 0,
-        "damage_air": 0,
-        "damage_ground": 50,
+        "damage_air": 16,
+        "damage_ground": 80,
         "damage_splash": 0,
         "damage_poison": 0,
         "size_tiles": 2,
@@ -152,13 +153,13 @@ class TOWERS:
         "name": "Missile_Launcher3.png",
         "label": "Rocket Launcher III",
         "level": 0,
-        "attack_cooldown_sec": 1,
+        "attack_cooldown_sec": 5,
         "gold_cost": 100,
         "research_cost": 0,
-        "radius": 5,
+        "radius": 50,
         "radius_splash": 0,
         "damage_air": 0,
-        "damage_ground": 50,
+        "damage_ground": 100,
         "damage_splash": 0,
         "damage_poison": 0,
         "size_tiles": 2,

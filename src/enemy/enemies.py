@@ -60,7 +60,7 @@ martian_unicorn = {
     "boss": False,
     "gold_drop": 20,
     "image": "alien2.png",
-    "scale": 0.5,
+    "scale": 0.4,
     "wobble": [3, 3],
 }
 martian_flying_snake = {

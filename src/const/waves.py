@@ -18,3 +18,21 @@ class Waves:
             ],
             7,
         ]
+
+    @staticmethod
+    def wave_1_3():
+        enemies = []
+        enemies = enemies + [e[2]] * 50
+        enemies = enemies + [e[5]] * 30
+        enemies = enemies + [e[7]] * 30
+        return [enemies, len(enemies) // 3]
+
+    @classmethod
+    def level_1(cls, wave: int):
+        if wave == 1:
+            return cls.wave_1_1()
+        elif wave == 2:
+            return cls.wave_1_2()
+        elif wave == 3:
+            return cls.wave_1_3()
+        return None
