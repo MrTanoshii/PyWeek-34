@@ -46,8 +46,7 @@ class SoundButton(SwitchButton):
 
     def on_switch(self):
         if self.enabled:
-            C.AUDIO.VOLUME["MASTER"] = 1.0
-            Audio.play_random(["bgm_1", "bgm_2"])
+            Audio.reset()
         else:
             C.AUDIO.VOLUME["MASTER"] = 0
             for sound in Audio.sound_list:  # I guess Audio should be changed
@@ -105,6 +104,7 @@ class MenuButton(SwitchButton):
     def __init__(self, *args, **kwargs):
         self.manager: Optional[arcade.gui.UIManager] = kwargs.pop("manager", None)
         self.menu: Optional[arcade.gui.UIWidget] = None
+        self.map_view = kwargs.pop("map_view", None)
         super().__init__(*args, **kwargs)
 
     def on_switch(self):
@@ -112,7 +112,7 @@ class MenuButton(SwitchButton):
             raise ValueError("UIManger is required to open the menu")
 
         if self.enabled:
-            self.menu = Menu.create()
+            self.menu = Menu.create(self.map_view)
             self.manager.add(self.menu)
         elif self.menu:
             self.manager.remove(self.menu)

@@ -5,10 +5,13 @@ from .buttons import *  # Fuck it
 
 
 class GUI:
-    def __init__(self, tower_handler: TowerHandler):
+    def __init__(self, tower_handler: TowerHandler, map_view):
         self.manager = arcade.gui.UIManager()
         self.manager.enable()
         self.tower_handler = tower_handler
+        self.map_view = map_view  # perkele
+        # i don't like it, but we need info about current level to restart it
+        # (interfaces, di and non god-object map class would help here)
 
         self.h_box = arcade.gui.UIBoxLayout(vertical=False)
 
@@ -40,25 +43,27 @@ class GUI:
             )
         )
 
-        sound_button = SoundButton()
+        self.sound_button = SoundButton()
 
         self.manager.add(
             arcade.gui.UIAnchorWidget(
                 anchor_x="left",
                 anchor_y="top",
-                child=sound_button.with_space_around(
+                child=self.sound_button.with_space_around(
                     C.GUI.PADDING, C.GUI.PADDING, C.GUI.PADDING, C.GUI.PADDING
                 ),
             )
         )
 
-        menu_button = MenuButton(manager=self.manager)  # shit, shit, kurwa, gówno jakoś
+        self.menu_button = MenuButton(
+            manager=self.manager, map_view=self.map_view
+        )  # shit, shit, kurwa, gówno jakoś
 
         self.manager.add(
             arcade.gui.UIAnchorWidget(
                 anchor_x="right",
                 anchor_y="top",
-                child=menu_button.with_space_around(
+                child=self.menu_button.with_space_around(
                     C.GUI.PADDING, C.GUI.PADDING, C.GUI.PADDING, C.GUI.PADDING
                 ),
             )
@@ -74,3 +79,7 @@ class GUI:
                     button.height + C.GUI.PADDING,
                     C.GUI.TOWER_SELECT_COLOR,
                 )
+
+    @property
+    def is_paused(self):
+        return self.menu_button.enabled

@@ -103,3 +103,7 @@ class Audio:
         """Display the master list of sounds."""
 
         print(cls.sound_list)
+
+    @classmethod
+    def reset(cls):
+        C.AUDIO.VOLUME["MASTER"] = 1.0
