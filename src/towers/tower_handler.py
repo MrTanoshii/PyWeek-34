@@ -101,6 +101,7 @@ class TowerHandler:
                 math.radians(tower.angle + 90),  # get tower rotation as radians
                 tower.center_x,
                 tower.center_y,
+                tower.bullet_speed,
             )
             bullet.damage_ground = tower.damage_ground
             bullet.damage_poison = tower.damage_poison
