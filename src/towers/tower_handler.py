@@ -2,7 +2,7 @@ from typing import Optional
 
 import arcade
 
-from src import const as C
+import src.const as C
 from src.world import World
 from src.enemy import *
 from src.resources import *

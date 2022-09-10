@@ -1,5 +1,5 @@
 import arcade
-from src import const as C
+import src.const as C
 
 
 class Notification(arcade.Text):
@@ -21,7 +21,7 @@ class Notification(arcade.Text):
         )
 
 
-class Notifications:
+class NotificationHandler:
     _instance = None  # singleton
 
     def __new__(cls, *args, **kwargs):

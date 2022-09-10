@@ -42,7 +42,7 @@ class MapView(arcade.View):
 
         self._load_map(tiled_name)
         self.gui = GUI(self.tower_handler)
-        self.notifications = Notifications()
+        self.notification_handler = NotificationHandler()
 
     def _load_map(self, tiled_name: str, init_logic=True):
         self.tiled_name = tiled_name
@@ -74,12 +74,12 @@ class MapView(arcade.View):
         self.gui.manager.draw()
         self.gold.draw()
         self.gui.draw_tower_selection()
-        self.notifications.draw()
+        self.notification_handler.draw()
 
     def on_update(self, delta_time: float):
         self.gui.manager.on_update(delta_time)
         self.enemy_handler.on_update(delta_time)
-        self.notifications.update(delta_time)
+        self.notification_handler.update(delta_time)
         rows = self.grid.rows_count
         columns = self.grid.columns_count
         for row in range(rows):
@@ -151,25 +151,23 @@ class MapView(arcade.View):
                 print(f"Creating base at: {row}, {column}")
 
         if C.DEBUG.MAP:
-            print(
-                f"Cell at [{row}, {column}] contains " f"{self.grid.grid[row][column]}"
-            )
+            print(f"Cell at [{row}, {column}] contains {self.grid.grid[row][column]}")
 
-    def on_mouse_press(self, _x, _y, _button, _modifiers):
+    def on_mouse_press(self, x, y, button, modifiers):
         """Use a mouse press to advance to the 'game' view."""
-        current_cell_row, current_cell_column = self.grid.get_cell(_x, _y)
-        if self.gui.manager.on_mouse_press(_x, _y, _button, _modifiers):
+        current_cell_row, current_cell_column = self.grid.get_cell(x, y)
+        if self.gui.manager.on_mouse_press(x, y, button, modifiers):
             return
         try:
             self.handle_tower(current_cell_row, current_cell_column)
         except BuildException as e:
-            self.notifications.create(e.message, _x, _y, e.color)
+            self.notification_handler.create(e.message, x, y, e.color)
 
-    def on_mouse_motion(self, _x, _y, _button, _modifiers):
+    def on_mouse_motion(self, x, y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
         # save_data.GameData.read_data()
         # self.window.show_view(MapView())
-        self.grid.on_hover(_x, _y)
+        self.grid.on_hover(x, y)
 
     def on_key_press(self, symbol, _modifiers):
         """Called whenever a key is pressed."""
