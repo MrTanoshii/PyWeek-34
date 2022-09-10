@@ -1,6 +1,5 @@
 import arcade.gui
 
-import gui
 import src.const as C
 from src.bullet import Bullet
 from src.audio import *
@@ -41,7 +40,6 @@ class MapView(arcade.View):
         self.research = Research()
 
         self._load_map(tiled_name)
-
 
         self.notification_handler = NotificationHandler()
         self.gui = GUI(self.tower_handler, self.notification_handler, self.restart)
