@@ -36,7 +36,7 @@ class AUDIO:
         },
         "shoot": {
             "path": Path("alienshoot1.wav"),
-            "gain": -0.7,
+            "gain": -0.85,
             "loop": False,
             "multiple": False,
             "type": "SFX",
