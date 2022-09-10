@@ -180,3 +180,14 @@ class Audio:
                     0,
                 )
                 cls.currently_playing_dict[i]["sound_stream"].volume = new_sound_volume
+
+    @classmethod
+    def reset(cls):
+        Audio.stop_all_sounds()
+        C.AUDIO.VOLUME["MASTER"] = 1.0
+
+    @classmethod
+    def stop_all_sounds(cls):
+        for sound in cls.sound_list:
+            if "stream_player" in cls.sound_list[sound]:
+                cls.stop(sound)

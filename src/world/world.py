@@ -5,8 +5,11 @@ import src.const as C
 
 
 class World:
-    def __init__(self, tile_map: arcade.tilemap.TileMap):
+    completed_levels = []
+
+    def __init__(self, tile_map: arcade.tilemap.TileMap, map_name: str):
         self.map = tile_map
+        self.map_name = map_name
         self.paths = tile_map.get_tilemap_layer("paths")
         self.roads = list(filter(lambda x: x.type == "road", self.objects))
         self.points = list(filter(lambda x: x.type == "point", self.objects))
@@ -19,7 +22,8 @@ class World:
     def load(cls, tiled_name: str) -> "World":
         scale = 1.25 * arcade.get_window().height / 720
         return cls(
-            arcade.load_tilemap(C.WORLD.BASEPATH_MAPS / tiled_name, scaling=scale)
+            arcade.load_tilemap(C.WORLD.BASEPATH_MAPS / tiled_name, scaling=scale),
+            map_name=tiled_name.split(".")[0],  # :=
         )
 
     @property
@@ -48,7 +52,7 @@ class World:
         """
         Tiled counts coordinates from top-left but arcade from bottom left
         """
-        return [self.height - row - 1, column]  # weird math
+        return [self.height - row - 1, column]
 
     def tiled_to_screen(self, x: float, y: float) -> list[float, float]:
         return [

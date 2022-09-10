@@ -30,6 +30,7 @@ class Bullet(arcade.Sprite):
         _center_x: float,
         _center_y: float,
         speed: float,
+        type: str,
     ):
         # Inherit parent class
         super().__init__()
@@ -44,12 +45,15 @@ class Bullet(arcade.Sprite):
 
         self.change_x = math.cos(math.radians(self.angle))
         self.change_y = math.sin(math.radians(self.angle))
-        self.texture = arcade.load_texture(
-            ":resources:images/space_shooter/laserBlue01.png"
-        )
+        self.texture = arcade.load_texture(f"src/towers/sprites/{type}")
 
     def on_update(self, delta_time: float, enemy_list):
         # update bullet location
+        if C.DEBUG.BULLET:
+            print(
+                self.center_x, self.center_y, self.change_x, self.change_y, self.speed
+            )
+
         self.center_x += self.change_x * self.speed
         self.center_y += self.change_y * self.speed
 

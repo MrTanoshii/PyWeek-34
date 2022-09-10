@@ -1,5 +1,6 @@
 import arcade.gui
 
+import gui
 import src.const as C
 from src.bullet import Bullet
 from src.audio import *
@@ -7,7 +8,7 @@ from src.const import *
 from src.gamedata import *
 from src.gui import *
 from src.world import *
-from src.towers.tower_handler import TowerHandler
+from src.towers.tower_handler import TowerHandler, BuildException
 
 
 class MapView(arcade.View):
@@ -40,8 +41,13 @@ class MapView(arcade.View):
         self.research = Research()
 
         self._load_map(tiled_name)
-        self.gui = GUI(self.tower_handler)
+
+
         self.notification_handler = NotificationHandler()
+        self.gui = GUI(self.tower_handler, self.notification_handler, self.restart)
+
+        # music default stopped
+        Audio.stop(self.bgm_player)
 
     def _load_map(self, tiled_name: str, init_logic=True):
         self.tiled_name = tiled_name
@@ -51,7 +57,7 @@ class MapView(arcade.View):
             self.grid = Grid(int(self.world.height), int(self.world.width))
             self.enemy_handler = EnemyHandler(self.world)
             self.tower_handler = TowerHandler(self.world)
-            self.bullets = Bullet(0, 0, 0, 0)
+            self.bullets = Bullet(0, 0, 0, 0, "Missile.png")
             self.targeting = Targeting(self.world, self.enemy_handler)
 
     def reload_map(self):
@@ -75,13 +81,20 @@ class MapView(arcade.View):
         Bullet.on_draw()  # Draw bullets
         self.gui.manager.draw()
         self.gold.draw()
+        self.gui.draw_tower_selection()  # Draw tower selection
         self.lives.draw()
         self.gui.draw_tower_selection()
         self.notification_handler.draw()
 
     def on_update(self, delta_time: float):
         self.gui.manager.on_update(delta_time)
+
+        self.gui.on_update()
+        if self.gui.is_paused:  # update none if paused
+            return
+
         self.enemy_handler.on_update(delta_time)
+        self.gui.on_update()
         # Update bullets and check collision
         for bullet in self.bullets.bullet_list:
             bullet.on_update(
@@ -108,7 +121,7 @@ class MapView(arcade.View):
 
         Audio.on_update(delta_time)
 
-    def handle_tower(self, row: int, column: int):
+    def handle_tower(self, row: int, column: int, x: int, y: int):
         # Check if there is tower in the grid already
         if base_tower := self.grid.grid[row][column]["base_tower"]:  # if there's tower
             if self.tower_handler.is_removing:
@@ -116,10 +129,34 @@ class MapView(arcade.View):
                 return
 
             self.tower_handler.select_tower(base_tower)
+            if self.grid.grid[row][column]["tower"]:
+                self.tower_handler.select_tower(self.grid.grid[row][column]["tower"])
             if C.DEBUG.MAP:
                 print(f"Tower Clicked at: {row}, {column}")
             if C.DEBUG.TOWER:
                 print(self.tower_handler.selected_type)
+            # check if that tower already exist at that grid
+            if self.is_tower_type_already_in(
+                row, column, self.tower_handler.selected_type
+            ):
+                self.notification_handler.create(
+                    f"You already have {self.tower_handler.selected_type['label']} on this grid",
+                    x,
+                    y,
+                    (255, 0, 0),
+                )
+                return
+            if (
+                self.tower_handler.selected_type["name"] == C.TOWERS.BASE_TOWER["name"]
+                and self.grid.grid[row][column]["base_tower"] is not None
+            ):
+                self.notification_handler.create(
+                    f"You already have {self.tower_handler.selected_type['label']} on this grid",
+                    x,
+                    y,
+                    (255, 0, 0),
+                )
+                return
             # Try to upgrade / level up tower
             if new_tower := self.tower_handler.buy_tower(
                 row,
@@ -139,49 +176,103 @@ class MapView(arcade.View):
             if self.tower_handler.is_removing:
                 row_to_delete, column_to_delete = self.grid.get_cell(
                     towers_around[0].center_x, towers_around[0].center_y
-                )  # kurwa
+                )
                 self.remove_tower(row_to_delete, column_to_delete)
                 return
 
             if C.DEBUG.MAP:
                 print(f"Tower blocking at: {row}, {column}")
+            self.notification_handler.create(
+                f"Can't build here, another tower blocking",
+                x,
+                y,
+                (255, 0, 0),
+            )
             self.tower_handler.select_tower(towers_around[0])
         else:
             if self.tower_handler.is_removing:
                 return
 
-            # Add new tower foundation / base tower
-            if new_tower := self.tower_handler.buy_tower(
-                row,
-                column,
-                tower_type=C.TOWERS.BASE_TOWER,
-            ):  # if it's possible to build one
-                self.grid.grid[row][column]["base_tower"] = new_tower
+            # check if that tower already exist at that grid
+            if self.is_tower_type_already_in(
+                row, column, self.tower_handler.selected_type
+            ):
+                self.notification_handler.create(
+                    f"You already have {self.tower_handler.selected_type['label']} on this grid",
+                    x,
+                    y,
+                    (255, 0, 0),
+                )
+                return
 
-            if C.DEBUG.MAP:
-                print(f"Creating base at: {row}, {column}")
+            if self.grid.grid[row][column]["base_tower"] is None:
+                if (
+                    self.tower_handler.selected_type["name"]
+                    == C.TOWERS.BASE_TOWER["name"]
+                ):
+
+                    # Add new tower foundation / base tower
+                    if new_tower := self.tower_handler.buy_tower(
+                        row,
+                        column,
+                        tower_type=C.TOWERS.BASE_TOWER,
+                    ):  # if it's possible to build one
+                        self.grid.grid[row][column]["base_tower"] = new_tower
+
+                    if C.DEBUG.MAP:
+                        print(f"Creating base at: {row}, {column}")
+                else:
+                    self.notification_handler.create(
+                        f"You need to build {C.TOWERS.BASE_TOWER['label']} first",
+                        x,
+                        y,
+                        (255, 0, 0),
+                    )
 
         if C.DEBUG.MAP:
             print(f"Cell at [{row}, {column}] contains {self.grid.grid[row][column]}")
 
+    def get_tower_from_grid(self, row, column):
+        if self.grid.grid[row][column]["tower"] is not None:
+            return self.grid.grid[row][column]["tower"]
+        if self.grid.grid[row][column]["base_tower"] is not None:
+            return self.grid.grid[row][column]["base_tower"]
+        return None
+
+    def is_tower_type_already_in(self, row, column, tower_type):
+        current_tower = self.get_tower_from_grid(row, column)
+        if current_tower is None:
+            return False
+        return current_tower.name == tower_type["name"]
+
     def on_mouse_press(self, x, y, button, modifiers):
         """Use a mouse press to advance to the 'game' view."""
+        if self.gui.is_paused:
+            return
+
         current_cell_row, current_cell_column = self.grid.get_cell(x, y)
         if self.gui.manager.on_mouse_press(x, y, button, modifiers):
             return
         try:
-            self.handle_tower(current_cell_row, current_cell_column)
+            self.handle_tower(current_cell_row, current_cell_column, x, y)
         except BuildException as e:
             self.notification_handler.create(e.message, x, y, e.color)
 
     def on_mouse_motion(self, x, y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
-        # save_data.GameData.read_data()
-        # self.window.show_view(MapView())
+        if self.gui.is_paused:
+            return
+
         self.grid.on_hover(x, y)
 
     def on_key_press(self, symbol, _modifiers):
         """Called whenever a key is pressed."""
+
+        # handle gui keyboard shortcuts
+        self.gui.on_key_press(symbol, _modifiers)
+
+        # handle keyboard shortcuts in
+        self.gui.on_key_press(symbol, _modifiers)
 
         # Quicksave | F5
         if symbol == arcade.key.F5:
@@ -226,3 +317,10 @@ class MapView(arcade.View):
         self.grid.grid[row][column]["tower"] = None
         self.grid.grid[row][column]["base_tower"] = None
         self.tower_handler.select_tower(None)
+
+    def restart(self):
+        Gold.reset()
+        Research.reset()
+        Lives.reset()
+        Audio.reset()
+        self.window.show_view(MapView(self.tiled_name, self.label))
