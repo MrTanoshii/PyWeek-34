@@ -16,6 +16,9 @@ class GUI:
         self.h_box = arcade.gui.UIBoxLayout(vertical=False)
 
         self.tower_buttons = []
+        # check if they changed, if they did write into tower_buttons
+        self.temporary_tower_buttons = []
+
         # Check if tower type is selected, and it is not base tower
         self.tower_buttons.append(
             TowerButton(tower=C.TOWERS.BASE_TOWER, tower_handler=tower_handler)
@@ -106,25 +109,25 @@ class GUI:
 
         # Select tower selection options
 
-        self.tower_buttons.clear()
         self.h_box.clear()
+        self.temporary_tower_buttons.clear()
 
         # Tower selected
         if self.tower_handler.selected_tower:
             # only base tower -> 3 types (lvl 1)
             if self.tower_handler.selected_tower.name == C.TOWERS.BASE_TOWER["name"]:
-                self.tower_buttons.append(
+                self.temporary_tower_buttons.append(
                     TowerButton(
                         tower=C.TOWERS.CANNON_TOWER,
                         tower_handler=self.tower_handler,
                     )
                 )
-                self.tower_buttons.append(
+                self.temporary_tower_buttons.append(
                     TowerButton(
                         tower=C.TOWERS.MG_TOWER, tower_handler=self.tower_handler
                     )
                 )
-                self.tower_buttons.append(
+                self.temporary_tower_buttons.append(
                     TowerButton(
                         tower=C.TOWERS.MISSILE, tower_handler=self.tower_handler
                     )
@@ -164,10 +167,18 @@ class GUI:
         # No Tower selected
         else:
             # no selection -> base tower
-            self.tower_buttons.append(
+            self.temporary_tower_buttons.append(
                 TowerButton(tower=C.TOWERS.BASE_TOWER, tower_handler=self.tower_handler)
             )
             self.tower_handler.selected_type = C.TOWERS.BASE_TOWER
+
+        for i in range(len(self.temporary_tower_buttons)):
+            if self.temporary_tower_buttons[i].tower != self.tower_buttons[i].tower:
+                if C.DEBUG.ALL:
+                    print("Tower selection list updated")
+                self.tower_buttons.clear()
+                self.tower_buttons = self.temporary_tower_buttons
+                break
 
         for button in self.tower_buttons:
             self.h_box.add(
