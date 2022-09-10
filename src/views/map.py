@@ -37,6 +37,7 @@ class MapView(arcade.View):
 
         self.gold = Gold()
         self.lives = Lives()
+        self.score = Score()
         self.research = Research()
 
         self._load_map(tiled_name)
@@ -79,6 +80,7 @@ class MapView(arcade.View):
         Bullet.on_draw()  # Draw bullets
         self.gui.manager.draw()
         self.gold.draw()
+        self.score.draw()
         self.gui.draw_tower_selection()  # Draw tower selection
         self.lives.draw()
         self.gui.draw_tower_selection()

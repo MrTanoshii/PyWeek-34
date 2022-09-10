@@ -66,7 +66,7 @@ class GameData:
     @classmethod
     def reset_data(cls):
         """Reset the save data."""
-
+        Score.reset()
         Gold.reset()
         Research.reset()
         World.completed_levels = []
