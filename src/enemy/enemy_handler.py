@@ -66,7 +66,7 @@ class EnemyHandler:
                 self.frames_until_next_wave = 60
                 self.current_wave += 1
                 # This will need to not be hardcoded to level 1
-                wave = C.Waves.level_1(self.current_wave)
+                wave = C.Waves.level_duck(self.current_wave)
                 if wave:
                     self.send_wave(*wave)
                 if wave is None:
