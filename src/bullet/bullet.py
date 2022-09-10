@@ -48,22 +48,22 @@ class Bullet(arcade.Sprite):
         )
 
     def on_update(self, delta_time: float, enemy_list):
-        for bullet in self.bullet_list:
-            # update bullet location
-            bullet.center_x += bullet.change_x * self.speed
-            bullet.center_y += bullet.change_y * self.speed
+        # update bullet location
+        print(self.center_x, self.center_y, self.change_x, self.change_y, self.speed)
+        self.center_x += self.change_x * self.speed
+        self.center_y += self.change_y * self.speed
 
-            # Check this bullet to see if it hit an enemy
-            hit_list = arcade.check_for_collision_with_list(bullet, enemy_list)
+        # Check this bullet to see if it hit an enemy
+        hit_list = arcade.check_for_collision_with_list(self, enemy_list)
 
-            # If it did, get rid of the bullet
-            if len(hit_list) > 0:
-                bullet.remove_from_sprite_lists()
+        # If it did, get rid of the bullet
+        if len(hit_list) > 0:
+            self.remove_from_sprite_lists()
 
-            # For every enemy we hit reduce health and remove if less than zero
-            for enemy in hit_list:
-                enemy.take_damage(bullet.damage_ground)
-                break
+        # For every enemy we hit reduce health and remove if less than zero
+        for enemy in hit_list:
+            enemy.take_damage(self.damage_ground)
+            break
 
     @classmethod
     def on_draw(cls):

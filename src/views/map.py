@@ -1,12 +1,12 @@
 import arcade.gui
 
-from bullet import Bullet
+from src.bullet import Bullet
 from src.audio import *
 from src.const import *
 from src.gamedata import *
 from src.gui import *
 from src.world import *
-from towers.tower_handler import TowerHandler
+from src.towers.tower_handler import TowerHandler
 
 
 class MapView(arcade.View):
@@ -79,7 +79,8 @@ class MapView(arcade.View):
         self.gui.manager.on_update(delta_time)
         self.enemy_handler.on_update(delta_time)
         # Update bullets and check collision
-        self.bullets.on_update(
+        for bullet in self.bullets.bullet_list:
+            bullet.on_update(
             delta_time=delta_time, enemy_list=self.enemy_handler.enemy_list
         )
         rows = self.grid.rows_count

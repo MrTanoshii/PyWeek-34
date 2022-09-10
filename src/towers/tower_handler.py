@@ -1,12 +1,12 @@
 import math
 from typing import Optional
 
-from towers import Tower
-from world import World
+from src.towers import Tower
+from src.world import World
 from src.world import World
 from src.enemy import *
 from src.resources import *
-from bullet import Bullet
+from src.bullet import Bullet
 
 
 class TowerHandler:
