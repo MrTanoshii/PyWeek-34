@@ -31,13 +31,15 @@ class Bullet(arcade.Sprite):
         _center_y: float,
         speed: float,
         type: str,
+        scale=1,
     ):
         # Inherit parent class
         super().__init__()
 
+
         self.center_x = _center_x
         self.center_y = _center_y
-
+        self.scale = scale
         self.speed = speed
 
         angle = _angle
