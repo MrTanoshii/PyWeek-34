@@ -36,6 +36,7 @@ class MapView(arcade.View):
         self.label = label
 
         self.gold = Gold()
+        print(self.gold.get())
         self.lives = Lives()
         self.score = Score()
         self.research = Research()
