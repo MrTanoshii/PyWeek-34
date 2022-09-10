@@ -23,7 +23,7 @@ class TowerHandler:
     """
 
     def __init__(self, world: World) -> None:
-        self.selected_type: dict = C.TOWERS.MG_TOWER
+        self.selected_type: dict = C.TOWERS.BASE_TOWER
         self.selected_tower: Optional[Tower] = None
         self.world = world
 
@@ -70,8 +70,8 @@ class TowerHandler:
                 C.NOTIFICATIONS.NOT_ENOUGH_GOLD,
             )
 
-        # Check for FOUNDATION tower
         tower = self.build_tower(tower_type)
+        # Check for FOUNDATION tower
         if tower_type == C.TOWERS.BASE_TOWER:
             tower.width = C.GRID.WIDTH * tower.size_tiles
             tower.height = C.GRID.WIDTH * tower.size_tiles
@@ -112,11 +112,17 @@ class TowerHandler:
             # TODO: splash damage
 
     def draw_radius(self, tower: Tower):
+        arcade.draw_circle_outline(
+            tower.center_x,
+            tower.center_y,
+            tower.radius * self.world.tile_size,
+            (255, 255, 255, 128),
+        )
         arcade.draw_circle_filled(
             tower.center_x,
             tower.center_y,
             tower.radius * self.world.tile_size,
-            C.TOWERS.RADIUS_BG_COLOR,
+            (0, 0, 0, 32),
         )
 
     def draw_selected(self):
@@ -127,7 +133,8 @@ class TowerHandler:
                 self.selected_tower.width,
                 self.selected_tower.height,
                 C.TOWERS.SELECTED_OUTLINE_COLOR,
-            )  # draw rectangle around selected tower
+            )
+            # draw sircle around selected tower (radius)
             self.draw_radius(self.selected_tower)
 
     def on_draw(self):
