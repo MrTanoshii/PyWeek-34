@@ -91,3 +91,31 @@ With venv activated, Windows `pip install -r requirements.txt` Linux `pip3 insta
 Run game with `python3 run_game.py`
 
 </details>
+
+## Running the game
+
+```shell
+cd Path/To/Project/Directory
+
+# Linux Commands
+pip3 install -r requirements.txt
+python3 run_game.py
+
+# Windows Commands
+pip install -r requirements.txt
+python run_game.py
+```
+
+## Game Hotkeys
+
+| Keyboard Key   | Function                                  |
+| -------------- | ----------------------------------------- |
+| `~`, `1` - `9` | Select tower type to build                |
+| `R`, `DEL`     | Select tower removal tool                 |
+| `M`            | Audio muting                              |
+| `-`            | Decrease master audio volume              |
+| `+`            | Increase master audio volume              |
+| `I`            | [Cheat] Increase gold by starting amount  |
+| `O`            | [Cheat] Increase lives by starting amount |
+| `F5`           | Quick-save                                |
+| `F6`           | Quick-load                                |

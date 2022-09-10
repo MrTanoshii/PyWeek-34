@@ -13,6 +13,7 @@ class Audio:
     currently_playing_dict = {}
 
     master_volume = C.AUDIO.VOLUME["MASTER"]
+    is_muted = False
 
     @classmethod
     def preload(cls):
@@ -44,6 +45,9 @@ class Audio:
         Returns:
         The sound stream player.
         """
+
+        if cls.is_muted == True:
+            return None
 
         if sound in cls.sound_dict:
             sound_stream_player = arcade.play_sound(
@@ -182,12 +186,29 @@ class Audio:
                 cls.currently_playing_dict[i]["sound_stream"].volume = new_sound_volume
 
     @classmethod
-    def reset(cls):
-        Audio.stop_all_sounds()
-        C.AUDIO.VOLUME["MASTER"] = 1.0
+    def stop_all_sounds(cls):
+        """Stops all currently playing sound streams."""
+
+        for i in cls.currently_playing_dict:
+            cls.stop(cls.currently_playing_dict[i]["sound_stream"])
+        cls.currently_playing_dict = {}
 
     @classmethod
-    def stop_all_sounds(cls):
-        for sound in cls.sound_list:
-            if "stream_player" in cls.sound_list[sound]:
-                cls.stop(sound)
+    def mute(cls):
+        """Mute audio."""
+
+        cls.is_muted = True
+        cls.stop_all_sounds()
+
+    @classmethod
+    def unmute(cls):
+        """Unmute audio."""
+
+        cls.is_muted = False
+
+    @classmethod
+    def toggle_mute(cls):
+        """Toggle mute audio."""
+
+        cls.is_muted = not cls.is_muted
+        cls.stop_all_sounds()

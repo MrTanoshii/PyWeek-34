@@ -177,6 +177,9 @@ class GUI:
                     )
                     offset -= 20
 
+        if self.sound_button is not None:
+            self.sound_button.sync_to_audio_state()
+
     def on_key_press(self, symbol, _modifiers):
         for i in range(len(self.tower_buttons)):
             if symbol == i + 49:  # number "1" is symbol 49
