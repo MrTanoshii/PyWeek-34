@@ -110,19 +110,20 @@ class HealthBar(arcade.Sprite):
         life_end = self.enemy.right - (
             (self.enemy.right - self.enemy.left) * enemy_hp_removed
         )
+        below = self.enemy.bottom - 10
         arcade.draw_line(
             self.enemy.left,
-            self.enemy.bottom,
+            below,
             self.enemy.right,
-            self.enemy.bottom,
+            below,
             arcade.color.RED,
             line_width=5,
         )
         arcade.draw_line(
             self.enemy.left,
-            self.enemy.bottom,
+            below,
             life_end,
-            self.enemy.bottom,
+            below,
             arcade.color.GREEN,
             line_width=5,
         )
