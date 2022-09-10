@@ -4,7 +4,7 @@ from .resource import Resource
 
 
 class Lives(Resource):
-    """The base class for the Gold resource."""
+    """The base class for the Lives resource."""
 
     value_current: int = C.RESOURCES.DEFAULT_LIVES
 
@@ -13,7 +13,7 @@ class Lives(Resource):
         """Takes away lives, then you die"""
         cls.value_current += change
         if cls.value_current < 1:
-            #die
+            # TODO: die
             ...
 
     @classmethod
@@ -30,3 +30,4 @@ class Lives(Resource):
             C.GUI.LIVES_COLOR,
             C.GUI.RESOURCE_FONT_SIZE,
         )
+        

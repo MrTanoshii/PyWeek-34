@@ -70,7 +70,7 @@ class EnemyHandler:
                 if wave:
                     self.send_wave(*wave)
                 if wave is None:
-                    print('end of spawns')
+                    print("end of spawns")
 
     def send_wave(self, wave: list, duration: float):
         self.wave = wave
