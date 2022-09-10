@@ -142,9 +142,7 @@ class MapView(arcade.View):
             if C.DEBUG.TOWER:
                 print(self.tower_handler.selected_type)
             # check if that tower already exist at that grid
-            if self.is_tower_type_already_in(
-                row, column, self.tower_handler.selected_type
-            ):
+            if self.is_tower_already_in(row, column):
                 self.notification_handler.create(
                     f"You already have {self.tower_handler.selected_type['label']} on this grid",
                     x,
@@ -200,9 +198,7 @@ class MapView(arcade.View):
                 return
 
             # check if that tower already exist at that grid
-            if self.is_tower_type_already_in(
-                row, column, self.tower_handler.selected_type
-            ):
+            if self.is_base_tower_already_in(row, column):
                 self.notification_handler.create(
                     f"You already have {self.tower_handler.selected_type['label']} on this grid",
                     x,
@@ -238,18 +234,17 @@ class MapView(arcade.View):
         if C.DEBUG.MAP:
             print(f"Cell at [{row}, {column}] contains {self.grid.grid[row][column]}")
 
-    def get_tower_from_grid(self, row, column):
-        if self.grid.grid[row][column]["tower"] is not None:
-            return self.grid.grid[row][column]["tower"]
-        if self.grid.grid[row][column]["base_tower"] is not None:
-            return self.grid.grid[row][column]["base_tower"]
-        return None
-
-    def is_tower_type_already_in(self, row, column, tower_type):
-        current_tower = self.get_tower_from_grid(row, column)
+    def is_tower_already_in(self, row, column):
+        current_tower = self.grid.grid[row][column]["tower"]
         if current_tower is None:
             return False
-        return current_tower.name == tower_type["name"]
+        return True
+
+    def is_base_tower_already_in(self, row, column):
+        current_tower = self.grid.grid[row][column]["base_tower"]
+        if current_tower is None:
+            return False
+        return True
 
     def on_mouse_press(self, x, y, button, modifiers):
         """Use a mouse press to advance to the 'game' view."""
