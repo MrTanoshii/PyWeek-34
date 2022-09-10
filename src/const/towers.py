@@ -85,7 +85,7 @@ class TOWERS:
         "damage_air": 0,
         "damage_ground": 50,
         "damage_splash": 0,
-        "damage_poison": 0,
+        "damage_poison": 100,
         "size_tiles": 2,
     }
     MG_TOWER2 = {
@@ -161,7 +161,7 @@ class TOWERS:
         "damage_air": 0,
         "damage_ground": 100,
         "damage_splash": 0,
-        "damage_poison": 0,
+        "damage_poison": 20,
         "size_tiles": 2,
     }
     ALL_TOWERS = [

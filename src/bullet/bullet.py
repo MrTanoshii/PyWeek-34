@@ -49,7 +49,6 @@ class Bullet(arcade.Sprite):
 
     def on_update(self, delta_time: float, enemy_list):
         # update bullet location
-        print(self.center_x, self.center_y, self.change_x, self.change_y, self.speed)
         self.center_x += self.change_x * self.speed
         self.center_y += self.change_y * self.speed
 
@@ -63,6 +62,10 @@ class Bullet(arcade.Sprite):
         # For every enemy we hit reduce health and remove if less than zero
         for enemy in hit_list:
             enemy.take_damage(self.damage_ground)
+            if self.damage_poison:
+                enemy.poisoned_damage = self.damage_poison
+                enemy.poisoned_duration = 5
+                enemy.poisoned = True
             break
 
     @classmethod
