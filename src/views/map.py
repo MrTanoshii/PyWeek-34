@@ -75,6 +75,7 @@ class MapView(arcade.View):
         Bullet.on_draw()  # Draw bullets
         self.gui.manager.draw()
         self.gold.draw()
+        self.gui.draw_tower_selection()  # Draw tower selection
         self.lives.draw()
         self.gui.draw_tower_selection()
         self.notification_handler.draw()
@@ -82,6 +83,7 @@ class MapView(arcade.View):
     def on_update(self, delta_time: float):
         self.gui.manager.on_update(delta_time)
         self.enemy_handler.on_update(delta_time)
+        self.gui.on_update()
         # Update bullets and check collision
         for bullet in self.bullets.bullet_list:
             bullet.on_update(
@@ -180,6 +182,9 @@ class MapView(arcade.View):
 
     def on_key_press(self, symbol, _modifiers):
         """Called whenever a key is pressed."""
+        
+        # handle gui keyboard shortcuts
+        self.gui.on_key_press(symbol, _modifiers)
 
         # Quicksave | F5
         if symbol == arcade.key.F5:

@@ -64,13 +64,15 @@ class Grid(arcade.Sprite):
 
                 # Draw the box
 
-                arcade.draw_rectangle_filled(
-                    x,
-                    y - C.GRID.HEIGHT,
-                    C.GRID.WIDTH * 2,
-                    C.GRID.HEIGHT * 2,
-                    color,
-                )
+                if row > 2:
+
+                    arcade.draw_rectangle_filled(
+                        x,
+                        y - C.GRID.HEIGHT,
+                        C.GRID.WIDTH * 2,
+                        C.GRID.HEIGHT * 2,
+                        color,
+                    )
 
     def get_cell(self, x, y):
         """
