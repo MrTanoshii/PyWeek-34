@@ -25,12 +25,12 @@ class Bullet(arcade.Sprite):
     bullet_list = arcade.SpriteList()
 
     def __init__(
-            self,
-            _angle: float,
-            _center_x: float,
-            _center_y: float,
-            speed: float,
-            type: str,
+        self,
+        _angle: float,
+        _center_x: float,
+        _center_y: float,
+        speed: float,
+        type: str,
     ):
         # Inherit parent class
         super().__init__()
@@ -52,7 +52,13 @@ class Bullet(arcade.Sprite):
         self.center_x += self.change_x * self.speed
         self.center_y += self.change_y * self.speed
 
-        if self.center_x < -50 or self.center_x > C.SETTINGS.SCREEN_WIDTH + 50 or self.center_y < -50 or self.center_y > C.SETTINGS.SCREEN_HEIGHT + 50:
+
+        if (
+            self.center_x < -50
+            or self.center_x > C.SETTINGS.SCREEN_WIDTH + 50
+            or self.center_y < -50
+            or self.center_y > C.SETTINGS.SCREEN_HEIGHT + 50
+        ):
             self.remove_from_sprite_lists()
             return
         # Check this bullet to see if it hit an enemy
