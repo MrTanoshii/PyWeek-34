@@ -98,80 +98,70 @@ class MapView(arcade.View):
                     tower.angle = self.targeting.get_angle(tower, target)
                     self.tower_handler.shoot(tower, target)
 
+    def handle_tower(self, row: int, column: int):
+        # Check if there is tower in the grid already
+        if base_tower := self.grid.grid[row][column]["base_tower"]:  # if there's tower
+            if self.tower_handler.is_removing:
+                self.remove_tower(row, column)
+                return
+
+            self.tower_handler.select_tower(base_tower)
+            if C.DEBUG.MAP:
+                print(f"Tower Clicked at: {row}, {column}")
+            print(self.tower_handler.selected_type)
+            # Try to upgrade / level up tower
+            if new_tower := self.tower_handler.buy_tower(
+                row,
+                column,
+                tower_type=self.tower_handler.selected_type,
+            ):  # if it's possible to build one
+                self.grid.grid[row][column]["tower"] = new_tower
+
+        # Check if there is tower in the nearby grids blocking new tower
+        elif towers_around := self.grid.get_towers_around(
+            row,
+            column,
+            (
+                C.TOWERS.BASE_TOWER["size_tiles"] - 1
+            ),  # -1 for finding intersections with another towers
+        ):
+            if self.tower_handler.is_removing:
+                row_to_delete, column_to_delete = self.grid.get_cell(
+                    towers_around[0].center_x, towers_around[0].center_y
+                )  # kurwa
+                self.remove_tower(row_to_delete, column_to_delete)
+                return
+
+            if C.DEBUG.MAP:
+                print(f"Tower blocking at: {row}, {column}")
+            self.tower_handler.select_tower(towers_around[0])
+        else:
+            if self.tower_handler.is_removing:
+                return
+
+            # Add new tower foundation / base tower
+            if new_tower := self.tower_handler.buy_tower(
+                row,
+                column,
+                tower_type=C.TOWERS.BASE_TOWER,
+            ):  # if it's possible to build one
+                self.grid.grid[row][column]["base_tower"] = new_tower
+
+            if C.DEBUG.MAP:
+                print(f"Creating base at: {row}, {column}")
+
+        if C.DEBUG.MAP:
+            print(
+                f"Cell at [{row}, {column}] contains " f"{self.grid.grid[row][column]}"
+            )
+
     def on_mouse_press(self, _x, _y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
         current_cell_row, current_cell_column = self.grid.get_cell(_x, _y)
         if self.gui.manager.on_mouse_press(_x, _y, _button, _modifiers):
             return
         try:
-            # Check if there is tower in the grid already
-            if base_tower := self.grid.grid[current_cell_row][current_cell_column][
-                "base_tower"
-            ]:  # if there's tower
-                if self.tower_handler.is_removing:
-                    self.remove_tower(current_cell_row, current_cell_column)
-                    return
-
-                self.tower_handler.select_tower(base_tower)
-                if C.DEBUG.MAP:
-                    print(
-                        f"Tower Clicked at: {current_cell_row}, {current_cell_column}"
-                    )
-                print(self.tower_handler.selected_type)
-                # Try to upgrade / level up tower
-                if new_tower := self.tower_handler.buy_tower(
-                    current_cell_row,
-                    current_cell_column,
-                    tower_type=self.tower_handler.selected_type,
-                ):  # if it's possible to build one
-                    self.grid.grid[current_cell_row][current_cell_column][
-                        "tower"
-                    ] = new_tower
-
-            # Check if there is tower in the nearby grids blocking new tower
-            elif towers_around := self.grid.get_towers_around(
-                current_cell_row,
-                current_cell_column,
-                (
-                    C.TOWERS.BASE_TOWER["size_tiles"] - 1
-                ),  # -1 for finding intersections with another towers
-            ):
-                if self.tower_handler.is_removing:
-                    row_to_delete, column_to_delete = self.grid.get_cell(
-                        towers_around[0].center_x, towers_around[0].center_y
-                    )  # kurwa
-                    self.remove_tower(row_to_delete, column_to_delete)
-                    return
-
-                if C.DEBUG.MAP:
-                    print(
-                        f"Tower blocking at: {current_cell_row}, {current_cell_column}"
-                    )
-                self.tower_handler.select_tower(towers_around[0])
-            else:
-                if self.tower_handler.is_removing:
-                    return
-
-                # Add new tower foundation / base tower
-                if new_tower := self.tower_handler.buy_tower(
-                    current_cell_row,
-                    current_cell_column,
-                    tower_type=C.TOWERS.BASE_TOWER,
-                ):  # if it's possible to build one
-                    self.grid.grid[current_cell_row][current_cell_column][
-                        "base_tower"
-                    ] = new_tower
-
-                if C.DEBUG.MAP:
-                    print(
-                        f"Creating base at: {current_cell_row}, {current_cell_column}"
-                    )
-
-            if C.DEBUG.MAP:
-                print(
-                    f"Cell at [{current_cell_row}, {current_cell_column}] contains "
-                    f"{self.grid.grid[current_cell_row][current_cell_column]}"
-                )
+            self.handle_tower(current_cell_row, current_cell_column)
         except BuildException as e:
             self.notifications.create(e.message, _x, _y, e.color)
 
@@ -205,6 +195,14 @@ class MapView(arcade.View):
             self.enemy_handler.send_wave(*C.Waves.wave_1_1())  # TODO: change this
 
     def remove_tower(self, row: int, column: int):
+        tower = self.grid.grid[row][column]["tower"]
+        base_tower = self.grid.grid[row][column]["base_tower"]
+        refund = 0
+        if tower:
+            refund += tower.gold_cost
+        if base_tower:
+            refund += base_tower.gold_cost
+        Gold().increment(refund)
         self.grid.grid[row][column]["tower"] = None
         self.grid.grid[row][column]["base_tower"] = None
         self.tower_handler.select_tower(None)
