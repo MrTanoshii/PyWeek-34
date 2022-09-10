@@ -56,6 +56,8 @@ class Tower(arcade.Sprite):
         self.damage_ground: float = tower_type["damage_ground"]
         self.damage_splash: float = tower_type["damage_splash"]
         self.damage_poison: float = tower_type["damage_poison"]
+        self.bullet_speed: float = tower_type.get("bullet_speed", 3)
+        self.bullet_type: str = tower_type.get("bullet_type", "Bullet_MG")
 
         # Force tower width and height
         self.width: float = C.GRID.WIDTH * tower_type["size_tiles"]
@@ -64,3 +66,4 @@ class Tower(arcade.Sprite):
         self.scale: float = C.SETTINGS.GLOBAL_SCALE
 
         self.size_tiles: int = tower_type["size_tiles"]
+        self.slow: bool = tower_type.get("slow", False)

@@ -29,6 +29,8 @@ class Bullet(arcade.Sprite):
         _angle: float,
         _center_x: float,
         _center_y: float,
+        speed: float,
+        type: str,
     ):
         # Inherit parent class
         super().__init__()
@@ -36,23 +38,28 @@ class Bullet(arcade.Sprite):
         self.center_x = _center_x
         self.center_y = _center_y
 
-        self.speed = 3
+        self.speed = speed
 
         angle = _angle
         self.angle = math.degrees(angle)
 
         self.change_x = math.cos(math.radians(self.angle))
         self.change_y = math.sin(math.radians(self.angle))
-        self.texture = arcade.load_texture(
-            ":resources:images/space_shooter/laserBlue01.png"
-        )
+        self.texture = arcade.load_texture(f"src/towers/sprites/{type}")
 
     def on_update(self, delta_time: float, enemy_list):
         # update bullet location
-        print(self.center_x, self.center_y, self.change_x, self.change_y, self.speed)
         self.center_x += self.change_x * self.speed
         self.center_y += self.change_y * self.speed
 
+        if (
+            self.center_x < -50
+            or self.center_x > C.SETTINGS.SCREEN_WIDTH + 50
+            or self.center_y < -50
+            or self.center_y > C.SETTINGS.SCREEN_HEIGHT + 50
+        ):
+            self.remove_from_sprite_lists()
+            return
         # Check this bullet to see if it hit an enemy
         hit_list = arcade.check_for_collision_with_list(self, enemy_list)
 
@@ -63,6 +70,14 @@ class Bullet(arcade.Sprite):
         # For every enemy we hit reduce health and remove if less than zero
         for enemy in hit_list:
             enemy.take_damage(self.damage_ground)
+            if self.slow:
+                enemy.slowed = True
+                enemy.slow_remaining = 5
+
+            if self.damage_poison:
+                enemy.poisoned_damage = self.damage_poison
+                enemy.poisoned_duration = 5
+                enemy.poisoned = True
             break
 
     @classmethod

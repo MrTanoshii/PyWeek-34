@@ -1,4 +1,4 @@
-# Meeting 7
+# Meeting 9
 
 ---
 
@@ -6,9 +6,9 @@
 
 Scheduled Time: 10/09/2022 1000 [UTC]
 
-Meeting Time:
+Meeting Time: 10/09/2022 1100 [UTC]
 
-Attendance:
+Attendance: Alchemist, Jeb, Krzysztof, Mihett, VLYK
 
 ---
 
@@ -20,13 +20,14 @@ Scheduled Time: 10/09/2022 1700 [UTC]
 
 ## Agenda
 
-1. Review
-2. Packaging submission as per PyWeek requirements
-3. Playtesting
+1. ~~Review~~
+2. ~~Packaging submission as per PyWeek requirements~~
+3. ~~Playtesting~~
+4. Discuss remaining tasks
 
 ---
 
 ## Discussion
 
 -   Tasks that need completion
--   Need for playtest
+-   Task Assignment

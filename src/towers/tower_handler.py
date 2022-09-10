@@ -101,8 +101,12 @@ class TowerHandler:
                 math.radians(tower.angle + 90),  # get tower rotation as radians
                 tower.center_x,
                 tower.center_y,
+                tower.bullet_speed,
+                tower.bullet_type,
             )
             bullet.damage_ground = tower.damage_ground
+            bullet.damage_poison = tower.damage_poison
+            bullet.slow = tower.slow
             Bullet.bullet_list.append(bullet)
             bullet.play_sound()
             # TODO: splash damage

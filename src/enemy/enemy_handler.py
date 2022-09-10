@@ -59,6 +59,7 @@ class EnemyHandler:
 
                 self.enemy_list.append(new_enemy)
         # if all enemies are dead
+
         if len(self.enemy_list) == 0:
             # count down some frames
             self.frames_until_next_wave -= 1
@@ -73,6 +74,8 @@ class EnemyHandler:
                     print("end of spawns")
                     World.completed_levels.append(self.world.map_name)
                     GameData.write_data()
+        else:
+            self.frames_until_next_wave = 60
 
     def send_wave(self, wave: list, duration: float):
         self.wave = wave
