@@ -1,5 +1,6 @@
 import arcade.gui
 
+import gui
 import src.const as C
 from src.bullet import Bullet
 from src.audio import *
@@ -7,7 +8,7 @@ from src.const import *
 from src.gamedata import *
 from src.gui import *
 from src.world import *
-from src.towers.tower_handler import TowerHandler
+from src.towers.tower_handler import TowerHandler, BuildException
 
 
 class MapView(arcade.View):
@@ -40,8 +41,10 @@ class MapView(arcade.View):
         self.research = Research()
 
         self._load_map(tiled_name)
+
+
         self.notification_handler = NotificationHandler()
-        self.gui = GUI(self.tower_handler, self.notification_handler)
+        self.gui = GUI(self.tower_handler, self.notification_handler, self.restart)
 
         # music default stopped
         Audio.stop(self.bgm_player)
@@ -85,7 +88,11 @@ class MapView(arcade.View):
 
     def on_update(self, delta_time: float):
         self.gui.manager.on_update(delta_time)
+
         self.gui.on_update()
+        if self.gui.is_paused:  # update none if paused
+            return
+
         self.enemy_handler.on_update(delta_time)
         self.gui.on_update()
         # Update bullets and check collision
@@ -238,6 +245,9 @@ class MapView(arcade.View):
 
     def on_mouse_press(self, x, y, button, modifiers):
         """Use a mouse press to advance to the 'game' view."""
+        if self.gui.is_paused:
+            return
+
         current_cell_row, current_cell_column = self.grid.get_cell(x, y)
         if self.gui.manager.on_mouse_press(x, y, button, modifiers):
             return
@@ -248,8 +258,9 @@ class MapView(arcade.View):
 
     def on_mouse_motion(self, x, y, _button, _modifiers):
         """Use a mouse press to advance to the 'game' view."""
-        # save_data.GameData.read_data()
-        # self.window.show_view(MapView())
+        if self.gui.is_paused:
+            return
+
         self.grid.on_hover(x, y)
 
     def on_key_press(self, symbol, _modifiers):
@@ -294,3 +305,10 @@ class MapView(arcade.View):
         self.grid.grid[row][column]["tower"] = None
         self.grid.grid[row][column]["base_tower"] = None
         self.tower_handler.select_tower(None)
+
+    def restart(self):
+        Gold.reset()
+        Research.reset()
+        Lives.reset()
+        Audio.reset()
+        self.window.show_view(MapView(self.tiled_name, self.label))
