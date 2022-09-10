@@ -278,11 +278,9 @@ class MapView(arcade.View):
         # Quickload | F6
         elif symbol == arcade.key.F6:
             GameData.load_data()
-        # Reset Grids | R
-        elif symbol == arcade.key.R:  # why? there are some bugs with it
-            self.grid = Grid(int(self.world.height), int(self.world.width))
-            self.gold.set(C.RESOURCES.DEFAULT_GOLD)
-            self.lives.set(C.RESOURCES.DEFAULT_LIVES)
+        # Select tower deletion | R, Delete
+        elif symbol == arcade.key.R or symbol == arcade.key.DELETE:
+            self.tower_handler.select_tower_type(C.TOWERS.REMOVE_TOWER)
         # Stop music | M
         elif symbol == arcade.key.M:
             if self.bgm_player is not None:
@@ -302,6 +300,12 @@ class MapView(arcade.View):
             or symbol == arcade.key.EQUAL
         ):
             Audio.increase_volume()
+        # Cheat, add gold | I
+        elif symbol == arcade.key.I:
+            Gold.increment(C.RESOURCES.CHEAT_GOLD_INCREMENT)
+        # Cheat, add lives | O
+        elif symbol == arcade.key.O:
+            Lives.increment(C.RESOURCES.CHEAT_LIVES_INCREMENT)
 
     def remove_tower(self, row: int, column: int):
         tower = self.grid.grid[row][column]["tower"]
