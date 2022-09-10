@@ -5,11 +5,13 @@ from .buttons import *  # Fuck it
 
 
 class GUI:
-    def __init__(self, tower_handler: TowerHandler, map_view):
+    def __init__(self, tower_handler: TowerHandler, restart_func):
         self.manager = arcade.gui.UIManager()
         self.manager.enable()
+        self.is_paused = False
+
         self.tower_handler = tower_handler
-        self.map_view = map_view  # perkele
+        self.restart_func = restart_func  # perkele
         # i don't like it, but we need info about current level to restart it
         # (interfaces, di and non god-object map class would help here)
 
@@ -56,7 +58,9 @@ class GUI:
         )
 
         self.menu_button = MenuButton(
-            manager=self.manager, map_view=self.map_view
+            manager=self.manager,
+            restart_func=self.restart_func,
+            toggle_pause_func=self.toggle_pause,
         )  # shit, shit, kurwa, gówno jakoś
 
         self.manager.add(
@@ -80,6 +84,5 @@ class GUI:
                     C.GUI.TOWER_SELECT_COLOR,
                 )
 
-    @property
-    def is_paused(self):
-        return self.menu_button.enabled
+    def toggle_pause(self):
+        self.is_paused = not self.is_paused

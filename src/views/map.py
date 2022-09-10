@@ -41,7 +41,7 @@ class MapView(arcade.View):
         self.research = Research()
 
         self._load_map(tiled_name)
-        self.gui = gui.GUI(self.tower_handler, self)  # :(
+        self.gui = gui.GUI(self.tower_handler, self.restart)  # :(
         self.notification_handler = NotificationHandler()
 
     def _load_map(self, tiled_name: str, init_logic=True):

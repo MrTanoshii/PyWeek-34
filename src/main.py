@@ -3,7 +3,7 @@ import pyglet
 
 import src.const as C
 
-from src.views import MapView
+from src.views import MapView, MainMenuView
 
 
 def main():
@@ -26,8 +26,8 @@ def main():
 
     # map_view = MapView("draft_level_1.json", "Level 1")
     # map_view = MapView("draft_level_2.json", "Level 2")
-    map_view = MapView("draft_level_secret.json", "Secret Level")
-    window.show_view(map_view)
+    # map_view = MapView("draft_level_secret.json", "Secret Level")
+    window.show_view(MainMenuView())
     arcade.run()
 
 

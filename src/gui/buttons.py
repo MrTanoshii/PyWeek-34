@@ -1,9 +1,9 @@
 import arcade.gui
-from typing import Optional
+from typing import Optional, Callable
 from src.audio import Audio
 from src.towers import TowerHandler
 from src import const as C
-from .window import Menu
+from .window import Window, Menu
 
 
 class SwitchButton(arcade.gui.UITextureButton):
@@ -49,9 +49,33 @@ class SoundButton(SwitchButton):
             Audio.reset()
         else:
             C.AUDIO.VOLUME["MASTER"] = 0
-            for sound in Audio.sound_list:  # I guess Audio should be changed
-                if "stream_player" in Audio.sound_list[sound]:
-                    Audio.stop(sound)
+            Audio.stop_all_sounds()
+
+
+class MenuButton(SwitchButton):
+    _enabled_texture = arcade.load_texture(
+        ":resources:onscreen_controls/flat_dark/close.png"
+    )
+    _disabled_texture = arcade.load_texture(
+        ":resources:onscreen_controls/flat_dark/hamburger.png"
+    )
+
+    def __init__(self, *args, **kwargs):
+        self.manager: arcade.gui.UIManager = kwargs.pop("manager")
+        self.menu: Optional[Menu] = None
+        self.restart_func: Callable[[], None] = kwargs.pop("restart_func", None)
+        self.toggle_pause_func: Callable[[], None] = kwargs.pop(
+            "toggle_pause_func", None
+        )
+        super().__init__(*args, **kwargs)
+
+    def on_switch(self):
+        if self.enabled:
+            self.menu = Menu.create(self.restart_func, self.toggle_pause_func)
+            self.manager.add(self.menu.center_on_screen())
+        elif self.menu:
+            self.menu.close()
+            self.manager.remove(self.menu)
 
 
 class TowerButton(arcade.gui.UITextureButton):
@@ -91,28 +115,3 @@ class RemoveButton(arcade.gui.UITextureButton):
     def on_click(self, event: arcade.gui.UIOnClickEvent):
         if self.tower_handler:
             self.tower_handler.select_tower_type(C.TOWERS.REMOVE_TOWER)
-
-
-class MenuButton(SwitchButton):
-    _enabled_texture = arcade.load_texture(
-        ":resources:onscreen_controls/flat_dark/close.png"
-    )
-    _disabled_texture = arcade.load_texture(
-        ":resources:onscreen_controls/flat_dark/hamburger.png"
-    )
-
-    def __init__(self, *args, **kwargs):
-        self.manager: Optional[arcade.gui.UIManager] = kwargs.pop("manager", None)
-        self.menu: Optional[arcade.gui.UIWidget] = None
-        self.map_view = kwargs.pop("map_view", None)
-        super().__init__(*args, **kwargs)
-
-    def on_switch(self):
-        if not self.manager:
-            raise ValueError("UIManger is required to open the menu")
-
-        if self.enabled:
-            self.menu = Menu.create(self.map_view)
-            self.manager.add(self.menu)
-        elif self.menu:
-            self.manager.remove(self.menu)

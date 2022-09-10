@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import List
+from typing import List, Callable
 
 import arcade.gui
 import src.const as C
@@ -7,7 +7,8 @@ import src.const as C
 
 class Window(arcade.gui.UIMouseFilterMixin, arcade.gui.UIWidget):
     def __init__(self, **kwargs):
-        self.map_view = kwargs.pop("map_view")
+        self.restart_func = kwargs.pop("restart_func", None)
+        self.toggle_pause_func = kwargs.pop("toggle_pause_func", None)
         super().__init__(**kwargs)
         self.v_box = arcade.gui.UIBoxLayout(
             vertical=True, space_between=C.GUI.BUTTONS_GAP
@@ -26,8 +27,18 @@ class Window(arcade.gui.UIMouseFilterMixin, arcade.gui.UIWidget):
         )
 
     @classmethod
-    def create(cls, map_view) -> arcade.gui.UIWidget:
-        return cls(map_view=map_view).center_on_screen()
+    def create(
+        cls,
+        restart_func: Callable[[], None],
+        toggle_pause_func: Callable[[], None],
+    ) -> "Window":
+        if toggle_pause_func:
+            toggle_pause_func()
+        return cls(restart_func=restart_func, toggle_pause_func=toggle_pause_func)
+
+    def close(self):
+        if self.toggle_pause_func:
+            self.toggle_pause_func()
 
     @abstractmethod
     def get_buttons(self) -> List[arcade.gui.UIFlatButton]:
@@ -44,7 +55,7 @@ class Menu(Window):
 
         @restart_button.event("on_click")
         def restart(_e):
-            self.map_view.restart()
+            self.restart_func()
 
         @exit_game_button.event("on_click")
         def exit_game(_e):
