@@ -1,6 +1,9 @@
 import arcade.gui
 from arcade.gui import UIEvent, UIMouseMovementEvent, UIMousePressEvent
 from typing import Optional
+
+from arcade.gui import UIEvent, UIMouseMovementEvent, UIMousePressEvent
+
 from src.audio import Audio
 from src.towers import TowerHandler
 from src import const as C
