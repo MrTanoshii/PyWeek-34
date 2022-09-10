@@ -1,2 +1,2 @@
 from .gui import GUI
-from .notifications import Notifications
+from .notifications import NotificationHandler
