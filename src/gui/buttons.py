@@ -51,10 +51,22 @@ class SoundButton(SwitchButton):
 
     def on_switch(self):
         if self.enabled:
-            Audio.reset()
+            Audio.unmute()
         else:
-            C.AUDIO.VOLUME["MASTER"] = 0
-            Audio.stop_all_sounds()
+            Audio.mute()
+
+    def sync_to_audio_state(self):
+        """Keep state synced to audio state.
+        Called on every frame.
+        """
+
+        # Sync button state to Audio mute state
+        if Audio.is_muted:
+            self.enabled = False
+            self.texture = self._disabled_texture
+        else:
+            self.enabled = True
+            self.texture = self._enabled_texture
 
 
 class MenuButton(SwitchButton):
