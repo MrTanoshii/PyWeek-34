@@ -1,5 +1,6 @@
 import arcade.gui
 
+import src.const as C
 from src.bullet import Bullet
 from src.audio import *
 from src.const import *
@@ -71,6 +72,7 @@ class MapView(arcade.View):
         self.bullets.on_draw()  # Draw bullets
         self.tower_handler.on_draw()
         self.enemy_handler.on_draw()
+        Bullet.on_draw()  # Draw bullets
         self.gui.manager.draw()
         self.gold.draw()
         self.lives.draw()

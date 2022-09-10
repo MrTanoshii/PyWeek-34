@@ -10,7 +10,7 @@ class TOWERS:
 
     REMOVE_TOWER = {
         "remove": True,
-    }  # хуета какая-то на самом деле, но ладно -_-
+    }
 
     # Different tower types
     BASE_TOWER = {
@@ -156,7 +156,7 @@ class TOWERS:
         "attack_cooldown_sec": 5,
         "gold_cost": 100,
         "research_cost": 0,
-        "radius": 18,
+        "radius": 50,
         "radius_splash": 0,
         "damage_air": 0,
         "damage_ground": 100,
