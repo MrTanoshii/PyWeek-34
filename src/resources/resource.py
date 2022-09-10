@@ -2,7 +2,7 @@ class Resource:
     """Parent class for resource subclasses."""
 
     value_current: int = 0
-    value_max: int = 999999
+    value_max: int = 9999999
 
     def __new__(cls):
         if not hasattr(cls, "instance"):
