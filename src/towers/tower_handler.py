@@ -23,7 +23,7 @@ class TowerHandler:
     """
 
     def __init__(self, world: World) -> None:
-        self.selected_type: dict = C.TOWERS.MG_TOWER
+        self.selected_type: dict = C.TOWERS.BASE_TOWER
         self.selected_tower: Optional[Tower] = None
         self.world = world
 

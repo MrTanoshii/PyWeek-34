@@ -40,8 +40,8 @@ class MapView(arcade.View):
         self.research = Research()
 
         self._load_map(tiled_name)
-        self.gui = GUI(self.tower_handler)
         self.notification_handler = NotificationHandler()
+        self.gui = GUI(self.tower_handler, self.notification_handler)
 
     def _load_map(self, tiled_name: str, init_logic=True):
         self.tiled_name = tiled_name
@@ -81,6 +81,7 @@ class MapView(arcade.View):
 
     def on_update(self, delta_time: float):
         self.gui.manager.on_update(delta_time)
+        self.gui.on_update()
         self.enemy_handler.on_update(delta_time)
         # Update bullets and check collision
         for bullet in self.bullets.bullet_list:
@@ -137,7 +138,7 @@ class MapView(arcade.View):
             if self.tower_handler.is_removing:
                 row_to_delete, column_to_delete = self.grid.get_cell(
                     towers_around[0].center_x, towers_around[0].center_y
-                )  # kurwa
+                )
                 self.remove_tower(row_to_delete, column_to_delete)
                 return
 
@@ -180,6 +181,9 @@ class MapView(arcade.View):
 
     def on_key_press(self, symbol, _modifiers):
         """Called whenever a key is pressed."""
+
+        # handle keyboard shortcuts in
+        self.gui.on_key_press(symbol, _modifiers)
 
         # Quicksave | F5
         if symbol == arcade.key.F5:

@@ -49,7 +49,10 @@ class Bullet(arcade.Sprite):
 
     def on_update(self, delta_time: float, enemy_list):
         # update bullet location
-        print(self.center_x, self.center_y, self.change_x, self.change_y, self.speed)
+        if C.DEBUG.BULLET:
+            print(
+                self.center_x, self.center_y, self.change_x, self.change_y, self.speed
+            )
         self.center_x += self.change_x * self.speed
         self.center_y += self.change_y * self.speed
 
