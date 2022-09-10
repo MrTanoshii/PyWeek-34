@@ -52,7 +52,7 @@ class World:
         """
         Tiled counts coordinates from top-left but arcade from bottom left
         """
-        return [self.height - row - 1, column]  # weird math
+        return [self.height - row - 1, column]
 
     def tiled_to_screen(self, x: float, y: float) -> list[float, float]:
         return [

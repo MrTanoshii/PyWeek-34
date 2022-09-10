@@ -3,3 +3,4 @@ class DEBUG:
     MOUSE = ALL or False
     MAP = ALL or False
     TOWER = ALL or False
+    BULLET = ALL or False

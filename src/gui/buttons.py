@@ -1,5 +1,10 @@
 import arcade.gui
+
 from typing import Optional, Callable
+
+from arcade.gui import UIEvent, UIMouseMovementEvent, UIMousePressEvent
+
+
 from src.audio import Audio
 from src.towers import TowerHandler
 from src import const as C
@@ -94,9 +99,13 @@ class TowerButton(arcade.gui.UITextureButton):
             }
         )
 
-    def on_click(self, event: arcade.gui.UIOnClickEvent):
-        if self.tower_handler and self.tower:
-            self.tower_handler.select_tower_type(self.tower)
+    def on_event(self, event: UIEvent):
+        # If Hovered
+        if isinstance(event, UIMouseMovementEvent):
+            self.hovered = self.rect.collide_with_point(event.x, event.y)
+        # If Pressed
+        if isinstance(event, UIMousePressEvent):
+            self.pressed = self.rect.collide_with_point(event.x, event.y)
 
 
 class RemoveButton(arcade.gui.UITextureButton):
