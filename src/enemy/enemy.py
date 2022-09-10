@@ -105,8 +105,6 @@ class Enemy(arcade.Sprite):
             # TODO: add health bar
 
 
-
-
 class HealthBar(arcade.Sprite):
     def __init__(self, enemy):
         super().__init__()
