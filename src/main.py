@@ -1,5 +1,4 @@
 import arcade
-import pyglet
 
 import src.const as C
 
@@ -20,9 +19,8 @@ def main():
     )
 
     window.set_mouse_visible(C.SETTINGS.CURSOR_VISIBLE)
-    # add icon to window
-    icon = pyglet.image.load("resources/11x12_Duckling.png")
-    window.set_icon(icon)
+    # icon = pyglet.image.load("src/resources/images/cursor.png")
+    # window.set_icon(icon)
 
     # map_view = MapView("draft_level_1.json", "Level 1")
     # map_view = MapView("draft_level_2.json", "Level 2")
