@@ -18,3 +18,11 @@ class Waves:
             ],
             7,
         ]
+
+    @staticmethod
+    def wave_1_3():
+        enemies = []
+        enemies = enemies + [e[2]] * 50
+        enemies = enemies + [e[5]] * 30
+        enemies = enemies + [e[7]] * 30
+        return [enemies, len(enemies)// 3]
