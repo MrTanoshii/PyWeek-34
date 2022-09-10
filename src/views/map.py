@@ -1,15 +1,12 @@
-import arcade
 import arcade.gui
 
-import src.const as C
+from src.bullet import Bullet
 from src.audio import *
 from src.const import *
-from src.enemy import *
 from src.gamedata import *
 from src.gui import *
-from src.resources import *
-from src.towers import *
 from src.world import *
+from src.towers.tower_handler import TowerHandler
 
 
 class MapView(arcade.View):
@@ -53,6 +50,7 @@ class MapView(arcade.View):
             self.grid = Grid(int(self.world.height), int(self.world.width))
             self.enemy_handler = EnemyHandler(self.world)
             self.tower_handler = TowerHandler(self.world)
+            self.bullets = Bullet(0, 0, 0)
             self.targeting = Targeting(self.world, self.enemy_handler)
 
     def reload_map(self):
@@ -70,6 +68,7 @@ class MapView(arcade.View):
         """Draw the map view."""
         self._scene.draw()
         self.grid.on_draw()
+        self.bullets.on_draw()  # Draw bullets
         self.tower_handler.on_draw()
         self.enemy_handler.on_draw()
         self.gui.manager.draw()
@@ -81,6 +80,11 @@ class MapView(arcade.View):
     def on_update(self, delta_time: float):
         self.gui.manager.on_update(delta_time)
         self.enemy_handler.on_update(delta_time)
+        # Update bullets and check collision
+        for bullet in self.bullets.bullet_list:
+            bullet.on_update(
+                delta_time=delta_time, enemy_list=self.enemy_handler.enemy_list
+            )
         self.notification_handler.update(delta_time)
         rows = self.grid.rows_count
         columns = self.grid.columns_count
@@ -110,7 +114,8 @@ class MapView(arcade.View):
             self.tower_handler.select_tower(base_tower)
             if C.DEBUG.MAP:
                 print(f"Tower Clicked at: {row}, {column}")
-            print(self.tower_handler.selected_type)
+            if C.DEBUG.TOWER:
+                print(self.tower_handler.selected_type)
             # Try to upgrade / level up tower
             if new_tower := self.tower_handler.buy_tower(
                 row,

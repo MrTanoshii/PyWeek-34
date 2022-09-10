@@ -1,11 +1,13 @@
+import math
 from typing import Optional
-
 import arcade
 
 import src.const as C
-from src.world import World
+from src.bullet import Bullet
 from src.enemy import *
 from src.resources import *
+from src.towers import Tower
+from src.world import World
 
 
 class BuildException(ValueError):
@@ -89,13 +91,21 @@ class TowerHandler:
 
     def shoot(self, tower: Tower, enemy: Enemy):
         if tower.cooldown <= 0:
-            if enemy.flying:
-                enemy.take_damage(tower.damage_air)
-            else:
-                enemy.take_damage(tower.damage_ground)
+            # if enemy.flying:
+            #     enemy.take_damage(tower.damage_air)
+            # else:
+            #     enemy.take_damage(tower.damage_ground)
             tower.cooldown = tower.attack_cooldown_sec
-        # TODO: add bullets animation
-        # TODO: splash damage
+
+            bullet = Bullet(
+                math.radians(tower.angle + 90),  # get tower rotation as radians
+                tower.center_x,
+                tower.center_y,
+            )
+            bullet.damage_ground = tower.damage_ground
+            Bullet.bullet_list.append(bullet)
+            bullet.play_sound()
+            # TODO: splash damage
 
     def draw_radius(self, tower: Tower):
         arcade.draw_circle_filled(

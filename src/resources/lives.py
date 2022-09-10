@@ -4,7 +4,7 @@ from .resource import Resource
 
 
 class Lives(Resource):
-    """The base class for the Gold resource."""
+    """The base class for the Lives resource."""
 
     value_current: int = C.RESOURCES.DEFAULT_LIVES
 
