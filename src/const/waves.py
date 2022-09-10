@@ -25,7 +25,7 @@ class Waves:
         enemies = enemies + [e[2]] * 50
         enemies = enemies + [e[5]] * 30
         enemies = enemies + [e[7]] * 30
-        return [enemies, len(enemies)// 3]
+        return [enemies, len(enemies) // 3]
 
     @classmethod
     def level_1(cls, wave: int):
@@ -36,4 +36,3 @@ class Waves:
         elif wave == 3:
             return cls.wave_1_3()
         return None
-
