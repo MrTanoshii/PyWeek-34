@@ -10,7 +10,7 @@
 
 <div align="center">
 
-[![Python v3.10](https://img.shields.io/badge/Python-v3.10-blue)](https://docs.python.org/3.10/)
+[![Python v3.9](https://img.shields.io/badge/Python-v3.9-blue)](https://docs.python.org/3.9/)
 [![Arcade v2.6.15](https://img.shields.io/badge/Arcade-v2.6.15-blue)](https://api.arcade.academy/en/2.6.15/)
 
 </div>
