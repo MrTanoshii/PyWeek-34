@@ -5,6 +5,8 @@ import arcade.gui
 import src.const as C
 from src.gamedata import GameData
 
+from src.resources import Score
+
 
 class Window(arcade.gui.UIMouseFilterMixin, arcade.gui.UIWidget):
     def __init__(self, **kwargs):
@@ -56,6 +58,7 @@ class Menu(Window):
 
         @restart_button.event("on_click")
         def restart(_e):
+            Score.reset()
             self.restart_func()
 
         @save_button.event("on_click")
