@@ -67,12 +67,18 @@ class Enemy(arcade.Sprite):
         speed = self.speed
         if self.slowed and distance > self.speed * 0.5:
             speed /= 2
+            self.slow_remaining -= delta_time
+            if self.slow_remaining <= 0:
+                self.slow_remaining = 0
+                self.slowed = False
+
         change_x = math.cos(angle) * speed * delta_time
         change_y = math.sin(angle) * speed * delta_time
 
         wobble = self.wobble
         self.center_x += change_x + ((random.random() * wobble[0] * 2) - wobble[0])
         self.center_y += change_y + ((random.random() * wobble[1] * 2) - wobble[1])
+
         distance = math.sqrt(
             (self.center_x - dest_x) ** 2 + (self.center_y - dest_y) ** 2
         )
