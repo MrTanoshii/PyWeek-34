@@ -133,5 +133,4 @@ dmypy.json
 .idea/
 
 # Tiled
-maps.tiled-project
-maps.tiled-session
+**/maps.tiled-session
