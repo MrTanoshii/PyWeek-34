@@ -165,6 +165,7 @@ class TOWERS:
         "size_tiles": 2,
     }
     ALL_TOWERS = [
+        BASE_TOWER,
         CANNON_TOWER,
         CANNON2_TOWER,
         CANNON3_TOWER,
