@@ -120,6 +120,8 @@ class MapView(arcade.View):
                 return
 
             self.tower_handler.select_tower(base_tower)
+            if self.grid.grid[row][column]["tower"]:
+                self.tower_handler.select_tower(self.grid.grid[row][column]["tower"])
             if C.DEBUG.MAP:
                 print(f"Tower Clicked at: {row}, {column}")
             if C.DEBUG.TOWER:

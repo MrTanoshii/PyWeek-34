@@ -24,9 +24,7 @@ class GUI:
             )
 
         for button in self.tower_buttons:
-            self.h_box.add(
-                button.with_space_around(C.GUI.PADDING, C.GUI.PADDING, 0, C.GUI.PADDING)
-            )
+            self.h_box.add(button.with_space_around(C.GUI.PADDING, C.GUI.PADDING, 0, 0))
 
         # Create a widget to hold the h_box widget, that will center the buttons
         self.manager.add(

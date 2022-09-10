@@ -118,7 +118,7 @@ class TowerHandler:
             tower.center_x,
             tower.center_y,
             tower.radius * self.world.tile_size,
-            (255, 255, 255, 32),
+            (0, 0, 0, 32),
         )
 
     def draw_selected(self):
@@ -129,7 +129,8 @@ class TowerHandler:
                 self.selected_tower.width,
                 self.selected_tower.height,
                 C.TOWERS.SELECTED_OUTLINE_COLOR,
-            )  # draw rectangle around selected tower
+            )
+            # draw sircle around selected tower (radius)
             self.draw_radius(self.selected_tower)
 
     def on_draw(self):
