@@ -102,6 +102,7 @@ class TowerHandler:
                 tower.center_x,
                 tower.center_y,
                 tower.bullet_speed,
+                tower.bullet_type,
             )
             bullet.damage_ground = tower.damage_ground
             bullet.damage_poison = tower.damage_poison

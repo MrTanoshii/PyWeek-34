@@ -51,7 +51,7 @@ class MapView(arcade.View):
             self.grid = Grid(int(self.world.height), int(self.world.width))
             self.enemy_handler = EnemyHandler(self.world)
             self.tower_handler = TowerHandler(self.world)
-            self.bullets = Bullet(0, 0, 0, 0)
+            self.bullets = Bullet(0, 0, 0, 0, 'Missile.png')
             self.targeting = Targeting(self.world, self.enemy_handler)
 
     def reload_map(self):
