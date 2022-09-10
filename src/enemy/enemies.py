@@ -139,7 +139,7 @@ mech_duck = [
         "speed": 90 + (duck*5),
         "flying": False,
         "boss": False,
-        "gold_drop": 100 + (duck * 5),
+        "gold_drop": ((duck + 1) * 5),
         "image": f"mech_duck_{duck}.png",
         "scale": .3,
         "wobble": [4, 4],
