@@ -120,13 +120,62 @@ class GUI:
             if button.pressed:
                 self.tower_handler.selected_type = button.tower
             elif button.hovered:
+                offset = 100
 
                 self.notification_handler.create(
                     text=button.tower["label"],
                     x=button.center_x - button.width / 2,
-                    y=button.center_y + button.height,
+                    y=button.center_y + button.height + offset,
                     color=arcade.color.BLANCHED_ALMOND,
                 )
+                offset -= 20
+                self.notification_handler.create(
+                    text=f"Cost: {button.tower['gold_cost']}",
+                    x=button.center_x - button.width / 2,
+                    y=button.center_y + button.height + offset,
+                    color=arcade.color.BLANCHED_ALMOND,
+                )
+                offset -= 20
+                if button.tower['radius'] != 0:
+                    self.notification_handler.create(
+                        text=f"Range: {button.tower['radius']}",
+                        x=button.center_x - button.width / 2,
+                        y=button.center_y + button.height + offset,
+                        color=arcade.color.BLANCHED_ALMOND,
+                    )
+                    offset -= 20
+                if button.tower['damage_ground'] != 0:
+                    self.notification_handler.create(
+                        text=f"Damage: {button.tower['damage_ground']}",
+                        x=button.center_x - button.width / 2,
+                        y=button.center_y + button.height + offset,
+                        color=arcade.color.BLANCHED_ALMOND,
+                    )
+                    offset -= 20
+                if button.tower['radius'] != 0:
+                    self.notification_handler.create(
+                        text=f"Cooldown: {button.tower['attack_cooldown_sec']} s",
+                        x=button.center_x - button.width / 2,
+                        y=button.center_y + button.height + offset,
+                        color=arcade.color.BLANCHED_ALMOND,
+                    )
+                    offset -= 20
+                if button.tower['damage_poison']:
+                    self.notification_handler.create(
+                        text=f"Poison Damage: {button.tower['damage_poison']} /s",
+                        x=button.center_x - button.width / 2,
+                        y=button.center_y + button.height + offset,
+                        color=arcade.color.BLANCHED_ALMOND,
+                    )
+                    offset -= 20
+                if button.tower.get('slow', False):
+                    self.notification_handler.create(
+                        text=f"Slows Enemies",
+                        x=button.center_x - button.width / 2,
+                        y=button.center_y + button.height + offset,
+                        color=arcade.color.BLANCHED_ALMOND,
+                    )
+                    offset -= 20
 
     def on_key_press(self, symbol, _modifiers):
         for i in range(len(self.tower_buttons)):
