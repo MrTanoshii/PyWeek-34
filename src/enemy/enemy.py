@@ -40,6 +40,8 @@ class Enemy(arcade.Sprite):
         self.health_bar = HealthBar(self)
 
     def update(self, delta_time: float):
+        if Lives.get() < 1:
+            return
         if self.poisoned:
             self.take_damage(self.poisoned_damage * delta_time)
             self.poisoned_duration -= delta_time
@@ -66,7 +68,6 @@ class Enemy(arcade.Sprite):
         speed = self.speed
         if self.slowed and distance > self.speed * 0.5:
             self.color = (128, 128, 255, 128)
-
             speed /= 2
             self.slow_remaining -= delta_time
             if self.slow_remaining <= 0:
@@ -90,19 +91,19 @@ class Enemy(arcade.Sprite):
             if self.cur_position >= len(self.position_list):
                 self.remove_from_sprite_lists()
                 Lives.increment(-1)
-                # TODO TAKE AWAY PLAYER LIFE
                 if self.boss:
-                    Lives.increment(-self.hp_current)
-                    # TODO TAKE AWAY ALL REMAINING PLAYER LIVES
-                    ...
+                    if Lives > 0:
+                        Lives.increment(-Lives.get())
+
+
 
     def take_damage(self, damage: float):
         self.hp_current -= damage
         if self.hp_current <= 0:
             self.remove_from_sprite_lists()
             Gold().increment(self.gold_drop)
+            Score().increment(self.gold_drop)
             # TODO PLAY SOUND?  Maybe add death sounds?
-            # TODO: add health bar
 
 
 class HealthBar(arcade.Sprite):
