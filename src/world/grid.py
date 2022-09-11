@@ -10,11 +10,12 @@ class Grid(arcade.Sprite):
     Grid
     """
 
-    def __init__(self, rows_count: int, columns_count: int) -> None:
+    def __init__(self, rows_count: int, columns_count: int, tower_handler) -> None:
         super().__init__()
 
         self.rows_count = rows_count
         self.columns_count = columns_count
+        self.tower_handler = tower_handler
 
         # Create a 2 dimensional array.
         self.grid = []
@@ -73,6 +74,24 @@ class Grid(arcade.Sprite):
                         C.GRID.HEIGHT * 2,
                         color,
                     )
+
+        y = self.hover_row * C.GRID.HEIGHT
+        x = (self.hover_column + 1) * C.GRID.WIDTH
+        if self.tower_handler.selected_type:
+            radius = self.tower_handler.selected_type["radius"]
+            print(radius)
+            arcade.draw_circle_outline(
+                x,
+                y,
+                radius * self.tower_handler.world.tile_size,
+                (255, 255, 255, 128),
+            )
+            arcade.draw_circle_filled(
+                x,
+                y,
+                radius * self.tower_handler.world.tile_size,
+                (0, 0, 0, 32),
+            )
 
     def get_cell(self, x, y):
         """
