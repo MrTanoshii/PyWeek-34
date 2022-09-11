@@ -98,21 +98,22 @@ class Waves:
         if wave == 1:
             _wave = add_enemy(20, 25, 22, 5, 1, 0, 0, 0, 0, 0)
         elif wave == 2:
-            _wave = add_enemy(20, 25, 22, 20, 5, 1, 0, 0, 0, 0)
+            _wave = add_enemy(64, 16, 32, 20, 5, 1, 0, 0, 0, 0)
         elif wave == 3:
-            _wave = add_enemy(20, 25, 22, 25, 22, 5, 1, 0, 0, 0)
+            _wave = add_enemy(20, 25, 22, 300, 22, 5, 1, 0, 0, 0)
         elif wave == 4:
-            _wave = add_enemy(20, 25, 22, 22, 450, 20, 5, 1, 0, 0)
+            _wave = add_enemy(20, 32, 22, 22, 300, 10, 5, 1, 0, 0)
         elif wave == 5:
-            _wave = add_enemy(20, 25, 22, 45, 0, 20, 120, 5, 1, 0)
+            _wave = add_enemy(64, 25, 22, 45, 44, 15, 300, 5, 15, 0)
         elif wave == 6:
-            _wave = add_enemy(20, 25, 22, 450, 44, 20, 13, 8, 5, 1)
+            _wave = add_enemy(20, 25, 22, 45, 44, 20, 13, 300, 5, 1)
         elif wave == 7:
-            _wave = add_enemy(20, 25, 22, 45, 0, 20, 55, 74, 12, 5)
+            _wave = add_enemy(20, 32, 22, 45, 44, 30, 55, 74, 300, 5)
         elif wave == 8:
-            _wave = add_enemy(20, 25, 22, 45, 11, 20, 68, 78, 123, 25)
+            _wave = add_enemy(90, 80, 70, 60, 50, 40, 30, 30, 30, 10)
         elif wave == 9:
-            _wave = add_enemy(20, 25, 22, 45, 12, 20, 14, 159, 753, 100)
+            _wave = add_enemy(100, 100, 100, 100, 100, 100, 100, 100, 100, 100)
+
         else:
             return None
         return [_wave, len(_wave) // wave]

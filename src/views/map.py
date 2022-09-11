@@ -269,10 +269,6 @@ class MapView(arcade.View):
 
         self.grid.on_hover(x, y)
 
-        self.tower_handler.draw_radius_(
-            x, y, self.tower_handler.selected_type["radius"]
-        )
-
     def on_key_press(self, symbol, _modifiers):
         """Called whenever a key is pressed."""
 
@@ -291,7 +287,11 @@ class MapView(arcade.View):
             pass
             # GameData.load_data()  # not in final version
         # Select tower deletion | R, Delete
-        elif symbol == arcade.key.R or symbol == arcade.key.DELETE:
+        elif (
+            symbol == arcade.key.R
+            or symbol == arcade.key.DELETE
+            or symbol == arcade.key.D
+        ):
             self.tower_handler.select_tower_type(C.TOWERS.REMOVE_TOWER)
         # Stop music | M
         elif symbol == arcade.key.M:

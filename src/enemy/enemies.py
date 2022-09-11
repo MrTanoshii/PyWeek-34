@@ -1,52 +1,52 @@
-martian_wolf = {
-    "hp": 100,
-    "speed": 80,
+bottle_of_liquid = {
+    "hp": 20,
+    "speed": 200,
     "flying": False,
     "boss": False,
-    "gold_drop": 12,
-    "image": "alien0.png",
+    "gold_drop": 3,
+    "image": "alien7.png",
     "scale": 0.3,
-    "wobble": [2, 4],
-}
-martian_grinch = {
-    "hp": 125,
-    "speed": 95,
-    "flying": False,
-    "boss": False,
-    "gold_drop": 15,
-    "image": "alien1.png",
-    "scale": 0.4,
-    "wobble": [2, 1],
-}
-martian_unicorn = {
-    "hp": 120,
-    "speed": 130,
-    "flying": False,
-    "boss": False,
-    "gold_drop": 20,
-    "image": "alien2.png",
-    "scale": 0.4,
-    "wobble": [3, 3],
+    "wobble": [7, 6],
 }
 martian_snake = {
     "hp": 60,
     "speed": 110,
     "flying": False,
     "boss": False,
-    "gold_drop": 10,
+    "gold_drop": 9,
     "image": "alien3.png",
     "scale": 0.3,
     "wobble": [5, 3],
 }
-martian_bart = {
-    "hp": 77,
-    "speed": 77,
+martian_dog = {
+    "hp": 95,
+    "speed": 150,
     "flying": False,
     "boss": False,
-    "gold_drop": 7,
-    "image": "alien4.png",
+    "gold_drop": 15,
+    "image": "alien6.png",
+    "scale": 0.3,
+    "wobble": [4, 4],
+}
+martian_unicorn = {
+    "hp": 120,
+    "speed": 130,
+    "flying": False,
+    "boss": False,
+    "gold_drop": 18,
+    "image": "alien2.png",
     "scale": 0.4,
-    "wobble": [1, 3],
+    "wobble": [3, 3],
+}
+martian_wolf = {
+    "hp": 250,
+    "speed": 80,
+    "flying": False,
+    "boss": False,
+    "gold_drop": 30,
+    "image": "alien0.png",
+    "scale": 0.4,
+    "wobble": [2, 4],
 }
 martian_fireman = {
     "hp": 2500,
@@ -58,24 +58,25 @@ martian_fireman = {
     "scale": 0.6,
     "wobble": [3, 2],
 }
-martian_dog = {
-    "hp": 95,
-    "speed": 150,
+martian_bart = {
+    "hp": 300,
+    "speed": 77,
     "flying": False,
     "boss": False,
-    "gold_drop": 20,
-    "image": "alien6.png",
-    "scale": 0.3,
-    "wobble": [4, 4],
+    "gold_drop": 30,
+    "image": "alien4.png",
+    "scale": 0.4,
+    "wobble": [1, 3],
 }
-bottle_of_liquid = {
-    "hp": 20,
-    "speed": 200,
+martian_grinch = {
+    "hp": 400,
+    "speed": 95,
     "flying": False,
     "boss": False,
-    "gold_drop": 3,
-    "image": "alien7.png",
-    "scale": 0.3,
+    "gold_drop": 30,
+    "image": "alien1.png",
+    "scale": 0.4,
+    "wobble": [2, 1],
 }
 bear = {
     "hp": 500,
@@ -85,10 +86,11 @@ bear = {
     "gold_drop": 35,
     "image": "alien8.png",
     "scale": 0.4,
+    "wobble": [3, 3],
 }
 drunken_bear = {
     "hp": 15000,
-    "speed": 97,
+    "speed": 69,
     "flying": False,
     "boss": True,
     "gold_drop": 5000,
