@@ -95,8 +95,6 @@ class Enemy(arcade.Sprite):
                     if Lives > 0:
                         Lives.increment(-Lives.get())
 
-
-
     def take_damage(self, damage: float):
         self.hp_current -= damage
         if self.hp_current <= 0:
