@@ -15,10 +15,10 @@ class Spawner:
         :param obj: start point
         :return: a list of all objects on the path
         """
-        if next_id := obj.properties.get("path"):
-            if next_objects := list(
-                filter(lambda x: x.id == next_id, self.world.objects)
-            ):
+        next_id = obj.properties.get("path")
+        if next_id:
+            next_objects = list(filter(lambda x: x.id == next_id, self.world.objects))
+            if next_objects:
                 return [obj] + self.get_path(next_objects[0])
         return [obj]
 
