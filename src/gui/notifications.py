@@ -32,11 +32,24 @@ class NotificationHandler:
     def __init__(self):
         self.notifications = []
 
-    def create(self, text: str, x: float, y: float, color: arcade.Color):
+    def create(
+        self,
+        text: str,
+        x: float,
+        y: float,
+        color: arcade.Color,
+        ttl: int = C.NOTIFICATIONS.TIME_TO_LIVE_SEC,
+    ):
         if len(self.notifications) >= C.NOTIFICATIONS.MAX_AMOUNT:
             self.notifications.pop(0)
         self.notifications.append(
-            Notification(text=text, start_x=x, start_y=y, color=color)
+            Notification(
+                text=text,
+                start_x=x,
+                start_y=y,
+                color=color,
+                ttl=ttl,
+            )
         )
 
     def update(self, delta_time: float):

@@ -140,12 +140,16 @@ class GUI:
                 self.tower_handler.selected_type = button.tower
             elif button.hovered:
                 offset = 100
+                ttl = 0.3  # time to live for these stats
+
+                # It should have been created with UILabel, not Notification
 
                 self.notification_handler.create(
                     text=button.tower["label"],
                     x=button.center_x - button.width / 2,
                     y=button.center_y + button.height + offset,
                     color=arcade.color.BLANCHED_ALMOND,
+                    ttl=ttl,
                 )
                 offset -= 20
                 self.notification_handler.create(
@@ -153,6 +157,7 @@ class GUI:
                     x=button.center_x - button.width / 2,
                     y=button.center_y + button.height + offset,
                     color=arcade.color.BLANCHED_ALMOND,
+                    ttl=ttl,
                 )
                 offset -= 20
                 if button.tower["radius"] != 0:
@@ -161,6 +166,7 @@ class GUI:
                         x=button.center_x - button.width / 2,
                         y=button.center_y + button.height + offset,
                         color=arcade.color.BLANCHED_ALMOND,
+                        ttl=ttl,
                     )
                     offset -= 20
                 if button.tower["damage_ground"] != 0:
@@ -169,6 +175,7 @@ class GUI:
                         x=button.center_x - button.width / 2,
                         y=button.center_y + button.height + offset,
                         color=arcade.color.BLANCHED_ALMOND,
+                        ttl=ttl,
                     )
                     offset -= 20
                 if button.tower["radius"] != 0:
@@ -177,6 +184,7 @@ class GUI:
                         x=button.center_x - button.width / 2,
                         y=button.center_y + button.height + offset,
                         color=arcade.color.BLANCHED_ALMOND,
+                        ttl=ttl,
                     )
                     offset -= 20
                 if button.tower["damage_poison"]:
@@ -185,6 +193,7 @@ class GUI:
                         x=button.center_x - button.width / 2,
                         y=button.center_y + button.height + offset,
                         color=arcade.color.BLANCHED_ALMOND,
+                        ttl=ttl,
                     )
                     offset -= 20
                 if button.tower.get("slow", False):
@@ -193,6 +202,7 @@ class GUI:
                         x=button.center_x - button.width / 2,
                         y=button.center_y + button.height + offset,
                         color=arcade.color.BLANCHED_ALMOND,
+                        ttl=ttl,
                     )
                     offset -= 20
                 if button.tower.get("label", 0) == "Base tower":
@@ -201,6 +211,7 @@ class GUI:
                         x=button.center_x - button.width / 2,
                         y=button.center_y + button.height + offset,
                         color=arcade.color.BLANCHED_ALMOND,
+                        ttl=ttl,
                     )
                     offset -= 20
                     self.notification_handler.create(
@@ -208,6 +219,7 @@ class GUI:
                         x=button.center_x - button.width / 2,
                         y=button.center_y + button.height + offset,
                         color=arcade.color.BLANCHED_ALMOND,
+                        ttl=ttl,
                     )
                     offset -= 30
                     self.notification_handler.create(
@@ -215,6 +227,7 @@ class GUI:
                         x=button.center_x - button.width / 2,
                         y=button.center_y + button.height + offset,
                         color=arcade.color.BLANCHED_ALMOND,
+                        ttl=ttl,
                     )
                     offset -= 20
                 self.button_box = (
