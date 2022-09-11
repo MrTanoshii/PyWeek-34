@@ -104,9 +104,10 @@ class Grid(arcade.Sprite):
         for y in range(box_size):
             for x in range(box_size):
                 try:
-                    if tower := self.grid[start_y - y][start_x + x]["base_tower"]:
+                    found_tower = self.grid[start_y - y][start_x + x]["base_tower"]
+                    if found_tower:
                         if start_y - y >= 0:
-                            towers.append(tower)
+                            towers.append(found_tower)
                 except IndexError:
                     pass
         return towers

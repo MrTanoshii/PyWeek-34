@@ -137,7 +137,15 @@ class MapView(arcade.View):
 
     def handle_tower(self, row: int, column: int, x: int, y: int):
         # Check if there is tower in the grid already
-        if base_tower := self.grid.grid[row][column]["base_tower"]:  # if there's tower
+        base_tower = self.grid.grid[row][column]["base_tower"]
+        towers_around = self.grid.get_towers_around(
+            row,
+            column,
+            (
+                C.TOWERS.BASE_TOWER["size_tiles"] - 1
+            ),  # -1 for finding intersections with another towers
+        )
+        if base_tower:  # if there's tower
             if self.tower_handler.is_removing:
                 self.remove_tower(row, column)
                 return
@@ -170,21 +178,14 @@ class MapView(arcade.View):
                 )
                 return
             # Try to upgrade / level up tower
-            if new_tower := self.tower_handler.buy_tower(
-                row,
-                column,
-                tower_type=self.tower_handler.selected_type,
-            ):  # if it's possible to build one
+            new_tower = self.tower_handler.buy_tower(
+                row, column, tower_type=self.tower_handler.selected_type
+            )
+            if new_tower:  # if it's possible to build one
                 self.grid.grid[row][column]["tower"] = new_tower
 
         # Check if there is tower in the nearby grids blocking new tower
-        elif towers_around := self.grid.get_towers_around(
-            row,
-            column,
-            (
-                C.TOWERS.BASE_TOWER["size_tiles"] - 1
-            ),  # -1 for finding intersections with another towers
-        ):
+        elif towers_around:
             if self.tower_handler.is_removing:
                 row_to_delete, column_to_delete = self.grid.get_cell(
                     towers_around[0].center_x, towers_around[0].center_y
@@ -222,11 +223,10 @@ class MapView(arcade.View):
                 ):
 
                     # Add new tower foundation / base tower
-                    if new_tower := self.tower_handler.buy_tower(
-                        row,
-                        column,
-                        tower_type=C.TOWERS.BASE_TOWER,
-                    ):  # if it's possible to build one
+                    new_tower = self.tower_handler.buy_tower(
+                        row, column, tower_type=C.TOWERS.BASE_TOWER
+                    )
+                    if new_tower:  # if it's possible to build one
                         self.grid.grid[row][column]["base_tower"] = new_tower
 
                     if C.DEBUG.MAP:

@@ -46,11 +46,12 @@ class Targeting:
         targeting_function: Callable[[List[Tuple[Enemy, float]]], Tuple[Enemy, float]],
         filter_function: Callable[[Enemy, float], bool],
     ) -> Optional[Enemy]:
-        if enemies := self.get_many_targets(
+        targets = self.get_many_targets(
             tower,
             filter_function,
-        ):
-            return targeting_function(enemies)[0]
+        )
+        if targets:
+            return targeting_function(targets)[0]
 
     @staticmethod
     def get_angle(tower: Tower, enemy: Enemy) -> float:
