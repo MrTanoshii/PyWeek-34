@@ -77,8 +77,8 @@ class Grid(arcade.Sprite):
 
         y = self.hover_row * C.GRID.HEIGHT
         x = (self.hover_column + 1) * C.GRID.WIDTH
-        if self.tower_handler.selected_type:
-            radius = self.tower_handler.selected_type["radius"]
+        radius = self.tower_handler.selected_type.get("radius", 0)
+        if self.tower_handler.selected_type and radius:
             arcade.draw_circle_outline(
                 x,
                 y,

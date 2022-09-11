@@ -9,6 +9,7 @@ class TOWERS:
     SELECTED_OUTLINE_COLOR = (255, 255, 255, 255)
 
     REMOVE_TOWER = {
+        "radius": 0,
         "remove": True,
     }
 
