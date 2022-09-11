@@ -1,35 +1,3 @@
-infantry = {
-    "hp": 30,
-    "speed": 10,
-    "flying": False,
-    "boss": False,
-    "gold_drop": 10,
-    "image": "alien0.png",
-}
-heavy_infantry = {
-    "hp": 75,
-    "speed": 6,
-    "flying": False,
-    "boss": False,
-    "gold_drop": 20,
-    "image": "alien1.png",
-}
-scout = {
-    "hp": 20,
-    "speed": 20,
-    "flying": False,
-    "boss": False,
-    "gold_drop": 15,
-    "image": "alien2.png",
-}
-tank = {
-    "hp": 400,
-    "speed": 5,
-    "flying": False,
-    "boss": False,
-    "gold_drop": 50,
-    "image": "alien3.png",
-}
 martian_wolf = {
     "hp": 100,
     "speed": 80,
@@ -88,7 +56,7 @@ martian_fireman = {
     "gold_drop": 250,
     "image": "alien5.png",
     "scale": 0.6,
-    "wobble": [1, 1],
+    "wobble": [3, 2],
 }
 martian_dog = {
     "hp": 95,
@@ -102,7 +70,7 @@ martian_dog = {
 }
 bottle_of_liquid = {
     "hp": 20,
-    "speed": 99,
+    "speed": 200,
     "flying": False,
     "boss": False,
     "gold_drop": 3,

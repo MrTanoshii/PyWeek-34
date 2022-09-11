@@ -94,24 +94,25 @@ class Waves:
 
     @classmethod
     def level_1(cls, wave: int):
+
         if wave == 1:
-            _wave = add_enemy(20, 25, 22, 45)
+            _wave = add_enemy(20, 25, 22, 5, 1, 0, 0, 0, 0, 0)
         elif wave == 2:
-            _wave = add_enemy(0, 0, 0, 20, 25, 22, 45)
+            _wave = add_enemy(20, 25, 22, 20, 5, 1, 0, 0, 0, 0)
         elif wave == 3:
-            _wave = add_enemy(0, 0, 20, 25, 22, 45)
+            _wave = add_enemy(20, 25, 22, 25, 22, 5, 1, 0, 0, 0)
         elif wave == 4:
-            _wave = add_enemy(0, 20, 25, 22, 450, 0, 0, 0, 0, 12)
+            _wave = add_enemy(20, 25, 22, 22, 450, 20, 5, 1, 0, 0)
         elif wave == 5:
-            _wave = add_enemy(20, 25, 22, 45, 0, 0, 120, 100, 75, 22)
+            _wave = add_enemy(20, 25, 22, 45, 0, 20, 120, 5, 1, 0)
         elif wave == 6:
-            _wave = add_enemy(20, 25, 22, 450, 44, 22, 13, 8, 7, 2)
+            _wave = add_enemy(20, 25, 22, 450, 44, 20, 13, 8, 5, 1)
         elif wave == 7:
-            _wave = add_enemy(20, 25, 22, 45, 0, 41, 55, 74, 12, 13)
+            _wave = add_enemy(20, 25, 22, 45, 0, 20, 55, 74, 12, 5)
         elif wave == 8:
-            _wave = add_enemy(20, 25, 22, 45, 11, 45, 68, 78, 123)
+            _wave = add_enemy(20, 25, 22, 45, 11, 20, 68, 78, 123, 25)
         elif wave == 9:
-            _wave = add_enemy(20, 25, 22, 45, 12, 123, 14, 159, 753, 656)
+            _wave = add_enemy(20, 25, 22, 45, 12, 20, 14, 159, 753, 100)
         else:
             return None
         return [_wave, len(_wave) // wave]
