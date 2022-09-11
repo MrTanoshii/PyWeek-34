@@ -286,25 +286,23 @@ class MapView(arcade.View):
         self.gui.on_key_press(symbol, _modifiers)
 
         # Quicksave | F5
-        if symbol == arcade.key.F5:
-            pass
-            # GameData.write_data()  # not in final version
+        # if symbol == arcade.key.F5:
+        # GameData.write_data()  # not in final version
         # Quickload | F6
-        elif symbol == arcade.key.F6:
-            pass
-            # GameData.load_data()  # not in final version
+        # elif symbol == arcade.key.F6:
+        # GameData.load_data()  # not in final version
         # Select tower deletion | R, Delete
-        elif (
+        if (
             symbol == arcade.key.R
-            or symbol == arcade.key.DELETE
             or symbol == arcade.key.D
+            or symbol == arcade.key.DELETE
         ):
             self.tower_handler.select_tower_type(C.TOWERS.REMOVE_TOWER)
         # Stop music | M
         elif symbol == arcade.key.M:
             Audio.toggle_mute()
-        elif symbol == arcade.key.S:
-            self.enemy_handler.send_wave(*C.Waves.wave_1_1())  # TODO: change this
+        # elif symbol == arcade.key.S:
+        #     self.enemy_handler.send_wave(*C.Waves.wave_1_1())  # TODO: change this
         # Reduce master volume | -
         elif symbol == arcade.key.MINUS or symbol == arcade.key.NUM_SUBTRACT:
             Audio.decrease_volume()
