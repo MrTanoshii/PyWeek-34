@@ -50,10 +50,10 @@ martian_wolf = {
 }
 martian_fireman = {
     "hp": 2500,
-    "speed": 40,
+    "speed": 50,
     "flying": False,
     "boss": True,
-    "gold_drop": 250,
+    "gold_drop": 150,
     "image": "alien5.png",
     "scale": 0.6,
     "wobble": [3, 2],
@@ -69,7 +69,7 @@ martian_bart = {
     "wobble": [1, 3],
 }
 martian_grinch = {
-    "hp": 400,
+    "hp": 500,
     "speed": 95,
     "flying": False,
     "boss": False,
@@ -79,7 +79,7 @@ martian_grinch = {
     "wobble": [2, 1],
 }
 bear = {
-    "hp": 500,
+    "hp": 800,
     "speed": 70,
     "flying": False,
     "boss": False,
@@ -93,7 +93,7 @@ drunken_bear = {
     "speed": 69,
     "flying": False,
     "boss": True,
-    "gold_drop": 5000,
+    "gold_drop": 2500,
     "image": "alien9.png",
     "scale": 0.5,
     "wobble": [3, 3],
