@@ -1,3 +1,5 @@
+from typing import Callable
+
 import arcade
 import src.const as C
 from .resource import Resource
@@ -6,6 +8,8 @@ from .resource import Resource
 class Lives(Resource):
     """The base class for the Lives resource."""
 
+    on_died: Callable[[], None] = None
+
     value_current: int = C.RESOURCES.DEFAULT_LIVES
 
     @classmethod
@@ -13,8 +17,7 @@ class Lives(Resource):
         """Takes away lives, then you die"""
         cls.value_current += change
         if cls.value_current < 1:
-            # TODO: die
-            ...
+            cls.on_died()
 
     @classmethod
     def reset(cls):

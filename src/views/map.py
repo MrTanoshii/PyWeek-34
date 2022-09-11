@@ -49,6 +49,8 @@ class MapView(arcade.View):
             self.restart,
             self.back_to_menu,
         )
+        Lives.on_died = self.gui.on_died
+        EnemyHandler.on_win = self.gui.on_win
 
     def _load_map(self, tiled_name: str, init_logic=True):
         self.tiled_name = tiled_name

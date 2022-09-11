@@ -3,7 +3,7 @@ import arcade.gui
 from src import const as C
 from src.towers.tower_handler import TowerHandler
 from .buttons import *
-from .buttons import *  # Fuck it
+from .popup import Popup
 
 
 class GUI:
@@ -208,3 +208,13 @@ class GUI:
 
     def toggle_pause(self):
         self.is_paused = not self.is_paused
+
+    def on_died(self):
+        self.manager.add(
+            Popup.create("You died", self.restart_func, self.back_to_menu_func)
+        )
+
+    def on_win(self):
+        self.manager.add(
+            Popup.create("You win", self.restart_func, self.back_to_menu_func)
+        )
