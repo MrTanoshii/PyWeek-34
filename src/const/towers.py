@@ -211,13 +211,13 @@ class TOWERS:
     }
     ALL_TOWERS = [
         BASE_TOWER,
-        CANNON_TOWER,
         MG_TOWER,
-        MISSILE,
-        CANNON2_TOWER,
-        MG_TOWER2,
-        CANNON3_TOWER,
         MG_TOWER3,
+        CANNON_TOWER,
+        CANNON2_TOWER,
+        CANNON3_TOWER,
         MISSILE2,
         MISSILE3,
+        MG_TOWER2,
+        MISSILE,
     ]
