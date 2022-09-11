@@ -59,6 +59,7 @@ class MapView(arcade.View):
             self.enemy_handler = EnemyHandler(self.world, self.tiled_name)
             self.tower_handler = TowerHandler(self.world)
             self.bullets = Bullet(0, 0, 0, 0, "Missile.png")
+            self.bullets.bullet_list.clear()  # hyvä
             self.targeting = Targeting(self.world, self.enemy_handler)
         self.gold.reset()
 
