@@ -131,6 +131,18 @@ python run_game.py
 -   25x Enemy types
 -   BGM and SFX
 
+## Please provide us with your feedback!
+
+```markdown
+**Tester age**:
+**Gaming experience**: none/normal/gamer
+**What is good**:
+**What is bad**:
+**Other thoughts of tester**:
+**What to add/change/remove**:
+**Other thoughts from you**: what did they miss, what was hard for tester... Etc
+```
+
 ## Attribution
 
 ### Art
