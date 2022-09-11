@@ -3,7 +3,7 @@ from itertools import islice
 
 import arcade.gui
 from resources import Gold, Research, Lives
-from src.gui.preview import Preview
+from src.gui import Preview, ViewsStack
 from src.views import MapView
 from src.gamedata import GameData
 from src.world import World
@@ -61,6 +61,11 @@ class MainMenuView(arcade.View):
             Gold.reset()
             Research.reset()
             Lives.reset()
+
+            if ViewsStack.VIEWS_STACK:
+                ViewsStack.pop()  # removes MapView from stack
+
+            ViewsStack.push(MainMenuView)
             self.window.show_view(MapView(f"{map_name}.json", label))
 
         return level_start_handler
