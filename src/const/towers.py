@@ -46,6 +46,7 @@ class TOWERS:
         "size_tiles": 2,
         "bullet_speed": 20,
         "bullet_type": "Bullet_Cannon.png",
+        "bullet_scale": 0.7,
     }
     CANNON2_TOWER = {
         "name": "Cannon2.png",
@@ -54,7 +55,7 @@ class TOWERS:
         "attack_cooldown_sec": 1.5,
         "gold_cost": 750,
         "research_cost": 0,
-        "radius": 6,
+        "radius": 9,
         "radius_splash": 0,
         "damage_air": 0,
         "damage_ground": 120,
@@ -63,6 +64,7 @@ class TOWERS:
         "size_tiles": 2,
         "bullet_speed": 20,
         "bullet_type": "Bullet_Cannon.png",
+        "bullet_scale": 0.7,
     }
     CANNON3_TOWER = {
         "name": "Cannon3.png",
@@ -71,7 +73,7 @@ class TOWERS:
         "attack_cooldown_sec": 2.5,
         "gold_cost": 2200,
         "research_cost": 0,
-        "radius": 9,
+        "radius": 16,
         "radius_splash": 0,
         "damage_air": 0,
         "damage_ground": 500,
@@ -80,6 +82,7 @@ class TOWERS:
         "size_tiles": 2,
         "bullet_speed": 20,
         "bullet_type": "Bullet_Cannon.png",
+        "bullet_scale": 0.7,
     }
     MG_TOWER = {
         "name": "mg.png",
@@ -168,6 +171,7 @@ class TOWERS:
         "size_tiles": 2,
         "bullet_speed": 20,
         "bullet_type": "Missile.png",
+        "bullet_scale": 0.7,
     }
     MISSILE3 = {
         "name": "Missile_Launcher3.png",
@@ -185,16 +189,17 @@ class TOWERS:
         "size_tiles": 2,
         "bullet_speed": 20,
         "bullet_type": "Missile.png",
+        "bullet_scale": 0.7,
     }
     ALL_TOWERS = [
         BASE_TOWER,
+        MG_TOWER,
+        MG_TOWER3,
         CANNON_TOWER,
         CANNON2_TOWER,
         CANNON3_TOWER,
-        MG_TOWER,
-        MG_TOWER3,
-        MG_TOWER2,
-        MISSILE,
         MISSILE2,
         MISSILE3,
+        MG_TOWER2,
+        MISSILE,
     ]

@@ -66,9 +66,9 @@ class Enemy(arcade.Sprite):
         )
 
         speed = self.speed
-        if self.slowed and distance > self.speed * 0.5:
+        if self.slowed and distance > self.speed * 0.1:
             self.color = (128, 128, 255, 128)
-            speed /= 2
+            speed /= 10
             self.slow_remaining -= delta_time
             if self.slow_remaining <= 0:
                 self.slow_remaining = 0
@@ -99,9 +99,10 @@ class Enemy(arcade.Sprite):
         self.hp_current -= damage
         if self.hp_current <= 0:
             self.remove_from_sprite_lists()
-            Gold().increment(self.gold_drop)
-            Score().increment(self.gold_drop)
-            # TODO PLAY SOUND?  Maybe add death sounds?
+            if Lives.get() > 0:
+                Gold().increment(self.gold_drop)
+                Score().increment(self.gold_drop)
+                # TODO PLAY SOUND?  Maybe add death sounds?
 
 
 class HealthBar(arcade.Sprite):

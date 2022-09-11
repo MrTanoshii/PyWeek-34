@@ -9,6 +9,7 @@ class GameData:
 
     @classmethod
     def write_data(cls):
+        return
         """Write the save data to a file."""
         with open("src/saveslot_1.json", "w", encoding="utf-8") as file:
             _data = json.dumps(
@@ -22,6 +23,7 @@ class GameData:
 
     @classmethod
     def load_data(cls):
+        return
         """Load the save data from a file."""
 
         try:
@@ -39,6 +41,7 @@ class GameData:
 
     @classmethod
     def check_levels(cls, data: dict, key: str):
+        return
         if type(data[key]) != list:
             print(f"ERROR: {key} wrong type. Regenerating...")
             World.completed_levels = []  # regenerating...
@@ -50,6 +53,7 @@ class GameData:
 
     @classmethod
     def check_data(cls, data, key, static_class):
+        return
         """Check the integrity of a game data key."""
 
         if type(data[key]) != int:
@@ -65,6 +69,7 @@ class GameData:
 
     @classmethod
     def reset_data(cls):
+        return
         """Reset the save data."""
         Score.reset()
         Gold.reset()

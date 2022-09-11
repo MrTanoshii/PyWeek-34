@@ -9,6 +9,7 @@ from .enemy import Enemy
 from src.world import *
 from .enemies import enemies
 from src.gamedata import GameData
+from src.resources import Lives
 
 
 class EnemyHandler:
@@ -44,6 +45,8 @@ class EnemyHandler:
     def on_update(self, delta_time: float):
         for enemy in self.enemy_list:
             enemy.update(delta_time)
+        if Lives.get() < 1:
+            return
         # if any units remain in the spawn list
         if self.wave:
             # advance duration remaining time passed since last update
