@@ -61,7 +61,7 @@ class MapView(arcade.View):
             self.enemy_handler = EnemyHandler(self.world, self.tiled_name)
             self.tower_handler = TowerHandler(self.world)
             self.bullets = Bullet(0, 0, 0, 0, "Missile.png")
-            self.bullets.bullet_list.clear()  # hyvä
+            self.bullets.bullet_list.clear()
             self.targeting = Targeting(self.world, self.enemy_handler)
         self.gold.reset()
 
@@ -340,7 +340,8 @@ class MapView(arcade.View):
         Audio.stop_all_sounds()
 
     def back_to_menu(self):
-        if previous_view := ViewsStack.pop():  # := mursut ovat kivoja
+        previous_view = ViewsStack.pop()
+        if previous_view:
             ViewsStack.push(MapView)
             self.cleanup()
             self.window.show_view(previous_view())
