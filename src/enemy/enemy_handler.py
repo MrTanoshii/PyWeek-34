@@ -27,7 +27,7 @@ class EnemyHandler:
             0
         ].path  # TODO: spawning enemies in multiple spawners, should we?
         self.positions = position_list
-        self.frames_until_next_wave = 60
+        self.frames_until_next_wave = 300
         self.current_wave = 0
         self.wave = []
         self.time_between_spawns = 0

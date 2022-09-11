@@ -269,6 +269,10 @@ class MapView(arcade.View):
 
         self.grid.on_hover(x, y)
 
+        self.tower_handler.draw_radius_(
+            x, y, self.tower_handler.selected_type["radius"]
+        )
+
     def on_key_press(self, symbol, _modifiers):
         """Called whenever a key is pressed."""
 
