@@ -7,7 +7,13 @@ from .buttons import *  # Fuck it
 
 
 class GUI:
-    def __init__(self, tower_handler: TowerHandler, notification_handler, restart_func):
+    def __init__(
+        self,
+        tower_handler: TowerHandler,
+        notification_handler,
+        restart_func,
+        back_to_menu_func,
+    ):
         self.manager = arcade.gui.UIManager()
         self.manager.enable()
         self.is_paused = False
@@ -15,6 +21,7 @@ class GUI:
         self.tower_handler = tower_handler
 
         self.restart_func = restart_func  # perkele
+        self.back_to_menu_func = back_to_menu_func
         # i don't like it, but we need info about current level to restart it
         # (interfaces, di and non god-object map class would help here)
 
@@ -66,7 +73,8 @@ class GUI:
             manager=self.manager,
             restart_func=self.restart_func,
             toggle_pause_func=self.toggle_pause,
-        )  # shit, shit, kurwa, gówno jakoś
+            back_to_menu_func=self.back_to_menu_func,
+        )  # ei mukavaa
 
         self.manager.add(
             arcade.gui.UIAnchorWidget(

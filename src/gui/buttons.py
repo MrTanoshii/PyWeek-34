@@ -84,11 +84,16 @@ class MenuButton(SwitchButton):
         self.toggle_pause_func: Callable[[], None] = kwargs.pop(
             "toggle_pause_func", None
         )
+        self.back_to_menu_func: Callable[[], None] = kwargs.pop(
+            "back_to_menu_func", None
+        )
         super().__init__(*args, **kwargs)
 
     def on_switch(self):
         if self.enabled:
-            self.menu = Menu.create(self.restart_func, self.toggle_pause_func)
+            self.menu = Menu.create(
+                self.restart_func, self.toggle_pause_func, self.back_to_menu_func
+            )
             self.manager.add(self.menu.center_on_screen())
         elif self.menu:
             self.menu.close()

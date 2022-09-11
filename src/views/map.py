@@ -43,7 +43,12 @@ class MapView(arcade.View):
         self._load_map(tiled_name)
 
         self.notification_handler = NotificationHandler()
-        self.gui = GUI(self.tower_handler, self.notification_handler, self.restart)
+        self.gui = GUI(
+            self.tower_handler,
+            self.notification_handler,
+            self.restart,
+            self.back_to_menu,
+        )
 
         # music default stopped
         Audio.stop(self.bgm_player)
@@ -325,8 +330,17 @@ class MapView(arcade.View):
         self.tower_handler.select_tower(None)
 
     def restart(self):
+        self.cleanup()
+        self.window.show_view(MapView(self.tiled_name, self.label))
+
+    def cleanup(self):
         Gold.reset()
         Research.reset()
         Lives.reset()
         Audio.stop_all_sounds()
-        self.window.show_view(MapView(self.tiled_name, self.label))
+
+    def back_to_menu(self):
+        if previous_view := ViewsStack.pop():  # := mursut ovat kivoja
+            ViewsStack.push(MapView)
+            self.cleanup()
+            self.window.show_view(previous_view())
