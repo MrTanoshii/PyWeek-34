@@ -1,6 +1,8 @@
-# Pyweek 34
+# Pyweek 34 | Quack TD | Turtle Duck ltd.
 
 [Pyweek 34](https://pyweek.org/e/rave_sloths/) game jam submission.
+
+[Youtube Trailer](https://www.youtube.com/watch?v=-oiCZAMtBY0)
 
 <div align="center">
 
