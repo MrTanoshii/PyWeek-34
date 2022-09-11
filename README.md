@@ -108,17 +108,17 @@ python run_game.py
 
 ## Game Hotkeys
 
-| Keyboard Key   | Function                                  |
-| -------------- | ----------------------------------------- |
-| `~`, `1` - `9` | Select tower type to build                |
-| `R`, `DEL`     | Select tower removal tool                 |
-| `M`            | Audio muting                              |
-| `-`            | Decrease master audio volume              |
-| `+`            | Increase master audio volume              |
-| `I`            | [Cheat] Increase gold by starting amount  |
-| `O`            | [Cheat] Increase lives by starting amount |
-| `F5`           | Quick-save                                |
-| `F6`           | Quick-load                                |
+| Keyboard Key     | Function                                  |
+|------------------|-------------------------------------------|
+| `~`/`B`          | Select base tower                         |
+| `1` - `9`        | Select tower type                         |
+| `R`, `D`,  `DEL` | Select tower removal tool                 |
+| `M`              | Audio muting                              |
+| `-`              | Decrease master audio volume              |
+| `+`              | Increase master audio volume              |
+| `I`              | [Cheat] Increase gold by starting amount  |
+| `O`              | [Cheat] Increase lives by starting amount |
+| `ESC`            | Deselect tower                            |
 
 ## Interesting Features
 
