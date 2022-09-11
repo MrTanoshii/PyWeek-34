@@ -344,11 +344,11 @@ class MapView(arcade.View):
         Research.reset()
         Lives.reset()
         Audio.stop_all_sounds()
+        self.gui.manager.disable()
 
     def back_to_menu(self):
         previous_view = ViewsStack.pop()
         if previous_view:
             ViewsStack.push(MapView)
             self.cleanup()
-            self.gui.manager.disable()
             self.window.show_view(previous_view())
