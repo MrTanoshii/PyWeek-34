@@ -19,7 +19,7 @@ class TOWERS:
         "label": "Base tower",
         "level": 0,
         "attack_cooldown_sec": 100,
-        "gold_cost": 25,
+        "gold_cost": 0,
         "research_cost": 0,
         "radius": 0,
         "radius_splash": 0,
@@ -35,7 +35,7 @@ class TOWERS:
         "label": "Cannon",
         "level": 0,
         "attack_cooldown_sec": 3.0,
-        "gold_cost": 300,
+        "gold_cost": 200,
         "research_cost": 0,
         "radius": 5,
         "radius_splash": 0,
@@ -155,7 +155,7 @@ class TOWERS:
         "slow": True,
     }
 
-    MISSILE2 = {
+    MISSILE_OLD_2 = {
         "name": "Missile_Launcher2.png",
         "label": "Rocket Launcher",
         "level": 0,
@@ -173,9 +173,9 @@ class TOWERS:
         "bullet_type": "Missile.png",
         "bullet_scale": 0.7,
     }
-    MISSILE3 = {
-        "name": "Missile_Launcher3.png",
-        "label": "Heavy Rocket Launcher",
+    MISSILE2 = {
+        "name": "Missile_Launcher2.png",
+        "label": "Rocket Launcher",
         "level": 0,
         "attack_cooldown_sec": 7,
         "gold_cost": 4200,
@@ -184,6 +184,24 @@ class TOWERS:
         "radius_splash": 0,
         "damage_air": 0,
         "damage_ground": 3000,
+        "damage_splash": 0,
+        "damage_poison": 0,
+        "size_tiles": 2,
+        "bullet_speed": 20,
+        "bullet_type": "Missile.png",
+        "bullet_scale": 0.7,
+    }
+    MISSILE3 = {
+        "name": "Missile_Launcher3.png",
+        "label": "Heavy Rocket Launcher",
+        "level": 0,
+        "attack_cooldown_sec": 7,
+        "gold_cost": 10000,
+        "research_cost": 0,
+        "radius": 24,
+        "radius_splash": 0,
+        "damage_air": 0,
+        "damage_ground": 7500,
         "damage_splash": 0,
         "damage_poison": 0,
         "size_tiles": 2,
