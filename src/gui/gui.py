@@ -130,7 +130,6 @@ class GUI:
             width=width,
             height=height,
             color=(0, 0, 0, 128),
-
         )
 
     def on_update(self):
@@ -196,7 +195,7 @@ class GUI:
                         color=arcade.color.BLANCHED_ALMOND,
                     )
                     offset -= 20
-                if button.tower.get('label', 0) == 'Base tower':
+                if button.tower.get("label", 0) == "Base tower":
                     self.notification_handler.create(
                         text=f"Necessary foundation",
                         x=button.center_x - button.width / 2,
@@ -218,7 +217,12 @@ class GUI:
                         color=arcade.color.BLANCHED_ALMOND,
                     )
                     offset -= 20
-                self.button_box = (button.center_x + 60, button.center_y + 120, 200, 140)
+                self.button_box = (
+                    button.center_x + 60,
+                    button.center_y + 120,
+                    200,
+                    140,
+                )
 
         if self.sound_button is not None:
             self.sound_button.sync_to_audio_state()
