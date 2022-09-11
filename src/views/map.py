@@ -50,9 +50,6 @@ class MapView(arcade.View):
             self.back_to_menu,
         )
 
-        # music default stopped
-        Audio.stop(self.bgm_player)
-
     def _load_map(self, tiled_name: str, init_logic=True):
         self.tiled_name = tiled_name
         self.world = World.load(tiled_name)

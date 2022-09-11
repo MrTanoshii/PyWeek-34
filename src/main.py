@@ -3,7 +3,7 @@ import pyglet
 
 import src.const as C
 
-from src.views import MapView, MainMenuView
+from src.views import MainMenuView
 
 
 def main():
@@ -24,7 +24,7 @@ def main():
     icon = pyglet.image.load("resources/icon.png")
     window.set_icon(icon)
 
-    map_view = MapView("draft_level_1.json", "Level 1")
+    # map_view = MapView("draft_level_1.json", "Level 1")
     # map_view = MapView("draft_level_2.json", "Level 2")
     # map_view = MapView("draft_level_secret.json", "Secret Level")
     # map_view = MapView("draft_level_3.json", "Level 3")
