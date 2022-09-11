@@ -102,15 +102,15 @@ class Waves:
         elif wave == 3:
             _wave = add_enemy(20, 25, 22, 300, 22, 5, 1, 0, 0, 0)
         elif wave == 4:
-            _wave = add_enemy(20, 32, 22, 22, 300, 10, 5, 1, 0, 0)
+            _wave = add_enemy(20, 32, 22, 22, 300, 20, 5, 1, 0, 0)
         elif wave == 5:
-            _wave = add_enemy(64, 25, 22, 45, 44, 15, 300, 5, 15, 0)
+            _wave = add_enemy(64, 25, 22, 45, 44, 30, 300, 5, 15, 0)
         elif wave == 6:
-            _wave = add_enemy(20, 25, 22, 45, 44, 20, 13, 300, 5, 1)
+            _wave = add_enemy(20, 25, 22, 45, 44, 40, 13, 300, 5, 1)
         elif wave == 7:
-            _wave = add_enemy(20, 32, 22, 45, 44, 30, 55, 74, 300, 5)
+            _wave = add_enemy(20, 32, 22, 45, 44, 50, 55, 74, 300, 5)
         elif wave == 8:
-            _wave = add_enemy(90, 80, 70, 60, 50, 40, 30, 30, 30, 10)
+            _wave = add_enemy(90, 80, 70, 60, 50, 60, 30, 30, 30, 10)
         elif wave == 9:
             _wave = add_enemy(100, 100, 100, 100, 100, 100, 100, 100, 100, 100)
 
