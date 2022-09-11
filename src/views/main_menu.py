@@ -30,7 +30,7 @@ class MainMenuView(arcade.View):
                 anchor_x="center_x",
                 anchor_y="top",
             )
-        )  # I don't speak london
+        )
 
         for row in self.get_levels():
             self.row_box = arcade.gui.UIBoxLayout(vertical=False)
@@ -42,9 +42,7 @@ class MainMenuView(arcade.View):
                     continue
                 level_button = Preview(map_name=map_name, label=label)
 
-                level_button.event("on_click")(
-                    self.create_on_click(map_name, label)
-                )  # fuck js
+                level_button.event("on_click")(self.create_on_click(map_name, label))
 
                 self.row_box.add(
                     level_button.with_space_around(
@@ -57,7 +55,7 @@ class MainMenuView(arcade.View):
 
     def create_on_click(self, map_name: str, label: str):
         def level_start_handler(_e):
-            self.manager.disable()  # weird but ok
+            self.manager.disable()
             Gold.reset()
             Research.reset()
             Lives.reset()
