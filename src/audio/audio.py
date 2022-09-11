@@ -2,6 +2,7 @@ import arcade
 import pyglet
 import random
 from typing import Union
+from copy import deepcopy
 
 import src.const as C
 
@@ -46,10 +47,13 @@ class Audio:
         The sound stream player.
         """
 
-        if cls.is_muted == True:
+        if cls.is_muted:
             return None
 
         if sound in cls.sound_dict:
+            # if sound == "shoot" and "shoot" in cls.currently_playing_dict:
+            #     print(123)
+            #     return None
             sound_stream_player = arcade.play_sound(
                 cls.sound_dict[sound]["sound"],
                 max(  # Ensure value is 0 or above
@@ -69,10 +73,20 @@ class Audio:
             # Remember the last sound stream player
             cls.sound_dict[sound]["stream_player"] = sound_stream_player
 
-            cls.currently_playing_dict[sound] = {}
-            cls.currently_playing_dict[sound]["sound_stream"] = sound_stream_player
-            cls.currently_playing_dict[sound]["gain"] = cls.sound_dict[sound]["gain"]
-            cls.currently_playing_dict[sound]["type"] = cls.sound_dict[sound]["type"]
+            if sound not in cls.currently_playing_dict:
+                cls.currently_playing_dict[sound] = []
+
+            # limit same sounds playing
+            if len(cls.currently_playing_dict[sound]) >= C.AUDIO.SAME_SOUND_MAX:
+                return None
+
+            cls.currently_playing_dict[sound].append(
+                {
+                    "sound_stream": sound_stream_player,
+                    "gain": cls.sound_dict[sound]["gain"],
+                    "type": cls.sound_dict[sound]["type"],
+                }
+            )
 
             return sound_stream_player
         else:
@@ -127,9 +141,12 @@ class Audio:
 
         # Only keep sounds that are currently playing
         still_playing_dict = {}
-        for i in cls.currently_playing_dict:
-            if cls.currently_playing_dict[i]["sound_stream"].playing:
-                still_playing_dict[i] = cls.currently_playing_dict[i]
+        for sound_name in cls.currently_playing_dict:
+            for sound in cls.currently_playing_dict[sound_name]:
+                if sound["sound_stream"].playing:
+                    if sound_name not in still_playing_dict:
+                        still_playing_dict[sound_name] = []
+                    still_playing_dict[sound_name].append(sound)
         cls.currently_playing_dict = still_playing_dict.copy()
 
     @classmethod
@@ -189,8 +206,9 @@ class Audio:
     def stop_all_sounds(cls):
         """Stops all currently playing sound streams."""
 
-        for i in cls.currently_playing_dict:
-            cls.stop(cls.currently_playing_dict[i]["sound_stream"])
+        for sound_name in cls.currently_playing_dict:
+            for sound in cls.currently_playing_dict[sound_name]:
+                cls.stop(sound["sound_stream"])
         cls.currently_playing_dict = {}
 
     @classmethod

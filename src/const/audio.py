@@ -8,6 +8,7 @@ class AUDIO:
     VOLUME_MAX = 1.0
     VOLUME_MIN = 0
     VOLUME_INCREMENT = 0.1
+    SAME_SOUND_MAX = 5
 
     MASTER_LIST = {
         "bgm_1": {

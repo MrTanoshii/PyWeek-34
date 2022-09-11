@@ -92,7 +92,7 @@ class Enemy(arcade.Sprite):
                 self.remove_from_sprite_lists()
                 Lives.increment(-1)
                 if self.boss:
-                    if Lives > 0:
+                    if Lives.get() > 0:
                         Lives.increment(-Lives.get())
 
     def take_damage(self, damage: float):
