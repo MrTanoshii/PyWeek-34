@@ -43,20 +43,27 @@ class MapView(arcade.View):
         self._load_map(tiled_name)
 
         self.notification_handler = NotificationHandler()
-        self.gui = GUI(self.tower_handler, self.notification_handler, self.restart)
-
-        # music default stopped
-        Audio.stop(self.bgm_player)
+        self.gui = GUI(
+            self.tower_handler,
+            self.notification_handler,
+            self.restart,
+            self.back_to_menu,
+        )
+        Lives.on_died = self.gui.on_died
+        EnemyHandler.on_win = self.gui.on_win
 
     def _load_map(self, tiled_name: str, init_logic=True):
         self.tiled_name = tiled_name
         self.world = World.load(tiled_name)
         self._scene = arcade.Scene.from_tilemap(self.world.map)
         if init_logic:
-            self.grid = Grid(int(self.world.height), int(self.world.width))
             self.enemy_handler = EnemyHandler(self.world, self.tiled_name)
             self.tower_handler = TowerHandler(self.world)
+            self.grid = Grid(
+                int(self.world.height), int(self.world.width), self.tower_handler
+            )
             self.bullets = Bullet(0, 0, 0, 0, "Missile.png")
+            self.bullets.bullet_list.clear()
             self.targeting = Targeting(self.world, self.enemy_handler)
         self.gold.reset()
 
@@ -132,7 +139,15 @@ class MapView(arcade.View):
 
     def handle_tower(self, row: int, column: int, x: int, y: int):
         # Check if there is tower in the grid already
-        if base_tower := self.grid.grid[row][column]["base_tower"]:  # if there's tower
+        base_tower = self.grid.grid[row][column]["base_tower"]
+        towers_around = self.grid.get_towers_around(
+            row,
+            column,
+            (
+                C.TOWERS.BASE_TOWER["size_tiles"] - 1
+            ),  # -1 for finding intersections with another towers
+        )
+        if base_tower:  # if there's tower
             if self.tower_handler.is_removing:
                 self.remove_tower(row, column)
                 return
@@ -165,21 +180,14 @@ class MapView(arcade.View):
                 )
                 return
             # Try to upgrade / level up tower
-            if new_tower := self.tower_handler.buy_tower(
-                row,
-                column,
-                tower_type=self.tower_handler.selected_type,
-            ):  # if it's possible to build one
+            new_tower = self.tower_handler.buy_tower(
+                row, column, tower_type=self.tower_handler.selected_type
+            )
+            if new_tower:  # if it's possible to build one
                 self.grid.grid[row][column]["tower"] = new_tower
 
         # Check if there is tower in the nearby grids blocking new tower
-        elif towers_around := self.grid.get_towers_around(
-            row,
-            column,
-            (
-                C.TOWERS.BASE_TOWER["size_tiles"] - 1
-            ),  # -1 for finding intersections with another towers
-        ):
+        elif towers_around:
             if self.tower_handler.is_removing:
                 row_to_delete, column_to_delete = self.grid.get_cell(
                     towers_around[0].center_x, towers_around[0].center_y
@@ -217,11 +225,10 @@ class MapView(arcade.View):
                 ):
 
                     # Add new tower foundation / base tower
-                    if new_tower := self.tower_handler.buy_tower(
-                        row,
-                        column,
-                        tower_type=C.TOWERS.BASE_TOWER,
-                    ):  # if it's possible to build one
+                    new_tower = self.tower_handler.buy_tower(
+                        row, column, tower_type=C.TOWERS.BASE_TOWER
+                    )
+                    if new_tower:  # if it's possible to build one
                         self.grid.grid[row][column]["base_tower"] = new_tower
 
                     if C.DEBUG.MAP:
@@ -327,8 +334,18 @@ class MapView(arcade.View):
         self.tower_handler.select_tower(None)
 
     def restart(self):
+        self.cleanup()
+        self.window.show_view(MapView(self.tiled_name, self.label))
+
+    def cleanup(self):
         Gold.reset()
         Research.reset()
         Lives.reset()
         Audio.stop_all_sounds()
-        self.window.show_view(MapView(self.tiled_name, self.label))
+
+    def back_to_menu(self):
+        previous_view = ViewsStack.pop()
+        if previous_view:
+            ViewsStack.push(MapView)
+            self.cleanup()
+            self.window.show_view(previous_view())

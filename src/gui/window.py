@@ -11,6 +11,7 @@ class Window(arcade.gui.UIMouseFilterMixin, arcade.gui.UIWidget):
     def __init__(self, **kwargs):
         self.restart_func = kwargs.pop("restart_func", None)
         self.toggle_pause_func = kwargs.pop("toggle_pause_func", None)
+        self.back_to_menu_func = kwargs.pop("back_to_menu_func", None)
         super().__init__(**kwargs)
         self.v_box = arcade.gui.UIBoxLayout(
             vertical=True, space_between=C.GUI.BUTTONS_GAP
@@ -32,10 +33,15 @@ class Window(arcade.gui.UIMouseFilterMixin, arcade.gui.UIWidget):
         cls,
         restart_func: Callable[[], None],
         toggle_pause_func: Callable[[], None],
+        back_to_menu_func: Callable[[], None],
     ) -> "Window":
         if toggle_pause_func:
             toggle_pause_func()
-        return cls(restart_func=restart_func, toggle_pause_func=toggle_pause_func)
+        return cls(
+            restart_func=restart_func,
+            toggle_pause_func=toggle_pause_func,
+            back_to_menu_func=back_to_menu_func,
+        )
 
     def close(self):
         if self.toggle_pause_func:
@@ -61,8 +67,8 @@ class Menu(Window):
             self.restart_func()
 
         @menu_button.event("on_click")
-        def save(_e):
-            print("Sorry, not implemented, restart the game to change level =)")
+        def back_to_menu(_e):
+            self.back_to_menu_func()
 
         @exit_game_button.event("on_click")
         def exit_game(_e):

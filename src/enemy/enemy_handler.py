@@ -1,6 +1,7 @@
 import arcade
 from functools import partial
 from operator import itemgetter
+from typing import Callable
 
 import src.const as C
 from src.world import World
@@ -12,6 +13,8 @@ from src.resources import Lives
 
 
 class EnemyHandler:
+    on_win: Callable[[], None] = None
+
     def __init__(self, world: World, tiled_name: str):
         """Constructor.
 
@@ -76,6 +79,7 @@ class EnemyHandler:
                     self.send_wave(*wave)
                 if wave is None:
                     print("end of spawns")
+                    self.on_win()
                     World.completed_levels.append(self.world.map_name)
                     GameData.write_data()
         else:

@@ -10,11 +10,12 @@ class Grid(arcade.Sprite):
     Grid
     """
 
-    def __init__(self, rows_count: int, columns_count: int) -> None:
+    def __init__(self, rows_count: int, columns_count: int, tower_handler) -> None:
         super().__init__()
 
         self.rows_count = rows_count
         self.columns_count = columns_count
+        self.tower_handler = tower_handler
 
         # Create a 2 dimensional array.
         self.grid = []
@@ -74,6 +75,23 @@ class Grid(arcade.Sprite):
                         color,
                     )
 
+        y = self.hover_row * C.GRID.HEIGHT
+        x = (self.hover_column + 1) * C.GRID.WIDTH
+        radius = self.tower_handler.selected_type.get("radius", 0)
+        if self.tower_handler.selected_type and radius:
+            arcade.draw_circle_outline(
+                x,
+                y,
+                radius * self.tower_handler.world.tile_size,
+                (255, 255, 255, 128),
+            )
+            arcade.draw_circle_filled(
+                x,
+                y,
+                radius * self.tower_handler.world.tile_size,
+                (0, 0, 0, 32),
+            )
+
     def get_cell(self, x, y):
         """
         Called when the user presses a mouse button.
@@ -104,9 +122,10 @@ class Grid(arcade.Sprite):
         for y in range(box_size):
             for x in range(box_size):
                 try:
-                    if tower := self.grid[start_y - y][start_x + x]["base_tower"]:
+                    found_tower = self.grid[start_y - y][start_x + x]["base_tower"]
+                    if found_tower:
                         if start_y - y >= 0:
-                            towers.append(tower)
+                            towers.append(found_tower)
                 except IndexError:
                     pass
         return towers
