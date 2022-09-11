@@ -85,7 +85,7 @@ class TOWERS:
         "bullet_scale": 0.7,
     }
     MG_TOWER = {
-        "name": "mg.png",
+        "name": "MG.png",
         "label": "Machine Gun",
         "level": 0,
         "attack_cooldown_sec": 0.35,
@@ -102,7 +102,7 @@ class TOWERS:
         "bullet_type": "Bullet_MG.png",
     }
     MG_TOWER2 = {
-        "name": "mg2.png",
+        "name": "MG2.png",
         "label": "Poison Tower",
         "level": 0,
         "attack_cooldown_sec": 1.5,
@@ -119,7 +119,7 @@ class TOWERS:
         "bullet_type": "Bullet_MG.png",
     }
     MG_TOWER3 = {
-        "name": "mg3.png",
+        "name": "MG3.png",
         "label": "Heavy Machine Gun",
         "level": 0,
         "attack_cooldown_sec": 0.15,

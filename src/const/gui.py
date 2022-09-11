@@ -10,5 +10,5 @@ class GUI:
     SCORE_COLOR = (128, 128, 255, 255)
     TOWER_SELECT_COLOR = (255, 255, 255, 255)
     BUTTONS_GAP = 20
-    MENU_BG = Path("src") / "towers" / "sprites" / "mg2.png"  # TODO: change this
+    MENU_BG = Path("src") / "towers" / "sprites" / "MG2.png"  # TODO: change this
     POPUP_TEXT_COLOR = (21, 19, 21)  # from arcade flat buttons
