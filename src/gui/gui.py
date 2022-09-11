@@ -28,7 +28,7 @@ class GUI:
         self.notification_handler = notification_handler
 
         self.h_box = arcade.gui.UIBoxLayout(vertical=False)
-
+        self.button_box = None
         self.tower_buttons = []
 
         # Check if tower type is selected, and it is not base tower
@@ -122,7 +122,19 @@ class GUI:
                     (255, 255, 255, 16),
                 )
 
+    def draw_button_box(self, center_x, center_y, width, height):
+        """draws the shaded background for button tooltips"""
+        arcade.draw_rectangle_filled(
+            center_x=center_x,
+            center_y=center_y,
+            width=width,
+            height=height,
+            color=(0, 0, 0, 128),
+
+        )
+
     def on_update(self):
+        self.button_box = None
         # hover and selected logic
         for button in self.tower_buttons:
             if button.pressed:
@@ -184,6 +196,29 @@ class GUI:
                         color=arcade.color.BLANCHED_ALMOND,
                     )
                     offset -= 20
+                if button.tower.get('label', 0) == 'Base tower':
+                    self.notification_handler.create(
+                        text=f"Necessary foundation",
+                        x=button.center_x - button.width / 2,
+                        y=button.center_y + button.height + offset,
+                        color=arcade.color.BLANCHED_ALMOND,
+                    )
+                    offset -= 20
+                    self.notification_handler.create(
+                        text=f"for all towers.",
+                        x=button.center_x - button.width / 2,
+                        y=button.center_y + button.height + offset,
+                        color=arcade.color.BLANCHED_ALMOND,
+                    )
+                    offset -= 30
+                    self.notification_handler.create(
+                        text=f"Safety First!",
+                        x=button.center_x - button.width / 2,
+                        y=button.center_y + button.height + offset,
+                        color=arcade.color.BLANCHED_ALMOND,
+                    )
+                    offset -= 20
+                self.button_box = (button.center_x + 60, button.center_y + 120, 200, 140)
 
         if self.sound_button is not None:
             self.sound_button.sync_to_audio_state()

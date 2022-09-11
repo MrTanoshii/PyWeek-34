@@ -86,6 +86,8 @@ class MapView(arcade.View):
         self.tower_handler.on_draw()
         self.enemy_handler.on_draw()
         Bullet.on_draw()  # Draw bullets
+        if self.gui.button_box:
+            self.gui.draw_button_box(*self.gui.button_box)
         self.gui.manager.draw()
         self.gold.draw()
         self.score.draw()
