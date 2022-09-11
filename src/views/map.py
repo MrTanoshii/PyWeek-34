@@ -350,4 +350,5 @@ class MapView(arcade.View):
         if previous_view:
             ViewsStack.push(MapView)
             self.cleanup()
+            self.gui.manager.disable()
             self.window.show_view(previous_view())

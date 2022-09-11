@@ -1,5 +1,7 @@
 import arcade
 import arcade.gui
+
+from resources import Gold
 from src import const as C
 from src.towers.tower_handler import TowerHandler
 from .buttons import *
@@ -121,6 +123,7 @@ class GUI:
                     button.height + C.GUI.PADDING,
                     (255, 255, 255, 16),
                 )
+        # print(Gold.get())
 
     def draw_button_box(self, center_x, center_y, width, height):
         """draws the shaded background for button tooltips"""
