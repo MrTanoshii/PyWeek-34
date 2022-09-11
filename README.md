@@ -1,5 +1,7 @@
 # Pyweek 34
 
+[Pyweek 34](https://pyweek.org/e/rave_sloths/) game jam submission.
+
 <div align="center">
 
 [![Python Check](https://github.com/MrTanoshii/PyWeek-34/actions/workflows/python_lint_check.yml/badge.svg)](https://github.com/MrTanoshii/PyWeek-34/actions/workflows/python_lint_check.yml)
