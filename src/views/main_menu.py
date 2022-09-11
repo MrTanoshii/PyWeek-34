@@ -2,7 +2,7 @@ from itertools import islice
 
 
 import arcade.gui
-from resources import Gold, Research, Lives
+from src.resources import Gold, Research, Lives
 from src.gui import Preview, ViewsStack
 from src.views import MapView
 from src.gamedata import GameData
