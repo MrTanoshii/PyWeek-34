@@ -1,7 +1,7 @@
 import arcade
 import arcade.gui
 
-from resources import Gold
+from src.resources import Gold
 from src import const as C
 from src.towers.tower_handler import TowerHandler
 from .buttons import *
@@ -90,40 +90,56 @@ class GUI:
 
     def draw_tower_selection(self):
         for button in self.tower_buttons:
-            if self.tower_handler.selected_type == button.tower and button.hovered:
-                arcade.draw_rectangle_filled(
-                    button.center_x,
-                    button.center_y,
-                    button.width + C.GUI.PADDING,
-                    button.height + C.GUI.PADDING,
-                    (0, 255, 0, 16),
-                )
-            elif self.tower_handler.selected_type == button.tower:
-                arcade.draw_rectangle_filled(
-                    button.center_x,
-                    button.center_y,
-                    button.width + C.GUI.PADDING,
-                    button.height + C.GUI.PADDING,
-                    (0, 255, 0, 32),
-                )
-
-            elif button.hovered:
-                arcade.draw_rectangle_filled(
-                    button.center_x,
-                    button.center_y,
-                    button.width + C.GUI.PADDING,
-                    button.height + C.GUI.PADDING,
-                    (255, 255, 255, 32),
-                )
+            if Gold.get() < button.tower["gold_cost"]:
+                if self.tower_handler.selected_type == button.tower:
+                    arcade.draw_rectangle_filled(
+                        button.center_x,
+                        button.center_y,
+                        button.width + C.GUI.PADDING,
+                        button.height + C.GUI.PADDING,
+                        (255, 0, 0, 64),
+                    )
+                elif button.hovered:
+                    arcade.draw_rectangle_filled(
+                        button.center_x,
+                        button.center_y,
+                        button.width + C.GUI.PADDING,
+                        button.height + C.GUI.PADDING,
+                        (255, 0, 0, 32),
+                    )
+                else:
+                    arcade.draw_rectangle_filled(
+                        button.center_x,
+                        button.center_y,
+                        button.width + C.GUI.PADDING,
+                        button.height + C.GUI.PADDING,
+                        (255, 0, 0, 16),
+                    )
             else:
-                arcade.draw_rectangle_filled(
-                    button.center_x,
-                    button.center_y,
-                    button.width + C.GUI.PADDING,
-                    button.height + C.GUI.PADDING,
-                    (255, 255, 255, 16),
-                )
-        # print(Gold.get())
+                if self.tower_handler.selected_type == button.tower:
+                    arcade.draw_rectangle_filled(
+                        button.center_x,
+                        button.center_y,
+                        button.width + C.GUI.PADDING,
+                        button.height + C.GUI.PADDING,
+                        (0, 255, 0, 64),
+                    )
+                elif button.hovered:
+                    arcade.draw_rectangle_filled(
+                        button.center_x,
+                        button.center_y,
+                        button.width + C.GUI.PADDING,
+                        button.height + C.GUI.PADDING,
+                        (0, 255, 0, 32),
+                    )
+                else:
+                    arcade.draw_rectangle_filled(
+                        button.center_x,
+                        button.center_y,
+                        button.width + C.GUI.PADDING,
+                        button.height + C.GUI.PADDING,
+                        (0, 255, 0, 16),
+                    )
 
     def draw_button_box(self, center_x, center_y, width, height):
         """draws the shaded background for button tooltips"""
